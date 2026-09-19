@@ -1,0 +1,15 @@
+Variant (A): exact (non-interpolated) coefficient -- isolates pressure-space accuracy
+   N        h     L2 error   order     H1 error   order
+   4   0.2500   4.3451e-03     nan   1.2991e-01     nan
+   8   0.1250   5.4891e-04   2.985   3.3437e-02   1.958
+  16   0.0625   6.8768e-05   2.997   8.4228e-03   1.989
+  32   0.0312   8.6014e-06   2.999   2.1098e-03   1.997
+  64   0.0156   1.0754e-06   3.000   5.2770e-04   1.999
+
+Variant (B): P1-interpolated coefficient -- realistic configuration used elsewhere in this repository
+   N        h     L2 error   order     H1 error   order
+   4   0.2500   9.4830e-03     nan   1.4848e-01     nan
+   8   0.1250   2.7798e-03   1.770   3.9666e-02   1.904
+  16   0.0625   7.2760e-04   1.934   1.0080e-02   1.976
+  32   0.0312   1.8409e-04   1.983   2.5302e-03   1.994
+  64   0.0156   4.6163e-05   1.996   6.3319e-04   1.999
