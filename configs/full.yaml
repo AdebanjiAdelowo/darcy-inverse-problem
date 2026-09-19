@@ -35,3 +35,62 @@ sensor_study:
   sensor_grids: [2, 3, 5, 7, 9]
   n_random_trials: 5
   max_iter: 120
+
+# --- Bayesian (Project 4) ---
+bayesian_posterior:
+  truth_mesh_n: 64
+  inv_mesh_n: 16
+  sensor_grid: 5
+  sensor_width: 0.035
+  relative_noise: 0.02
+  prior_r: 15
+  prior_gamma: 0.05
+  prior_delta: 1.0
+  n_samples: 8000
+  beta: 0.02
+  burn_in: 2000
+  map_max_iter: 120
+
+bayesian_sensor_study:
+  truth_mesh_n: 64
+  inv_mesh_n: 16
+  sensor_width: 0.035
+  relative_noise: 0.02
+  prior_r: 15
+  prior_gamma: 0.05
+  prior_delta: 1.0
+  n_samples: 8000
+  beta: 0.02
+  burn_in: 2000
+  map_max_iter: 120
+  sensor_grids: [3, 5, 7]
+
+bayesian_noise_study:
+  truth_mesh_n: 64
+  inv_mesh_n: 16
+  sensor_grid: 5
+  sensor_width: 0.035
+  prior_r: 15
+  prior_gamma: 0.05
+  prior_delta: 1.0
+  n_samples: 8000
+  beta: 0.02
+  burn_in: 2000
+  map_max_iter: 120
+  relative_noise_levels: [0.01, 0.05, 0.1]
+
+bayesian_prior_sensitivity:
+  truth_mesh_n: 64
+  inv_mesh_n: 16
+  sensor_grid: 5
+  sensor_width: 0.035
+  relative_noise: 0.02
+  n_samples: 8000
+  beta: 0.02
+  burn_in: 2000
+  map_max_iter: 120
+  prior_variants:
+    - {label: "baseline", r: 15, gamma: 0.05, delta: 1.0}
+    - {label: "short_corr_len", r: 15, gamma: 0.01, delta: 1.0}
+    - {label: "long_corr_len", r: 15, gamma: 0.2, delta: 1.0}
+    - {label: "fewer_modes", r: 6, gamma: 0.05, delta: 1.0}

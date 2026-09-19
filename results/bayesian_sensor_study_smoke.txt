@@ -1,0 +1,4 @@
+Bayesian sensor study, config=smoke
+ n_sensors  integrated_post_var  rel_post_mean_error acceptance
+         9              0.07165               0.5398      0.644
+        25              0.09961               0.6008      0.393

@@ -34,3 +34,64 @@ sensor_study:
   alpha: 10.0
   sensor_grids: [2, 4]
   max_iter: 30
+
+# --- Bayesian (Project 4) ---
+# inv_mesh_n is fixed at 16 across smoke/local/full (unlike the deterministic
+# studies' 12/20/32): MCMC repeats the PDE solve thousands of times per
+# chain, vs. ~100 iterations for MAP optimisation, so mesh resolution is
+# kept modest throughout and only chain length grows with config.
+bayesian_posterior:
+  truth_mesh_n: 24
+  inv_mesh_n: 16
+  sensor_grid: 5
+  sensor_width: 0.035
+  relative_noise: 0.02
+  prior_r: 15
+  prior_gamma: 0.05
+  prior_delta: 1.0
+  n_samples: 500
+  beta: 0.02
+  burn_in: 200
+  map_max_iter: 40
+
+bayesian_sensor_study:
+  truth_mesh_n: 24
+  inv_mesh_n: 16
+  sensor_width: 0.035
+  relative_noise: 0.02
+  prior_r: 15
+  prior_gamma: 0.05
+  prior_delta: 1.0
+  n_samples: 500
+  beta: 0.02
+  burn_in: 200
+  map_max_iter: 40
+  sensor_grids: [3, 5]
+
+bayesian_noise_study:
+  truth_mesh_n: 24
+  inv_mesh_n: 16
+  sensor_grid: 5
+  sensor_width: 0.035
+  prior_r: 15
+  prior_gamma: 0.05
+  prior_delta: 1.0
+  n_samples: 500
+  beta: 0.02
+  burn_in: 200
+  map_max_iter: 40
+  relative_noise_levels: [0.01, 0.1]
+
+bayesian_prior_sensitivity:
+  truth_mesh_n: 24
+  inv_mesh_n: 16
+  sensor_grid: 5
+  sensor_width: 0.035
+  relative_noise: 0.02
+  n_samples: 500
+  beta: 0.02
+  burn_in: 200
+  map_max_iter: 40
+  prior_variants:
+    - {label: "baseline", r: 15, gamma: 0.05, delta: 1.0}
+    - {label: "short_corr_len", r: 15, gamma: 0.01, delta: 1.0}

@@ -1,0 +1,4 @@
+Bayesian noise study, config=smoke, n_sensors=25
+ rel_noise  integrated_post_var  rel_post_mean_error acceptance
+     0.010              0.02600               0.3525      0.164
+     0.100              0.05607               0.8918      0.851

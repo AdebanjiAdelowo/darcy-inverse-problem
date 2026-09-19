@@ -1,0 +1,4 @@
+Bayesian prior-sensitivity study, config=smoke, n_sensors=25
+           label    r   gamma   delta  captured_var  integrated_post_var  rel_post_mean_error
+        baseline   15   0.050   1.000        0.9436              0.06089               0.4346
+  short_corr_len   15   0.010   1.000        0.7267              0.02005               0.9478
