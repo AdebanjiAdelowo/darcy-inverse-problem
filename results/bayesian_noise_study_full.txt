@@ -1,0 +1,5 @@
+Bayesian noise study, config=full, n_sensors=25
+ rel_noise  integrated_post_var  rel_post_mean_error acceptance
+     0.010              0.13436               1.0145      0.158
+     0.050              0.22588               1.3315      0.711
+     0.100              0.40116               1.3231      0.853

@@ -1,0 +1,40 @@
+Bayesian posterior demo, config=local
+sensors=25, truth_mesh_n=40, inv_mesh_n=16, relative_noise=0.02, prior: r=15, gamma=0.05, delta=1.0
+pCN: beta=0.02, burn_in=1000, n_samples=3000
+
+=== smooth truth ===
+MAP converged=False, n_iter=80, xi_map[:5]=[0.0, 0.425, 0.418, -0.255, -0.257]
+pCN acceptance rate: 0.3960
+ESS per KL dim: [3.3, 3.8, 3.7, 26.0, 9.4, 10.3, 9.7, 10.3, 11.7, 5.2, 5.7, 4.4, 6.8, 5.1, 15.7]
+relative MAP error: 0.3866
+relative posterior-mean error: 1.0382
+integrated posterior variance: 0.14389
+
+         point    true m  post mean     2.5%    97.5%  covered
+(0.25,0.25)   -0.1792     0.4194  -0.2497   1.1692     True
+(0.75,0.25)    0.3584     0.8106  -0.0047   1.5472     True
+(0.50,0.50)   -0.1687     0.0055  -0.4862   0.6096     True
+(0.25,0.75)   -0.6391    -1.2884  -1.7290  -0.7357    False
+(0.75,0.75)    0.4599     0.0692  -0.4157   0.6875     True
+coverage: 4/5 (single synthetic realisation -- NOT a calibration study; see README)
+
+posterior predictive: 95% interval coverage of observed data = 0.880 (25 sensors)
+
+=== structured truth ===
+MAP converged=False, n_iter=80, xi_map[:5]=[-0.0, -0.025, -0.189, -0.082, 0.083]
+pCN acceptance rate: 0.4487
+ESS per KL dim: [3.8, 6.8, 6.8, 19.6, 10.8, 9.4, 17.7, 20.2, 8.0, 6.5, 9.0, 9.8, 7.1, 12.2, 4.5]
+relative MAP error: 0.8074
+relative posterior-mean error: 1.0911
+integrated posterior variance: 0.10591
+
+         point    true m  post mean     2.5%    97.5%  covered
+(0.25,0.25)    0.0000     0.1061  -0.5447   0.7107     True
+(0.75,0.25)   -1.1979    -0.7081  -1.2866  -0.2029     True
+(0.50,0.50)    0.0000    -0.1177  -0.6660   0.4327     True
+(0.25,0.75)    0.9216    -0.0832  -0.5463   0.4170    False
+(0.75,0.75)   -0.0000    -0.2887  -0.7327   0.2572     True
+coverage: 4/5 (single synthetic realisation -- NOT a calibration study; see README)
+
+posterior predictive: 95% interval coverage of observed data = 0.720 (25 sensors)
+

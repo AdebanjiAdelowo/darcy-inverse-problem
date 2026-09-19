@@ -1,0 +1,5 @@
+Bayesian sensor study, config=full
+ n_sensors  integrated_post_var  rel_post_mean_error acceptance
+         9              0.25994               1.3113      0.661
+        25              0.23432               2.5435      0.401
+        49              0.16147               1.7355      0.237

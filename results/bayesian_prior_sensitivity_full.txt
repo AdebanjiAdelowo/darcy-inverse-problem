@@ -1,0 +1,6 @@
+Bayesian prior-sensitivity study, config=full, n_sensors=25
+           label    r   gamma   delta  captured_var  integrated_post_var  rel_post_mean_error
+        baseline   15   0.050   1.000        0.9436              0.18828               1.0114
+  short_corr_len   15   0.010   1.000        0.7267              0.14258               1.3274
+   long_corr_len   15   0.200   1.000        0.9915              0.14510               0.5556
+     fewer_modes    6   0.050   1.000        0.8219              0.28503               3.4272
