@@ -1,0 +1,7 @@
+Psi(xi0) = 1.755914e+03, directional derivative = 2.357846e+02
+       eps    1st-order remainder   observed order
+  1.00e-02           1.968011e-02              nan
+  5.00e-03           4.928620e-03            1.997
+  2.50e-03           1.233228e-03            1.999
+  1.25e-03           3.084411e-04            1.999
+  6.25e-04           7.712706e-05            2.000
