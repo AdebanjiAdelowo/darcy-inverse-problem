@@ -1,0 +1,4 @@
+Reconstruction demo, config=local
+sensors: 5x5 grid (25 total), truth_mesh_n=40, inv_mesh_n=20, relative_noise=0.02, alpha=30.0, reg_type=h1
+smooth: rel_m_error=0.3539, final_misfit=6.7991e+00, final_reg=2.9288e+01, n_iter=97, converged=True, time=6.57s
+structured: rel_m_error=0.8750, final_misfit=1.8605e+01, final_reg=9.9257e+00, n_iter=71, converged=True, time=5.16s

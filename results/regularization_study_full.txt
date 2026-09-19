@@ -1,0 +1,15 @@
+Regularization study, config=full, n_sensors=36, relative_noise=0.02
+     alpha         misfit            reg  rel_m_error (retrospective)  n_iter  converged
+  1.00e-01     5.4594e-02     5.9333e-01                       0.5344     120      False
+  1.00e+00     1.2828e+00     2.9379e+00                       0.4335     120      False
+  1.00e+01     6.2748e+00     1.2144e+01                       0.3544     120      False
+  3.00e+01     9.6270e+00     3.0539e+01                       0.3489     120      False
+  1.00e+02     1.9182e+01     8.5617e+01                       0.3505     120      False
+  3.00e+02     5.3025e+01     2.0199e+02                       0.3738     120      False
+  1.00e+03     1.8925e+02     4.4192e+02                       0.4513     120      False
+  1.00e+04     1.4622e+03     5.5028e+02                       0.7829     120      False
+  1.00e+05     2.5833e+03     1.0119e+02                       0.9697     120      False
+
+Discrepancy-principle target: misfit <= 0.5*n_sensors = 18.00
+Discrepancy-principle alpha choice (truth-free): 3.00e+01 (misfit=9.6270e+00)
+Retrospective best alpha (uses m_true, NOT available in practice): 3.00e+01 (rel_m_error=0.3489)

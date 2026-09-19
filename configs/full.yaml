@@ -1,0 +1,37 @@
+# Higher-resolution configuration for the final reported portfolio results.
+reconstruction_demo:
+  truth_mesh_n: 64
+  inv_mesh_n: 32
+  sensor_grid: 6
+  sensor_width: 0.03
+  relative_noise: 0.02
+  alpha: 30.0
+  max_iter: 200
+
+regularization_study:
+  truth_mesh_n: 64
+  inv_mesh_n: 32
+  sensor_grid: 6
+  sensor_width: 0.03
+  relative_noise: 0.02
+  alphas: [1.0e-1, 1.0, 1.0e+1, 3.0e+1, 1.0e+2, 3.0e+2, 1.0e+3, 1.0e+4, 1.0e+5]
+  max_iter: 120
+
+noise_study:
+  truth_mesh_n: 64
+  inv_mesh_n: 32
+  sensor_grid: 6
+  sensor_width: 0.03
+  alpha: 30.0
+  relative_noise_levels: [0.0, 0.01, 0.05, 0.1, 0.2]
+  max_iter: 120
+
+sensor_study:
+  truth_mesh_n: 64
+  inv_mesh_n: 32
+  sensor_width: 0.03
+  relative_noise: 0.02
+  alpha: 30.0
+  sensor_grids: [2, 3, 5, 7, 9]
+  n_random_trials: 5
+  max_iter: 120

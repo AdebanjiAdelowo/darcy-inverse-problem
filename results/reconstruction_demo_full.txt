@@ -1,0 +1,4 @@
+Reconstruction demo, config=full
+sensors: 6x6 grid (36 total), truth_mesh_n=64, inv_mesh_n=32, relative_noise=0.02, alpha=30.0, reg_type=h1
+smooth: rel_m_error=0.3489, final_misfit=9.6271e+00, final_reg=3.0539e+01, n_iter=138, converged=True, time=12.00s
+structured: rel_m_error=0.8488, final_misfit=2.4074e+01, final_reg=1.4223e+01, n_iter=125, converged=True, time=10.09s

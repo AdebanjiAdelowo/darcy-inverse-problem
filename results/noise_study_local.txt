@@ -1,0 +1,7 @@
+Noise study, config=local, alpha=30.0, n_sensors=25
+ rel_noise  rel_m_error   misfit/n_sensors  n_iter
+     0.000       0.3483         2.8647e-02      80
+     0.010       0.3570         2.6966e-01      80
+     0.050       0.3965         6.0353e-01      80
+     0.100       0.4860         7.2630e-01      80
+     0.200       0.6887         7.4616e-01      80

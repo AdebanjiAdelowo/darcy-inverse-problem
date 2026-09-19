@@ -1,0 +1,5 @@
+Noise study, config=smoke, alpha=10.0, n_sensors=16
+ rel_noise  rel_m_error   misfit/n_sensors  n_iter
+     0.000       0.3464         1.1168e-02      30
+     0.050       0.4326         3.0400e-01      30
+     0.200       0.7892         3.8979e-01      30

@@ -1,0 +1,4 @@
+Sensor study, config=smoke, alpha=10.0
+ n_sensors   grid_error  random_error_mean   random_error_std
+         4       0.4996             0.3706             0.0000
+        16       0.3747             0.3633             0.0000
