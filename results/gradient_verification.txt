@@ -1,0 +1,18 @@
+--- reg_type=h1, alpha=0.001 ---
+J(m0) = 2.009028e+03, directional derivative = 2.909283e+00
+       eps     |J(m+eps*dm)-J(m)|   zeroth order      1st-order remainder   observed order
+  1.00e-02           2.910731e-02            nan             1.447456e-05              nan
+  5.00e-03           1.455003e-02          1.000             3.618446e-06            2.000
+  2.50e-03           7.274112e-03          1.000             9.045001e-07            2.000
+  1.25e-03           3.636830e-03          1.000             2.260751e-07            2.000
+  6.25e-04           1.818358e-03          1.000             5.649902e-08            2.001
+
+--- reg_type=l2, alpha=0.01 ---
+J(m0) = 1.994780e+03, directional derivative = 2.942463e+00
+       eps     |J(m+eps*dm)-J(m)|   zeroth order      1st-order remainder   observed order
+  1.00e-02           2.943934e-02            nan             1.470973e-05              nan
+  5.00e-03           1.471599e-02          1.000             3.677423e-06            2.000
+  2.50e-03           7.357076e-03          1.000             9.193463e-07            2.000
+  1.25e-03           3.678308e-03          1.000             2.298271e-07            2.000
+  6.25e-04           1.839097e-03          1.000             5.744783e-08            2.000
+
