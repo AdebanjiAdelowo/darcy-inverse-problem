@@ -180,7 +180,8 @@ while switching to the exact coefficient (variant A) immediately restored $O(h^3
 P1 interpolation error in the coefficient $k=\exp(m_h)$ itself, which dominates the discretisation
 error regardless of the (higher-order) pressure space. Since $m$ genuinely is P1 throughout the rest
 of this repository, variant (B) — not the more flattering variant (A) — is the solver's actual verified
-behaviour, and is reported as such.
+behaviour, and is reported as such. Both convergence studies are plotted in
+`figures/forward_convergence.png`.
 
 ## Synthetic experiment design: truth fields
 
@@ -657,7 +658,9 @@ model class the prior defines; it does not, and cannot, quantify uncertainty abo
 class is the right one.** A confidently-wrong-but-not-modestly-so posterior for the inclusions would
 have been the more concerning failure mode, and is not quite what is observed here, but the
 reconstruction failure itself is real and is not something more posterior samples would fix — it is a
-property of the prior's support, not of the chain length.
+property of the prior's support, not of the chain length. Trace and autocorrelation plots for the
+structured-truth chain (figure: `figures/posterior_diagnostics_structured_full.png`) show the same
+heterogeneous, dimension-dependent mixing documented for the smooth truth above.
 
 ## Posterior predictive checks
 

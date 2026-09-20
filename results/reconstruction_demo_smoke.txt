@@ -1,4 +1,4 @@
 Reconstruction demo, config=smoke
-sensors: 3x3 grid (9 total), truth_mesh_n=24, inv_mesh_n=12, relative_noise=0.02, alpha=0.0001, reg_type=h1
-smooth: rel_m_error=0.4480, final_misfit=6.2078e-05, final_reg=2.7422e-04, n_iter=30, converged=False, time=5.29s
-structured: rel_m_error=0.8836, final_misfit=1.0647e-08, final_reg=1.7010e-04, n_iter=30, converged=False, time=1.02s
+sensors: 3x3 grid (9 total), truth_mesh_n=24, inv_mesh_n=12, relative_noise=0.02, alpha=10.0, reg_type=h1
+smooth: rel_m_error=0.3629, final_misfit=1.4083e+00, final_reg=8.2845e+00, n_iter=30, converged=False, time=1.71s
+structured: rel_m_error=0.8948, final_misfit=3.2981e+00, final_reg=3.1458e+00, n_iter=30, converged=False, time=1.38s
