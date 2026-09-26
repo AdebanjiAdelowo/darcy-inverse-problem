@@ -18,7 +18,25 @@ noise/sensor sensitivity analysis → honest quantitative evaluation**; Part II 
 **probability → priors → likelihood → posterior inference → uncertainty quantification →
 identifiability / information content**, using established mathematics throughout rather than a new
 method. No neural network, PINN, learned surrogate, or neural posterior estimator is used anywhere in
-this repository (a deliberate scope boundary set by the project brief).
+this repository (a deliberate scope boundary).
+
+One evaluation of the Part I objective and its gradient (`InverseProblem.objective_and_gradient` in
+`src/adjoint.py`) costs one forward and one adjoint solve with the same Darcy operator; L-BFGS
+repeats it until its stopping criteria are met:
+
+```mermaid
+flowchart LR
+    M["log-permeability m (P1)<br/>k = exp(m)"] --> FW["Forward solve (P2)<br/>−∇·(k∇p) = 0<br/>p = 1 left, p = 0 right"]
+    FW --> OBS["Observations Hp<br/>Gaussian-bump sensor averages"]
+    Y["Synthetic data y<br/>truth on a finer mesh + noise"] --> J
+    OBS --> J["Objective<br/>J = ½‖Hp − y‖²_Γ⁻¹ + ½α R(m)"]
+    J --> ADJ["Adjoint solve<br/>same operator, λ = 0 on Dirichlet edges<br/>source −Hᵀ Γ⁻¹ (Hp − y)"]
+    FW --> GR
+    ADJ --> GR["Gradient<br/>∫ exp(m) φ ∇p·∇λ dx + ½α R′(m)"]
+    GR --> LB["L-BFGS-B update"]
+    LB -->|next iterate| M
+    GR -.checked by.-> TT["Taylor-remainder test<br/>order 2.000"]
+```
 
 # Part I — Deterministic Inversion
 
@@ -147,7 +165,7 @@ more. Every iteration's objective, data misfit, regularisation term, and gradien
 
 ## Forward-solver verification
 
-The cylinder-flow project's standard applies here too: **the forward solver is verified before any
+**The forward solver is verified before any
 inversion is trusted, and inverse-reconstruction quality is never used as evidence the forward solver
 is correct.** A manufactured solution (`src/manufactured.py`, UFL-symbolic forcing, no hand-derived
 algebra) gives two informative convergence studies (`scripts/verify_forward.py`):
@@ -226,13 +244,22 @@ inclusions almost entirely. This is not a bug or a mesh issue — the same quali
 at `local` resolution (rel. error 0.875, `figures/reconstruction_structured_local.png`) — and a
 supplementary $\alpha$-sweep specifically for the structured truth (0.01 to 30) found the error stays
 in the 0.82–0.89 range across the *entire* range, i.e. **no choice of H1-seminorm regularisation
-strength recovers these inclusions well**. This is an honest, informative negative result, not a
-parameter-tuning failure: H1-seminorm regularisation directly penalises the sharp gradients that
+strength recovers these inclusions well**. This is a negative result, not a parameter-tuning
+failure: H1-seminorm regularisation directly penalises the sharp gradients that
 define a localised inclusion, so it structurally biases reconstructions toward smooth fields regardless
 of $\alpha$; recovering sharp, localised structure would need a different regulariser (e.g. total
-variation) or a prior informed by the true field's structure — genuine limitations of the
-Tikhonov-type regularisers implemented here, stated plainly rather than hidden by only showing the
-smooth-truth result.
+variation) or a prior informed by the true field's structure; this is a limitation of the
+Tikhonov-type regularisers implemented here.
+
+![Smooth truth: true m, reconstructed m and reconstruction error, with the 6x6 sensor grid](figures/reconstruction_smooth_full.png)
+
+![Structured truth: true m with two inclusions, nearly featureless reconstruction, and error](figures/reconstruction_structured_full.png)
+
+*Reconstructions at $\alpha=30$ (`full` config; red crosses are the 36 sensors). True and
+reconstructed fields share one colour mapping; each colour bar shows only the contour range of its
+own panel. For the structured truth the reconstructed range (about $-0.3$ to $0.25$) is much
+narrower than the true range (about $-1.2$ to $1.4$), so both inclusions appear almost unchanged in
+the error panel.*
 
 ## Regularisation study
 
@@ -256,6 +283,12 @@ L-curve and error-vs-$\alpha$ side by side). **The retrospective-best column req
 and is never available for a real inverse problem** — it is reported here purely to show what the
 (unreachable in practice) best case looks like.
 
+![L-curve and retrospective relative error against alpha](figures/regularization_study_full.png)
+
+*Left: L-curve (data misfit against regularisation term), labelled by $\alpha$. Right:
+retrospective relative $m$ error against $\alpha$, with the discrepancy-principle choice
+($\alpha=30$) marked.*
+
 **Practical, truth-free selection: Morozov's discrepancy principle.** Choose the largest $\alpha$
 whose converged weighted misfit stays at or below the statistically expected value under the assumed
 noise model, $\tfrac12\sum_s((Hp-y)_s/\sigma_s)^2 \le \tfrac12 n_{\mathrm{sensors}}$ (Morozov, 1966;
@@ -263,8 +296,8 @@ Engl, Hanke & Neubauer, 1996, Ch. 4.3) — uses only the assumed noise level, ne
 For $n=36$ sensors the target is misfit $\le 18.0$; this selects $\alpha=30$, which is **exactly the
 retrospective-best value found independently at all three tested resolutions** (smoke: $n=16$,
 discrepancy target 8.0, selects $\alpha=10$ = retrospective best; local: $n=25$, target 12.5, selects
-$\alpha=30$ = retrospective best; full: as above) — a genuinely validated, non-cherry-picked agreement,
-not an artefact of one lucky run.
+$\alpha=30$ = retrospective best; full: as above), so the agreement is not an artefact of a single
+run.
 
 ## Noise sensitivity
 
@@ -376,6 +409,29 @@ $$\pi(y\mid m) \propto \exp\!\left[-\tfrac12 (Hp(m)-y)^\top\Gamma^{-1}(Hp(m)-y)\
 This answers a different question than Part I: not just "what is the best-fitting permeability
 field?" but "given the data and our modelling assumptions, what range of permeability fields remain
 plausible, and where?"
+
+The Part II pipeline reuses the Part I forward model, observation operator and adjoint gradient,
+and adds a prior, a sampler, and diagnostics. The sampler is validated on a closed-form problem
+before it is applied to the PDE posterior:
+
+```mermaid
+flowchart TD
+    KL["KL prior N(m₀, C), C = (−γΔ + δI)⁻²<br/>generalised eigenproblem, r = 15 modes"]
+    XI["Whitened coefficients ξ ~ N(0, I_r)<br/>m(ξ) = m₀ + Σ √λⱼ ξⱼ φⱼ"]
+    PHI["Φ(ξ) = ½‖Hp(m(ξ)) − y‖²_Γ⁻¹<br/>Part I forward solve"]
+    MAP["MAP: L-BFGS-B on Φ(ξ) + ½‖ξ‖²<br/>gradient via Part I adjoint + chain rule"]
+    PCN["pCN sampler, β = 0.02<br/>ξ′ = √(1−β²) ξ + β η<br/>accept with min(1, exp[Φ(ξ) − Φ(ξ′)])"]
+    DG["Diagnostics<br/>acceptance, ESS, split-chain, autocorrelation"]
+    OUT["Posterior summaries<br/>mean, std, 95% credible intervals,<br/>predictive checks"]
+    LG["Linear-Gaussian problem<br/>analytical posterior"]
+
+    KL --> XI --> PHI
+    PHI --> MAP
+    MAP -->|chain initialised at MAP| PCN
+    PHI --> PCN
+    PCN --> DG --> OUT
+    LG -.validates sampler first.-> PCN
+```
 
 ## Prior construction and KL parameterisation
 
@@ -525,16 +581,24 @@ sensible trends than pointwise or per-coefficient values.
 | integrated posterior variance $\int\mathrm{Var}[m\mid y]\,dx$ | 0.295 | 0.367 |
 
 (figure: `figures/posterior_fields_{smooth,structured}_full.png` — truth / MAP / posterior mean /
-posterior std / MAP error / posterior-mean error, all on shared colour scales.) The MAP errors closely
+posterior std / MAP error / posterior-mean error, all on shared colour scales.)
+
+![Smooth-truth posterior: truth, MAP, posterior mean, posterior standard deviation, MAP error and posterior-mean error](figures/posterior_fields_smooth_full.png)
+
+*Smooth truth, 25 sensors, $r=15$, 8,000 retained pCN samples. Given the slow mixing reported under
+"MCMC diagnostics", the posterior mean and standard deviation panels are less reliable than the
+MAP panel.*
+
+The MAP errors closely
 match Part I's deterministic reconstruction errors at comparable settings (0.35 smooth / 0.85
 structured there), as expected since MAP is exactly the Part-I-equivalent point estimate under this
 prior (see "Relationship between MAP and Tikhonov regularisation"). **The posterior-mean errors are
 reported for completeness but should not be read as "the posterior mean is worse than MAP"** — given
 the split-chain diagnostic above, they are better interpreted as showing that 8,000 post-burn-in pCN
 samples are not enough to pin down the posterior mean to the precision needed for a fair comparison
-against MAP, rather than as a real difference between the two estimators. This is exactly why the
-project's own standard ("do not present raw MCMC samples as trustworthy without convergence/mixing
-diagnostics") is being applied here to Part II's own results, not only to the toy validation problem.
+against MAP, rather than as a real difference between the two estimators. MCMC summaries are
+therefore read together with the convergence and mixing diagnostics, for the PDE posterior as well
+as for the toy validation problem.
 Posterior standard deviation is visibly higher in regions further from sensor locations and, for the
 structured truth, roughly uniform (the Gaussian prior does not "know" where the inclusions are, so it
 does not concentrate uncertainty around them the way a correctly-specified prior would).
@@ -556,11 +620,10 @@ Coverage: **5/5** for the smooth truth and 5/5 for the structured truth (full co
 `results/posterior_demo_full.txt`). **This is explicitly not a calibration study, and 5/5 coverage
 from one synthetic realisation is weak evidence of anything on its own** — with only 5 points and
 intervals this wide (up to ~1.9 units against a prior standard deviation of 1.0 per coefficient), high
-coverage is close to guaranteed regardless of whether the posterior is well-calibrated; it is reported
-because the brief asks for it, not presented as a validated calibration result. The intervals
+coverage is close to guaranteed regardless of whether the posterior is well-calibrated; it is not
+presented as a validated calibration result. The intervals
 themselves are also affected by the chain-length limitation discussed above (they are almost certainly
-wider than a fully-converged chain would give, which would trivially inflate coverage further) — stated
-plainly rather than glossed over.
+wider than a fully-converged chain would give, which would trivially inflate coverage further).
 
 ## Sensor-information study
 
@@ -626,8 +689,7 @@ large enough (0.56 to 3.43) to be informative regardless: **the long-correlation
 both the lowest error and among the lowest variance**, because its smoothness assumption actually
 matches the smooth truth well, while **the short-correlation-length prior gives the lowest variance of
 all but a substantially worse error** than the baseline — a prior that is "confident" (tight posterior)
-is not the same as a prior that is *right*, precisely the distinction Part II's brief asks to
-demonstrate. The **fewer_modes** variant ($r=6$, only 82.2% captured variance) is markedly worse on
+is not the same as a prior that is *right*. The **fewer_modes** variant ($r=6$, only 82.2% captured variance) is markedly worse on
 both counts, showing directly that under-truncating the KL expansion is not merely "cheaper" but loses
 real representational capacity needed to fit this truth. With only 25 sparse, noisy sensors, the
 posterior is visibly prior-informed: four different — all "reasonable" — prior choices give
@@ -652,8 +714,8 @@ simply confident-and-wrong here; it does carry more spread when the truth is har
 However, this is at most partial reassurance: the posterior mean is still badly biased toward the
 smooth prior's characteristic length scale, and no amount of variance in the *KL coefficient
 directions the prior can represent* can express uncertainty about the missing directions (sharp,
-localised structure) that the truncated Gaussian KL prior cannot represent at all. **This is the
-distinction the brief asks to draw explicitly: posterior variance quantifies uncertainty within the
+localised structure) that the truncated Gaussian KL prior cannot represent at all. **Posterior
+variance quantifies uncertainty within the
 model class the prior defines; it does not, and cannot, quantify uncertainty about whether that model
 class is the right one.** A confidently-wrong-but-not-modestly-so posterior for the inclusions would
 have been the more concerning failure mode, and is not quite what is observed here, but the
