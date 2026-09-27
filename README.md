@@ -534,8 +534,8 @@ at the MAP:
 | Diagnostic | Value |
 |---|---:|
 | acceptance rate | 40.0% |
-| ESS per KL dimension | 5–86 (mean 13.4) out of 8,000 samples |
-| mean ESS / n_proposals | ~0.17% |
+| ESS per KL dimension | 4.9 to 86.1 (mean 13.5) out of 8,000 retained samples |
+| mean ESS / retained samples | ~0.17% (~0.14% of the 10,000 proposals) |
 
 **This is a genuinely important, diagnosed limitation, not a footnote.** ESS this low (most dimensions
 under 1% efficiency, vs. ~40% for the toy linear-Gaussian validation problem at a comparable acceptance
@@ -557,6 +557,13 @@ concretely, rather than just citing the ESS number:
 - Posterior **standard deviation** is comparatively (not perfectly) more stable under the same
   split-chain check: mean relative disagreement 26% between halves, vs. 75% for the mean — still
   imperfect, but the second moment is less corrupted by the slow mixing than the first moment.
+
+![pCN trace and autocorrelation plots for three KL coefficients of the smooth-truth posterior](figures/posterior_diagnostics_smooth_full.png)
+
+*pCN chain for the smooth truth (`full` config, 10,000 proposals, burn-in marked in red). Panel
+labels are zero-based KL indices, so "dim 1" to "dim 3" are the second to fourth coefficients, with
+ESS 4.9, 4.9 and 86.1 out of 8,000 in `results/posterior_demo_full.txt`. Two coefficients drift
+slowly with almost no autocorrelation decay; the third mixes well.*
 
 **Ruled out as the cause**: the MAP starting point itself. Running L-BFGS-B to a much tighter tolerance
 (2,000 iterations instead of 120) changes the negative-log-posterior gradient norm from $1.5\times10^{-3}$
@@ -782,7 +789,7 @@ Measured on: Apple M3 Pro, macOS 26.6.2-arm64, same environment as Part I and `f
   README**: MAP is treated as the reliable point estimate; posterior-mean values are reported but
   explicitly flagged; aggregate/integrated quantities (integrated posterior variance) were found to be
   more robust and are used for the headline sensor/noise trend results. ESS per KL dimension is
-  reported honestly (5-86 out of 8,000 retained samples) rather than a single favourable-looking
+  reported honestly (4.9 to 86.1 out of 8,000 retained samples) rather than a single favourable-looking
   average.
 - **Each pCN proposal costs one forward PLUS one adjoint PDE solve** (via reuse of Part I's combined
   `objective_and_gradient`), even though pCN itself needs only the likelihood value, not the gradient
