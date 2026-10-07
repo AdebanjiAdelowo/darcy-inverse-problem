@@ -43,9 +43,10 @@ def plot_fields(name: str, result, sensors, cfg_name: str):
     vmax = max(m_true.max(), result.m_map.max(), result.m_post_mean.max())
 
     fig, axes = plt.subplots(2, 3, figsize=(16, 8.5))
+    map_label = "MAP $m$" if result.map_converged else "MAP candidate $m$ (optimizer not converged)"
     panels = [
         (axes[0, 0], m_true, "true $m$", "viridis", vmin, vmax),
-        (axes[0, 1], result.m_map, "MAP $m$", "viridis", vmin, vmax),
+        (axes[0, 1], result.m_map, map_label, "viridis", vmin, vmax),
         (axes[0, 2], result.m_post_mean, "posterior mean $E[m|y]$", "viridis", vmin, vmax),
         (axes[1, 0], result.m_post_std, "posterior std $\\mathrm{sd}[m|y]$", "magma", None, None),
         (axes[1, 1], result.m_map - m_true, "MAP error", "RdBu_r", None, None),
@@ -64,7 +65,8 @@ def plot_fields(name: str, result, sensors, cfg_name: str):
 
     rel_map = np.linalg.norm(result.m_map - m_true) / np.linalg.norm(m_true)
     rel_mean = np.linalg.norm(result.m_post_mean - m_true) / np.linalg.norm(m_true)
-    fig.suptitle(f"{name} truth: Bayesian posterior (rel. MAP error={rel_map:.3f}, "
+    map_term = "MAP" if result.map_converged else "MAP-candidate"
+    fig.suptitle(f"{name} truth: Bayesian posterior (rel. {map_term} error={rel_map:.3f}, "
                  f"rel. posterior-mean error={rel_mean:.3f})")
     fig.tight_layout()
     fig.savefig(FIG_DIR / f"posterior_fields_{name}_{cfg_name}.png", dpi=150)
@@ -170,7 +172,8 @@ def main() -> None:
                           f"xi_map[:5]={np.round(result.xi_map[:5], 3).tolist()}")
         all_lines.append(f"pCN acceptance rate: {result.pcn.acceptance_rate:.4f}")
         all_lines.append(f"ESS per KL dim: {np.round(result.ess_per_dim, 1).tolist()}")
-        all_lines.append(f"relative MAP error: {rel_map:.4f}")
+        map_term = "MAP" if result.map_converged else "MAP-candidate (optimizer not converged)"
+        all_lines.append(f"relative {map_term} error: {rel_map:.4f}")
         all_lines.append(f"relative posterior-mean error: {rel_mean:.4f}")
         all_lines.append(f"integrated posterior variance: {ipv:.5f}")
         all_lines.append("")
