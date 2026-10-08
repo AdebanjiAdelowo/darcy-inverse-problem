@@ -9,6 +9,15 @@ over the permeability field, $\pi(m\mid y) \propto \pi(y\mid m)\pi_0(m)$, using 
 Gaussian prior, a preconditioned Crank-Nicolson (pCN) MCMC sampler independently validated against an
 analytically solvable problem, and quantitative uncertainty studies.
 
+
+## Project overview
+
+In many subsurface-flow problems, permeability—the property that controls how easily fluid moves through a material—cannot be measured everywhere directly. What we can often measure instead is pressure at a limited number of locations. This project asks whether those sparse pressure measurements can be used to reconstruct the hidden permeability field, and how uncertain that reconstruction is.
+
+The forward physics is Darcy flow. The first part solves a regularised inverse problem using finite elements, an adjoint gradient and numerical optimisation. The second takes a Bayesian view: rather than returning only one reconstructed field, it samples plausible fields consistent with the data and prior assumptions.
+
+The deterministic formulation and gradient verification are strong. The Bayesian section is deliberately marked qualified at present because the stored full PDE chains mix slowly and the recorded optimisation endpoints did not satisfy the optimiser's success flag. Those diagnostics will be rerun before the Bayesian numerical results are treated as final.
+
 ## Scientific status at a glance
 
 > **Working status:** this summary reflects the evidence currently in the repository. Items marked pending will be updated after the planned reruns; historical numerical results remain documented below for provenance.
