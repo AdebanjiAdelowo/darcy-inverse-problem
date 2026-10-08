@@ -9,6 +9,19 @@ over the permeability field, $\pi(m\mid y) \propto \pi(y\mid m)\pi_0(m)$, using 
 Gaussian prior, a preconditioned Crank-Nicolson (pCN) MCMC sampler independently validated against an
 analytically solvable problem, and quantitative uncertainty studies.
 
+## Scientific status at a glance
+
+> **Working status:** this summary reflects the evidence currently in the repository. Items marked pending will be updated after the planned reruns; historical numerical results remain documented below for provenance.
+
+| | |
+|---|---|
+| **Current status** | **QUALIFIED — Bayesian validation rerun pending** |
+| **Problem** | Recover spatial log-permeability from sparse noisy Darcy-flow observations |
+| **Methods** | FEM forward solve, adjoint L-BFGS reconstruction, KL Gaussian prior and pCN MCMC |
+| **Verified so far** | Adjoint Taylor test and independent linear-Gaussian pCN validation |
+| **Current finding** | Deterministic formulation is sound; existing full Bayesian chains have very low effective sample sizes and stored MAP endpoints did not satisfy the optimizer success flag |
+| **Pending update** | Record optimizer diagnostics, rerun MAP with justified stopping, and perform controlled pCN mixing/multiple-chain checks |
+
 ## Overview
 
 This is primarily an applied-mathematics / inverse-problems project, not a software-engineering
