@@ -1,5 +1,7 @@
 # Darcy-Flow Inverse Problem: Deterministic and Bayesian Log-Permeability Reconstruction
 
+[![Scientific CI](https://github.com/AdebanjiAdelowo/darcy-inverse-problem/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AdebanjiAdelowo/darcy-inverse-problem/actions/workflows/ci.yml)
+
 A complete inverse-problems study of a 2D Darcy (groundwater/reservoir) flow, in two parts. **Part I**
 is a deterministic, adjoint-based regularised reconstruction (MAP-only): recover a spatially varying
 permeability field from sparse, noisy pressure measurements, with an adjoint gradient verified by a
