@@ -31,4 +31,8 @@ jobs:
         run: |
           echo "Python: $(command -v python)"
           python -c 'import sys; print(sys.executable)'
+          python -u -c 'import mpi4py.MPI; print("MPI import OK", flush=True)'
+          python -u -c 'import petsc4py.PETSc; print("PETSc import OK", flush=True)'
+          python -u -c 'import dolfinx; print("dolfinx import OK", flush=True)'
+          python -m pytest --collect-only -q tests
           python -m pytest -q tests
