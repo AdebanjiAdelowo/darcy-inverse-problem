@@ -15,6 +15,7 @@ jobs:
       OPENBLAS_NUM_THREADS: '1'
       MKL_NUM_THREADS: '1'
       NUMEXPR_NUM_THREADS: '1'
+      UCX_TLS: 'self,sm,tcp'
     steps:
       - uses: actions/checkout@v4
       - uses: conda-incubator/setup-miniconda@v3
