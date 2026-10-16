@@ -14,6 +14,11 @@ def main():
     a=p.parse_args()
     if os.environ.get("DDE_BACKEND")!="pytorch":
         raise RuntimeError("Set DDE_BACKEND=pytorch")
+    if a.iterations < 1 or len(set(a.seeds)) != len(a.seeds):
+        raise ValueError("iterations must be positive and seeds unique")
+    import torch
+    if not torch.cuda.is_available():
+        raise RuntimeError("Remote CUDA GPU required; refusing local CPU training")
     records=[]
     for seed in a.seeds:
         start=time.perf_counter()
