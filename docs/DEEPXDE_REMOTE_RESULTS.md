@@ -1,8 +1,11 @@
 # DeepXDE inverse-PINN benchmarks: remote experiments
 
-Status: **PROTOCOL FIXED, NO GPU RESULTS YET.** This file is the pre-registration. Results will be
-added below the protocol in a later commit; the protocol and criteria are not edited after results are
-seen. Any deviation will be recorded as a deviation, with its reason.
+Status: **smoke gate PASSED on CUDA for both benchmarks; 10 000-iteration baseline COMPLETED (5/5 seeds,
+both benchmarks) and did NOT recover the parameters because training had not converged; post-hoc
+convergence diagnostic PENDING; sensitivity study NOT RUN.**
+
+The protocol and criteria below were committed (656c591) before any GPU run and are unchanged. Deviations
+are listed under *Deviations*.
 
 ## Scope
 
@@ -75,4 +78,90 @@ Exact steps are in `docs/CLAUDE_CODE_DEEPXDE_REMOTE_HANDOFF.md`.
 
 ## Results
 
-None yet.
+### Run log
+
+| Kernel | Commit | Outcome |
+|---|---|---|
+| v1 | 656c591 | Stopped at `git clone`: the GitHub repository was private at the time and anonymous clone failed. Nothing ran. Fixed in 5b63bb6 (clone from a git bundle). |
+| v2 | 5b63bb6 | All steps exit 0: smoke gate, constant baseline, spatial baseline. Evidence in `results/deepxde_remote/kaggle_v2_5b63bb6/`. |
+
+Environment (v2, from the result JSON and `nvidia-smi`): Tesla T4 (2 visible, `cuda:0` used),
+Python 3.13.15, PyTorch 2.11.0+cu128 (CUDA 12.8), DeepXDE 1.15.0, NumPy 2.1.3, Kaggle Linux image.
+Every file is listed with its SHA-256 in `MANIFEST.sha256`; `summary.json` is produced from the raw JSON by
+`scripts/summarize_deepxde_inverse.py`.
+
+### Smoke gate (2 iterations, seed 42)
+
+`PASS constant inverse smoke` and `PASS spatial inverse smoke`: both runners completed on CUDA, wrote their
+output, and every metric was finite with `status: ok`. After 2 iterations the estimates are essentially the
+initial guesses (k = 0.799, alpha = -0.002, beta = 0.002). This establishes execution integrity only.
+
+### Baseline, 10 000 iterations, 5 seeds (42, 0, 1, 2, 3)
+
+Criterion 2 (stability) is **met** for both benchmarks: 5/5 seeds `ok`, no non-finite values.
+
+Criterion 3 (parameter recovery) is **not met** for either benchmark: *not recovered* (median relative
+parameter error 0.040 for constant k and 0.81 for spatial k, against the 1e-2 threshold).
+
+**Constant k (truth 1.7, start 0.8, 100 observations).**
+
+| seed | k estimate | relative k error | pressure rel. L2 | change in k over the last 1000 iterations | wall s |
+|---|---|---|---|---|---|
+| 42 | 1.6323 | 0.0398 | 0.0429 | +0.0249 | 87.9 |
+| 0 | 1.6418 | 0.0343 | 0.0242 | +0.0244 | 83.7 |
+| 1 | 1.5960 | 0.0612 | 0.0455 | +0.0267 | 83.8 |
+| 2 | 1.6434 | 0.0333 | 0.0276 | +0.0205 | 83.8 |
+| 3 | 1.6181 | 0.0482 | 0.0329 | +0.0247 | 83.3 |
+
+Over seeds: k = 1.626 ± 0.020 (mean ± sample std; median 1.632, range 1.596 to 1.643); relative error
+0.043 ± 0.012; pressure relative L2 0.035 ± 0.009 (range 0.024 to 0.046).
+
+**Spatial k (truth alpha = 0.5, beta = -0.3, start 0, 0, 128 observations).**
+
+| seed | alpha | beta | parameter rel. error | pressure rel. L2 | k-field rel. L2 | change over last 1000 it (alpha, beta) | peak beta (iteration) | wall s |
+|---|---|---|---|---|---|---|---|---|
+| 42 | 0.1664 | 0.1135 | 0.911 | 0.0592 | 0.1575 | +0.0046, -0.0148 | 0.173 (4800) | 105.1 |
+| 0 | 0.1814 | 0.0987 | 0.875 | 0.0549 | 0.1514 | +0.0041, -0.0140 | 0.162 (4200) | 102.5 |
+| 1 | 0.1990 | 0.0584 | 0.803 | 0.0484 | 0.1375 | +0.0067, -0.0099 | 0.104 (4600) | 102.7 |
+| 2 | 0.1907 | 0.0583 | 0.812 | 0.0491 | 0.1387 | +0.0046, -0.0104 | 0.109 (4500) | 102.8 |
+| 3 | 0.2141 | 0.0323 | 0.752 | 0.0448 | 0.1284 | +0.0073, -0.0126 | 0.105 (3800) | 102.1 |
+
+Over seeds: alpha = 0.190 ± 0.018, beta = 0.072 ± 0.033 (wrong sign at every seed); parameter relative
+error 0.83 ± 0.06; pressure relative L2 0.051 ± 0.006; permeability-field relative L2 0.143 ± 0.012.
+
+**Interpretation, stated narrowly.** In every seed of both benchmarks the parameters were still moving
+monotonically toward the truth at iteration 10 000 (last column but one), while the total training loss had
+already fallen from about 1e2 to about 1e-3. For the spatial problem beta first moved away from the truth,
+peaked between iterations 3800 and 4800, and was falling toward -0.3 at the end. The result therefore shows
+that **10 000 Adam iterations at learning rate 1e-3 are not enough to converge this formulation**. It does
+not show a bias at convergence, and it does not show that the parameters would be recovered with more
+iterations; the convergence diagnostic below tests that. Small loss values coexisting with large parameter
+error mean the loss is only weakly sensitive to the parameters near the end of training, so loss magnitude
+is not a usable stopping signal here.
+
+Seed-to-seed spread is small compared with the distance from the truth (constant k: std 0.020 against a
+mean error of 0.074; spatial alpha: std 0.018 against a mean error of 0.31). Under the baseline, seed changes
+initialisation and sensor layout together; the effect of each separately has not been measured.
+
+**Cost.** Wall time per seed on one T4, CUDA-synchronised, including model construction and the 41 x 41
+evaluation: constant k 84.5 ± 1.9 s (about 8.4 ms per iteration), spatial k 103.1 ± 1.2 s (about 10.3 ms
+per iteration). The first seed of the constant run includes CUDA initialisation (87.9 s against 83.3 to 83.8
+s). These are single-session T4 timings and are not comparable to the FEM/Bayesian runtimes.
+
+**Warnings in the logs.** `512 points required, but 529 points sampled` (DeepXDE rounds its internal test set
+up to a 23 x 23 grid; that set is not the evaluation grid) and one cuBLAS context-initialisation notice per
+process. Neither affects the results.
+
+## Deviations
+
+1. **Post-hoc convergence diagnostic (added after the baseline was seen).** Not part of the original
+   pre-registration. Same benchmarks, seeds, network, optimiser, learning rate, data and evaluation as the
+   baseline; only `--iterations 50000` (and `--trace-every 500`) change. Question: do the estimates keep
+   approaching the truth and reach the pre-registered 1e-2 threshold? The pre-registered labels are applied
+   unchanged and reported as diagnostic, not as a test of the original hypothesis. Launcher stage
+   `convergence`.
+2. **Sensitivity study postponed.** The pre-registered sensitivity matrix (criterion 5) assumes a
+   converged baseline. At 10 000 iterations it would measure the rate of convergence rather than sensitivity
+   to sensors, noise or initialisation, so it is not run until a converged budget or optimiser is agreed.
+   Changing the optimiser (for example Adam followed by L-BFGS) would be a change of method and is left as an
+   explicit decision.

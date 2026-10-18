@@ -1,0 +1,50 @@
+{
+  "ref": "5b63bb6134cb4e043027e76bed8a710085068036",
+  "stage": "baseline",
+  "steps": {
+    "clone": {
+      "returncode": 0,
+      "seconds": 0.4,
+      "command": "git clone --quiet /kaggle/input/darcy-inverse-problem-src/darcy-inverse-problem.bundle /kaggle/working/repo"
+    },
+    "checkout": {
+      "returncode": 0,
+      "seconds": 0.1,
+      "command": "git -C /kaggle/working/repo checkout --quiet 5b63bb6134cb4e043027e76bed8a710085068036"
+    },
+    "install_deepxde": {
+      "returncode": 0,
+      "seconds": 5.0,
+      "command": "/usr/bin/python3 -m pip install --quiet deepxde==1.15.0"
+    },
+    "nvidia_smi": {
+      "returncode": 0,
+      "seconds": 0.4,
+      "command": "nvidia-smi"
+    },
+    "pip_freeze": {
+      "returncode": 0,
+      "seconds": 1.8,
+      "command": "/usr/bin/python3 -m pip freeze"
+    },
+    "smoke": {
+      "returncode": 0,
+      "seconds": 25.6,
+      "command": "/usr/bin/python3 -m remote.smoke_deepxde_inverse --iterations 2 --output-dir /kaggle/working/outputs/results/smoke"
+    },
+    "constant_baseline": {
+      "returncode": 0,
+      "seconds": 425.7,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse --iterations 10000 --seeds 42 0 1 2 3 --output /kaggle/working/outputs/results/constant_baseline.json"
+    },
+    "spatial_baseline": {
+      "returncode": 0,
+      "seconds": 518.5,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 10000 --seeds 42 0 1 2 3 --observations 128 --output /kaggle/working/outputs/results/spatial_baseline.json"
+    }
+  },
+  "source": "/kaggle/input/darcy-inverse-problem-src/darcy-inverse-problem.bundle",
+  "head": "5b63bb6134cb4e043027e76bed8a710085068036",
+  "smoke_passed": true,
+  "finished_utc": "2026-10-18T20:02:42Z"
+}

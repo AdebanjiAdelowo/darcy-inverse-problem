@@ -1,0 +1,104 @@
+{
+  "config": {
+    "benchmark": "spatial_k",
+    "iterations": 2,
+    "seeds": [
+      42
+    ],
+    "observations": 128,
+    "noise_std": 0.0,
+    "alpha_initial": 0.0,
+    "beta_initial": 0.0,
+    "observation_seed": null,
+    "evaluation_grid": "41x41 uniform on [0,1]^2",
+    "trace_every": 100
+  },
+  "environment": {
+    "python_version": "3.13.15",
+    "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+    "torch_version": "2.11.0+cu128",
+    "torch_cuda_version": "12.8",
+    "deepxde_version": "1.15.0",
+    "deepxde_backend": "pytorch",
+    "numpy_version": "2.1.3",
+    "device": "Tesla T4",
+    "cuda_device_count": 2,
+    "git_commit": "5b63bb6134cb4e043027e76bed8a710085068036"
+  },
+  "records": [
+    {
+      "seed": 42,
+      "alpha_true": 0.5,
+      "beta_true": -0.3,
+      "alpha_estimated": -0.0019984340760856867,
+      "beta_estimated": 0.001992827979847789,
+      "alpha_abs_error": 0.5019984340760857,
+      "beta_abs_error": 0.3019928279798478,
+      "parameter_relative_error": 1.0046979293857843,
+      "pressure_relative_l2": 0.7758623405783995,
+      "permeability_relative_l2": 0.2015525919777148,
+      "final_loss_train": [
+        111.29217529296875,
+        0.13111081719398499,
+        0.14717212319374084
+      ],
+      "parameter_trace": {
+        "epoch": [
+          0,
+          2
+        ],
+        "alpha": [
+          0.0,
+          -0.0019984340760856867
+        ],
+        "beta": [
+          0.0,
+          0.001992827979847789
+        ]
+      },
+      "loss_history": {
+        "steps": [
+          0,
+          1,
+          2
+        ],
+        "loss_train": [
+          [
+            113.83724212646484,
+            0.048096273094415665,
+            0.41680657863616943
+          ],
+          [
+            112.5664291381836,
+            0.05909736081957817,
+            0.2539929747581482
+          ],
+          [
+            111.29217529296875,
+            0.13111081719398499,
+            0.14717212319374084
+          ]
+        ],
+        "loss_test": [
+          [
+            138.9024658203125,
+            0.048096273094415665,
+            0.41680657863616943
+          ],
+          [
+            137.3648681640625,
+            0.05909736081957817,
+            0.2539929747581482
+          ],
+          [
+            135.82089233398438,
+            0.13111081719398499,
+            0.14717212319374084
+          ]
+        ]
+      },
+      "wall_seconds": 2.881187204999975,
+      "status": "ok"
+    }
+  ]
+}
