@@ -1,8 +1,9 @@
 # DeepXDE inverse-PINN benchmarks: remote experiments
 
-Status: **smoke gate PASSED on CUDA for both benchmarks; 10 000-iteration baseline COMPLETED (5/5 seeds,
-both benchmarks) and did NOT recover the parameters because training had not converged; post-hoc
-convergence diagnostic PENDING; sensitivity study NOT RUN.**
+Status: **smoke gate PASSED on CUDA for both benchmarks. 10 000-iteration baseline COMPLETED (5/5 seeds,
+both benchmarks) and did NOT recover the parameters because training had not converged. Post-hoc
+50 000-iteration diagnostic COMPLETED: constant k RECOVERED, spatial k still NOT recovered and still
+converging. Sensitivity study NOT RUN.**
 
 The protocol and criteria below were committed (656c591) before any GPU run and are unchanged. Deviations
 are listed under *Deviations*.
@@ -84,6 +85,7 @@ Exact steps are in `docs/CLAUDE_CODE_DEEPXDE_REMOTE_HANDOFF.md`.
 |---|---|---|
 | v1 | 656c591 | Stopped at `git clone`: the GitHub repository was private at the time and anonymous clone failed. Nothing ran. Fixed in 5b63bb6 (clone from a git bundle). |
 | v2 | 5b63bb6 | All steps exit 0: smoke gate, constant baseline, spatial baseline. Evidence in `results/deepxde_remote/kaggle_v2_5b63bb6/`. |
+| v3 | 03b7744 | All steps exit 0: smoke gate, 50 000-iteration diagnostic for both benchmarks (Deviation 1). Cloned from the now-public GitHub repository. Evidence in `results/deepxde_remote/kaggle_v3_03b7744/`. |
 
 Environment (v2, from the result JSON and `nvidia-smi`): Tesla T4 (2 visible, `cuda:0` used),
 Python 3.13.15, PyTorch 2.11.0+cu128 (CUDA 12.8), DeepXDE 1.15.0, NumPy 2.1.3, Kaggle Linux image.
@@ -151,6 +153,67 @@ s). These are single-session T4 timings and are not comparable to the FEM/Bayesi
 **Warnings in the logs.** `512 points required, but 529 points sampled` (DeepXDE rounds its internal test set
 up to a 23 x 23 grid; that set is not the evaluation grid) and one cuBLAS context-initialisation notice per
 process. Neither affects the results.
+
+### Convergence diagnostic, 50 000 iterations (post hoc, Deviation 1)
+
+Same hardware type (Tesla T4), `pip freeze` byte-identical to v2, same seeds and settings; only the
+iteration count and trace period differ.
+
+**Reproducibility across sessions.** At all 21 checkpoints the two runs share (every 500 iterations up to
+10 000), the recorded parameter values of v3 are identical to those of the v2 baseline for every seed of both
+benchmarks (maximum absolute difference 0). The 10 000-iteration baseline is therefore exactly the start of
+these runs. Only the recorded parameter values were compared, not network weights or losses.
+
+**Constant k: recovered** under the pre-registered criterion (every seed below 1e-2).
+
+| seed | k at 50 000 | relative k error | pressure rel. L2 | change in k over the last 5000 iterations | wall s |
+|---|---|---|---|---|---|
+| 42 | 1.7044 | 0.0026 | 0.0129 | +0.0005 | 413 |
+| 0 | 1.7006 | 0.0004 | 0.0073 | +0.0001 | 406 |
+| 1 | 1.6951 | 0.0029 | 0.0084 | +0.0012 | 406 |
+| 2 | 1.6997 | 0.0001 | 0.0106 | +0.0009 | 405 |
+| 3 | 1.7009 | 0.0005 | 0.0183 | +0.0008 | 406 |
+
+Over seeds: k = 1.700 ± 0.003 (median 1.701, range 1.695 to 1.704); relative error 1.3e-3 ± 1.3e-3
+(median 5.1e-4, maximum 2.9e-3); pressure relative L2 0.0115 ± 0.0044. The estimate is between 1.676 and
+1.700 at iteration 20 000 and changes by at most 0.0012 over the last 5000 iterations.
+
+**Spatial k: not recovered**, but every seed was still moving toward the truth at the last iteration.
+
+| seed | alpha at 50 000 | beta at 50 000 | parameter rel. error | pressure rel. L2 | k-field rel. L2 | change over last 5000 it (alpha, beta) | wall s |
+|---|---|---|---|---|---|---|---|
+| 42 | 0.3642 | -0.1567 | 0.339 | 0.0204 | 0.0586 | +0.0172, -0.0186 | 498 |
+| 0 | 0.3839 | -0.1721 | 0.296 | 0.0176 | 0.0509 | +0.0175, -0.0188 | 491 |
+| 1 | 0.3776 | -0.1685 | 0.308 | 0.0212 | 0.0532 | +0.0144, -0.0163 | 490 |
+| 2 | 0.3684 | -0.1590 | 0.331 | 0.0211 | 0.0570 | +0.0148, -0.0166 | 491 |
+| 3 | 0.4094 | -0.2071 | 0.223 | 0.0130 | 0.0390 | +0.0133, -0.0144 | 490 |
+
+Over seeds: alpha = 0.381 ± 0.018, beta = -0.173 ± 0.020 (sign becomes correct between iterations 20 000 and
+30 000 in every seed); parameter relative error 0.30 ± 0.05 (median 0.31); pressure relative L2 0.019 ± 0.004;
+permeability-field relative L2 0.052 ± 0.008.
+
+**Interpretation, stated narrowly.** Under this optimiser and learning rate, the one-parameter problem
+converges to the true value within the pre-registered tolerance in 50 000 iterations, and the 10 000-iteration
+failure was a budget effect. The two-parameter problem converges far more slowly: after 50 000 iterations the
+error in the parameter vector has fallen to about 30 percent of its initial value and is still moving at about 0.003 to 0.004 per
+1000 iterations in each parameter. Whether it would reach the tolerance with more Adam iterations has not been
+tested, and no extrapolation is claimed. Pressure is reconstructed to about 2 percent relative L2 while the
+parameters are still 30 percent off, which again shows that pressure accuracy is not evidence of parameter
+recovery in this benchmark.
+
+**Cost.** Constant k 406.9 ± 3.3 s per seed (about 8.1 ms per iteration), spatial k 492.0 ± 3.3 s (about
+9.8 ms per iteration), one T4, CUDA-synchronised. Kernel v3 used about 75 minutes of GPU time in total.
+
+## Open work
+
+1. **Spatial convergence.** Options, each a decision rather than a default: (a) more Adam iterations at the
+   same settings, a pure extension of Deviation 1; (b) Adam followed by L-BFGS refinement, which is common
+   DeepXDE practice but changes the method; (c) a learning-rate schedule. None has been run.
+2. **Sensitivity study** (criterion 5) still postponed until the spatial baseline converges. The constant
+   benchmark could run its two sensitivity rows now at 50 000 iterations, but that changes the
+   pre-registered 10 000-iteration budget and is left for the same decision.
+3. **Separating initialisation from sensor layout** (`--observation-seed`) is part of the sensitivity
+   study and has not been run.
 
 ## Deviations
 

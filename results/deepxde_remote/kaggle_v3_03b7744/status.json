@@ -1,0 +1,50 @@
+{
+  "ref": "03b7744f9dc70cebfe6010992901c6f97badb6c5",
+  "stage": "convergence",
+  "steps": {
+    "clone": {
+      "returncode": 0,
+      "seconds": 1.2,
+      "command": "git clone --quiet https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git /kaggle/working/repo"
+    },
+    "checkout": {
+      "returncode": 0,
+      "seconds": 0.0,
+      "command": "git -C /kaggle/working/repo checkout --quiet 03b7744f9dc70cebfe6010992901c6f97badb6c5"
+    },
+    "install_deepxde": {
+      "returncode": 0,
+      "seconds": 5.9,
+      "command": "/usr/bin/python3 -m pip install --quiet deepxde==1.15.0"
+    },
+    "nvidia_smi": {
+      "returncode": 0,
+      "seconds": 0.4,
+      "command": "nvidia-smi"
+    },
+    "pip_freeze": {
+      "returncode": 0,
+      "seconds": 1.7,
+      "command": "/usr/bin/python3 -m pip freeze"
+    },
+    "smoke": {
+      "returncode": 0,
+      "seconds": 31.7,
+      "command": "/usr/bin/python3 -m remote.smoke_deepxde_inverse --iterations 2 --output-dir /kaggle/working/outputs/results/smoke"
+    },
+    "constant_convergence50k": {
+      "returncode": 0,
+      "seconds": 2037.8,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse --iterations 50000 --seeds 42 0 1 2 3 --trace-every 500 --output /kaggle/working/outputs/results/constant_convergence50k.json"
+    },
+    "spatial_convergence50k": {
+      "returncode": 0,
+      "seconds": 2463.1,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 50000 --seeds 42 0 1 2 3 --observations 128 --trace-every 500 --output /kaggle/working/outputs/results/spatial_convergence50k.json"
+    }
+  },
+  "source": "https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git",
+  "head": "03b7744f9dc70cebfe6010992901c6f97badb6c5",
+  "smoke_passed": true,
+  "finished_utc": "2026-10-18T22:12:13Z"
+}
