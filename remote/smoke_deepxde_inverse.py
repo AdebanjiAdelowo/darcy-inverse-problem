@@ -25,7 +25,9 @@ def validate_record(benchmark, record):
     import math
     if record.get("seed") != 42:
         raise ValueError("incorrect seed")
-    keys = (("k_estimated", "relative_k_error", "wall_seconds")
+    if record.get("status") != "ok":
+        raise ValueError(f"run status {record.get('status')!r}: {record.get('error', '')}")
+    keys = (("k_estimated", "relative_k_error", "pressure_relative_l2", "wall_seconds")
             if benchmark == "constant" else
             ("alpha_estimated", "beta_estimated", "pressure_relative_l2",
              "permeability_relative_l2", "wall_seconds"))
@@ -61,7 +63,7 @@ def main():
             print(result.stdout[-4000:], file=sys.stderr)
             print(result.stderr[-4000:], file=sys.stderr)
             raise RuntimeError(f"{benchmark} inverse smoke failed")
-        rows = json.loads(output.read_text())
+        rows = json.loads(output.read_text())["records"]
         if len(rows) != 1:
             raise ValueError("expected exactly one result")
         validate_record(benchmark, rows[0])
