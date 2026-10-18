@@ -42,16 +42,22 @@ Further options for the sensitivity study: `--observations`, `--noise-std`, `--o
 
 ## Kaggle launcher
 
-`remote/kaggle_deepxde_inverse.py` is a thin script kernel that calls the commands above. Stage it outside
-the repository, set `REF` to the full 40-character SHA of a commit that is already on GitHub, and choose
-`STAGE` (`smoke`, `baseline`, or `sensitivity`). Each stage runs the smoke gate first.
+`remote/kaggle_deepxde_inverse.py` is a thin script kernel that calls the commands above. The GitHub
+repository is private, so the kernel cannot clone it anonymously and no token is placed in the kernel.
+Instead, attach a private Kaggle dataset containing `darcy-inverse-problem.bundle` (a `git bundle` of
+`main`). The launcher clones from it and checks `HEAD == REF`. Stage the launcher outside the repository,
+set `REF` to the full 40-character SHA (the bundle must contain it), and choose `STAGE` (`smoke`,
+`baseline`, or `sensitivity`). Each stage runs the smoke gate first.
 
 ```bash
 mkdir -p ~/kaggle-staging/darcy-inverse-problem/kernel && cd ~/kaggle-staging/darcy-inverse-problem/kernel
+git -C <repo> bundle create <dataset dir>/darcy-inverse-problem.bundle main
+kaggle datasets version -p <dataset dir> -m "<sha>"   # first time: kaggle datasets create -p <dataset dir>
 cp <repo>/remote/kaggle_deepxde_inverse.py .
 sed -i '' "s/<40-character commit SHA>/$(git -C <repo> rev-parse HEAD)/; s/^STAGE = .*/STAGE = \"baseline\"/" kaggle_deepxde_inverse.py
 # kernel-metadata.json: script kernel, is_private true, enable_gpu true, enable_internet true,
-# machine_shape NvidiaTeslaT4, code_file kaggle_deepxde_inverse.py
+# machine_shape NvidiaTeslaT4, code_file kaggle_deepxde_inverse.py,
+# dataset_sources ["<user>/darcy-inverse-problem-src"]
 kaggle kernels push -p .
 kaggle kernels status <user>/<kernel-slug>
 kaggle kernels output <user>/<kernel-slug> -p <new empty directory>

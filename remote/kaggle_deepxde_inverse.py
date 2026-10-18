@@ -1,7 +1,9 @@
 """Thin Kaggle launcher for the DeepXDE inverse-PINN smoke gate and experiments.
 
 Runs as a Kaggle *script* kernel (GPU + Internet enabled). It clones this
-repository at a pinned commit, installs a pinned DeepXDE, records the
+repository at a pinned commit from a ``git bundle`` attached as a private
+Kaggle dataset (the GitHub repository is private, and no token is ever put in
+a kernel), falling back to the GitHub URL only when no bundle is attached, installs a pinned DeepXDE, records the
 environment, runs the smoke gate and, only if it passes, the requested stage.
 All science lives in the repository's ``remote/`` runners; this file only
 orchestrates. Every outcome is written to /kaggle/working/outputs; gates skip
@@ -22,6 +24,7 @@ import time
 REF = "<40-character commit SHA>"
 STAGE = "baseline"  # "smoke" | "baseline" | "sensitivity"
 REPO = "https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git"
+BUNDLE_NAME = "darcy-inverse-problem.bundle"
 DEEPXDE = "deepxde==1.15.0"
 
 WORK = Path("/kaggle/working")
@@ -92,7 +95,10 @@ def main():
         return
 
     shutil.rmtree(CLONE, ignore_errors=True)
-    if not (step("clone", ["git", "clone", "--quiet", REPO, str(CLONE)])
+    bundles = sorted(Path("/kaggle/input").rglob(BUNDLE_NAME))
+    source = str(bundles[0]) if bundles else REPO
+    status["source"] = source
+    if not (step("clone", ["git", "clone", "--quiet", source, str(CLONE)])
             and step("checkout", ["git", "-C", str(CLONE), "checkout", "--quiet", REF])):
         return
     head = subprocess.run(["git", "-C", str(CLONE), "rev-parse", "HEAD"],
