@@ -41,3 +41,10 @@ def test_kaggle_launcher_commands_parse():
     for name, (module, *args) in {**launcher.BASELINE, **launcher.SENSITIVITY}.items():
         parsed = parsers[module]([*args, "--output", f"{name}.json"])
         assert parsed.iterations == 10000 and parsed.seeds == [42, 0, 1, 2, 3]
+    for name, (module, *args) in launcher.CONVERGENCE.items():
+        parsed = parsers[module]([*args, "--output", f"{name}.json"])
+        base = parsers[module]([*launcher.BASELINE[name.replace("_convergence50k", "_baseline")][1:],
+                                "--output", "x.json"])
+        assert parsed.iterations == 50000 and parsed.trace_every == 500
+        assert {**vars(parsed), "iterations": 0, "trace_every": 0, "output": ""} == \
+            {**vars(base), "iterations": 0, "trace_every": 0, "output": ""}

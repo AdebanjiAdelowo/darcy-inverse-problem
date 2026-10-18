@@ -22,7 +22,7 @@ import sys
 import time
 
 REF = "<40-character commit SHA>"
-STAGE = "baseline"  # "smoke" | "baseline" | "sensitivity"
+STAGE = "baseline"  # "smoke" | "baseline" | "convergence" | "sensitivity"
 REPO = "https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git"
 BUNDLE_NAME = "darcy-inverse-problem.bundle"
 DEEPXDE = "deepxde==1.15.0"
@@ -37,6 +37,15 @@ BASELINE = {
                           "--seeds", *SEEDS],
     "spatial_baseline": ["remote.run_deepxde_inverse_spatial", "--iterations", "10000",
                          "--seeds", *SEEDS, "--observations", "128"],
+}
+
+# Post-hoc convergence diagnostic (docs/DEEPXDE_REMOTE_RESULTS.md, Deviations 1):
+# the baseline with 50 000 iterations; nothing else changes.
+CONVERGENCE = {
+    name.replace("_baseline", "_convergence50k"):
+        [module, *[("50000" if prev == "--iterations" else a)
+                   for prev, a in zip([None, *args], args)], "--trace-every", "500"]
+    for name, (module, *args) in BASELINE.items()
 }
 
 # Pre-registered one-factor-at-a-time sensitivity study around the spatial
@@ -89,7 +98,7 @@ def main():
         save_status()
         print(status["blocked"])
         return
-    if STAGE not in ("smoke", "baseline", "sensitivity"):
+    if STAGE not in ("smoke", "baseline", "convergence", "sensitivity"):
         status["blocked"] = f"unknown STAGE {STAGE!r}"
         save_status()
         return
@@ -126,7 +135,8 @@ def main():
     if not smoke_ok or STAGE == "smoke":
         return
 
-    plan = BASELINE if STAGE == "baseline" else SENSITIVITY
+    plan = {"baseline": BASELINE, "convergence": CONVERGENCE,
+            "sensitivity": SENSITIVITY}[STAGE]
     for name, (module, *args) in plan.items():
         step(name, [sys.executable, "-m", module, *args, "--output",
                     str(results / f"{name}.json")], cwd=CLONE, env=env)
