@@ -26,7 +26,7 @@ jobs:
           auto-activate-base: false
       - name: Syntax check
         shell: bash -el {0}
-        run: python -m compileall -q src tests scripts
+        run: python -m compileall -q src tests scripts remote
       - name: Scientific unit tests
         shell: bash -el {0}
         run: |
