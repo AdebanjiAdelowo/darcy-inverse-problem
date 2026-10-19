@@ -1,9 +1,9 @@
 # DeepXDE inverse-PINN benchmarks: remote experiments
 
-Status: **smoke gate PASSED on CUDA for both benchmarks. 10 000-iteration baseline COMPLETED (5/5 seeds,
-both benchmarks) and did NOT recover the parameters because training had not converged. Post-hoc
-50 000-iteration diagnostic COMPLETED: constant k RECOVERED, spatial k still NOT recovered and still
-converging. Sensitivity study NOT RUN.**
+Status: **smoke gate PASSED on CUDA (constant, spatial, and spatial with L-BFGS). Constant k: RECOVERED
+with 50 000 Adam iterations. Spatial k: NOT recovered with Adam alone (10 000 or 50 000 iterations);
+RECOVERED with the explicit `adam+lbfgs` configuration (50 000 Adam iterations, then L-BFGS), 5/5 seeds
+below the pre-registered tolerance. Sensitivity study: protocol fixed (Deviation 4), runs PENDING.**
 
 The protocol and criteria below were committed (656c591) before any GPU run and are unchanged. Deviations
 are listed under *Deviations*.
@@ -86,6 +86,7 @@ Exact steps are in `docs/CLAUDE_CODE_DEEPXDE_REMOTE_HANDOFF.md`.
 | v1 | 656c591 | Stopped at `git clone`: the GitHub repository was private at the time and anonymous clone failed. Nothing ran. Fixed in 5b63bb6 (clone from a git bundle). |
 | v2 | 5b63bb6 | All steps exit 0: smoke gate, constant baseline, spatial baseline. Evidence in `results/deepxde_remote/kaggle_v2_5b63bb6/`. |
 | v3 | 03b7744 | All steps exit 0: smoke gate, 50 000-iteration diagnostic for both benchmarks (Deviation 1). Cloned from the now-public GitHub repository. Evidence in `results/deepxde_remote/kaggle_v3_03b7744/`. |
+| v4 | 5d710f7 | All steps exit 0: smoke gate (3 cases), `adam+lbfgs` spatial run (Deviation 3). Evidence in `results/deepxde_remote/kaggle_v4_5d710f7/`; the 10 network/parameter state files are not committed, their SHA-256 hashes are in `STATES_NOT_COMMITTED.sha256`. |
 
 Environment (v2, from the result JSON and `nvidia-smi`): Tesla T4 (2 visible, `cuda:0` used),
 Python 3.13.15, PyTorch 2.11.0+cu128 (CUDA 12.8), DeepXDE 1.15.0, NumPy 2.1.3, Kaggle Linux image.
@@ -204,16 +205,74 @@ recovery in this benchmark.
 **Cost.** Constant k 406.9 ± 3.3 s per seed (about 8.1 ms per iteration), spatial k 492.0 ± 3.3 s (about
 9.8 ms per iteration), one T4, CUDA-synchronised. Kernel v3 used about 75 minutes of GPU time in total.
 
+### Adam + L-BFGS refinement (Deviation 3)
+
+**Smoke.** `PASS spatial_lbfgs inverse smoke` (2 Adam iterations, then 20 L-BFGS iterations), together with
+the two Adam-only cases.
+
+**Starting state.** The Adam stage was rerun from scratch because no network checkpoint existed. Its
+recorded parameter values are identical to kernel v3 at all 101 checkpoints (every 500 iterations, maximum
+absolute difference 0), and its final alpha, beta, pressure and permeability errors are identical to v3 for
+every seed. Refinement therefore starts from the documented 50 000-iteration Adam result.
+
+**Spatial k with `adam+lbfgs`: recovered** under the pre-registered criterion: the relative parameter error
+is below 1e-2 for every seed (maximum 5.1e-3).
+
+| seed | stage | alpha | beta | parameter rel. error | pressure rel. L2 | k-field rel. L2 | total train loss |
+|---|---|---|---|---|---|---|---|
+| 42 | Adam 50k | 0.3642 | -0.1567 | 0.339 | 0.0204 | 0.0586 | 2.33e-04 |
+| | + L-BFGS | 0.4998 | -0.2990 | 1.75e-03 | 7.82e-04 | 4.62e-04 | 6.77e-06 |
+| 0 | Adam 50k | 0.3839 | -0.1721 | 0.296 | 0.0176 | 0.0509 | 1.99e-04 |
+| | + L-BFGS | 0.5012 | -0.3011 | 2.79e-03 | 1.04e-03 | 5.35e-04 | 3.37e-06 |
+| 1 | Adam 50k | 0.3776 | -0.1685 | 0.308 | 0.0212 | 0.0532 | 3.59e-03 |
+| | + L-BFGS | 0.5020 | -0.3022 | 5.09e-03 | 9.86e-04 | 8.92e-04 | 3.94e-06 |
+| 2 | Adam 50k | 0.3684 | -0.1590 | 0.331 | 0.0211 | 0.0570 | 1.04e-03 |
+| | + L-BFGS | 0.5002 | -0.3000 | 3.08e-04 | 4.43e-04 | 1.19e-04 | 4.13e-06 |
+| 3 | Adam 50k | 0.4094 | -0.2071 | 0.223 | 0.0130 | 0.0390 | 1.41e-04 |
+| | + L-BFGS | 0.4998 | -0.2999 | 3.68e-04 | 6.37e-04 | 1.09e-04 | 3.72e-06 |
+
+Over seeds after refinement: alpha = 0.5006 ± 0.0010 (range 0.4998 to 0.5020), beta = -0.3004 ± 0.0012
+(range -0.3022 to -0.2990); maximum absolute error 2.0e-3 in alpha and 2.2e-3 in beta. Parameter relative
+error 2.1e-3 ± 2.0e-3 (median 1.8e-3) against 0.30 ± 0.05 for the same runs before refinement. Pressure
+relative L2 7.8e-4 ± 2.5e-4 against 1.9e-2; permeability-field relative L2 4.2e-4 ± 3.3e-4 against 5.2e-2.
+
+| seed | L-BFGS iterations | function evaluations | final max abs gradient | L-BFGS s | Adam s |
+|---|---|---|---|---|---|
+| 42 | 488 | 513 | 1.1e-04 | 12.2 | 513 |
+| 0 | 615 | 649 | 3.9e-05 | 15.8 | 513 |
+| 1 | 579 | 609 | 9.1e-05 | 14.7 | 520 |
+| 2 | 665 | 708 | 7.9e-05 | 16.9 | 516 |
+| 3 | 620 | 652 | 4.8e-05 | 15.8 | 516 |
+
+**Stopping.** In every seed L-BFGS ended inside its first 1000-iteration step, far below `maxiter`
+(15 000) and `maxfun` (18 750), and without reaching `gtol` (1e-8); the last max absolute gradient was 3.9e-5
+to 1.1e-4. `torch.optim.LBFGS` returned early, which with `ftol = 0` happens when the line search can no
+longer make progress; DeepXDE's documentation notes that this is expected in float32. The stop is therefore
+a precision-limited stall, not convergence to the gradient tolerance. All logged function values and
+parameters are finite.
+
+**Independent check.** The saved post-refinement states were loaded on CPU into freshly built models. The
+stored alpha and beta equal the reported estimates exactly, and the recomputed pressure and permeability
+errors on the 41 x 41 grid agree with the GPU values to the printed precision (6 decimals for pressure, 4
+significant digits for permeability).
+
+**Interpretation, stated narrowly.** On this benchmark and under this protocol, a short L-BFGS refinement
+(about 600 iterations, 15 s per seed on a T4) after 50 000 Adam iterations recovers both parameters to about
+0.2 percent, while the same Adam state alone was 30 percent off. Total training loss fell by one to three
+orders of magnitude during refinement, but the recovery claim rests on the parameter errors, not on the
+loss. Whether a shorter Adam stage would suffice before L-BFGS has not been tested. These are noise-free
+observations; the noisy case is part of the sensitivity study.
+
+**Cost.** Per seed on one T4: Adam stage 515 ± 3 s, L-BFGS 15.1 ± 1.8 s, total 531 ± 3 s. The Adam stage
+took about 5 percent longer than in v3 (492 s) on the same nominal hardware and identical software, an
+example of session-to-session timing variation.
+
 ## Open work
 
-1. **Spatial convergence.** Options were (a) more Adam iterations, (b) Adam followed by L-BFGS
-   refinement, (c) a learning-rate schedule. The user chose (b) on 2026-10-19; protocol below
-   (Deviation 3).
-2. **Sensitivity study** (criterion 5) still postponed until the spatial baseline converges. The constant
-   benchmark could run its two sensitivity rows now at 50 000 iterations, but that changes the
-   pre-registered 10 000-iteration budget and is left for the same decision.
-3. **Separating initialisation from sensor layout** (`--observation-seed`) is part of the sensitivity
-   study and has not been run.
+1. **Spatial convergence.** Resolved for this benchmark by the user's choice (b), Adam followed by
+   L-BFGS (Deviation 3, results above).
+2. **Sensitivity study** (criterion 5): protocol fixed below (Deviation 4); runs pending.
+3. **Shorter Adam stages before L-BFGS** and float64 L-BFGS are untested.
 
 ## Adam + L-BFGS refinement protocol (Deviation 3, fixed before the run)
 
@@ -257,6 +316,31 @@ error is below 1e-2 for every seed. Training loss is reported but is not evidenc
 - The sensitivity study (criterion 5) runs only if `adam+lbfgs` meets criterion 3. It then uses `adam+lbfgs`,
   with the network-initialisation seed and the sensor-layout seed varied separately.
 
+## Sensitivity study protocol (Deviation 4, fixed before the runs)
+
+The pre-registered matrix (criterion 5) assumed the 10 000-iteration Adam baseline, which is now known not
+to converge. Each row therefore uses the configuration that met criterion 3 for its benchmark, and changes
+exactly one factor (checked by a unit test):
+
+- **Spatial rows: `adam+lbfgs`** as in Deviation 3. Sensor count 16, 32, 64, 256 (baseline 128).
+  Observation noise standard deviation 0.01 and 0.05 (absolute; pressure peak 1). Far initial guess
+  (alpha = -1, beta = 1).
+- **Separating initialisation from sensor layout** (added at the user's request). *Initialisation only*:
+  sensor layout fixed by `--observation-seed 42`, network seeds 42, 0, 1, 2, 3. *Layout only*: network fixed
+  by `--network-seed 42`, observation seeds 42, 0, 1, 2, 3. The baseline varies both together. In both rows
+  seed 42 is the baseline seed-42 run and must reproduce it.
+- **Constant rows: 50 000 Adam iterations** as in Deviation 1, with noise 0.01, and with initial k = 5.
+
+Every row runs seeds 42, 0, 1, 2, 3 and reports criterion 3's label, plus mean, standard deviation, median,
+minimum and maximum of every metric. The expectations stated in criterion 5 are unchanged: error grows as
+sensors decrease and as noise increases. No prediction is made for the initialisation rows. With noise, the
+data no longer determine the truth exactly, so criterion 3 is reported for those rows as a description,
+not as a pass or fail of the method.
+
+Execution: launcher stages `sensitivity_a` (sensor counts, initialisation only, layout only; estimated
+4.4 GPU hours) and `sensitivity_b` (noise, far initial guess, constant rows; estimated 3.4 GPU hours). The
+estimates come from the measured 531 s per spatial seed and 407 s per constant seed.
+
 ## Deviations
 
 1. **Post-hoc convergence diagnostic (added after the baseline was seen).** Not part of the original
@@ -272,3 +356,5 @@ error is below 1e-2 for every seed. Training loss is reported but is not evidenc
    explicit decision.
 3. **L-BFGS refinement** (`adam+lbfgs`), chosen by the user after the 50 000-iteration diagnostic; protocol
    in the section above.
+4. **Sensitivity study configuration**: validated configurations instead of the 10 000-iteration budget,
+   and an added layout-only row; see *Sensitivity study protocol*.
