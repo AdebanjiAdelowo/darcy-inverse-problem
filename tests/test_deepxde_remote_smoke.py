@@ -66,3 +66,31 @@ def test_kaggle_lbfgs_stage_is_the_convergence_run_plus_refinement():
     assert lbfgs.lbfgs_maxiter == 15000 and adam.lbfgs_maxiter == 0
     ignore = {"lbfgs_maxiter": 0, "lbfgs_record_every": 0, "save_state": None, "output": ""}
     assert {**vars(lbfgs), **ignore} == {**vars(adam), **ignore}
+
+
+def test_sensitivity_rows_change_one_factor_from_the_validated_configs():
+    from remote import kaggle_deepxde_inverse as launcher
+    from remote.run_deepxde_inverse import parse_args as parse_constant
+    from remote.run_deepxde_inverse_spatial import parse_args as parse_spatial
+    lbfgs = vars(parse_spatial([*launcher.LBFGS["spatial_adam50k_lbfgs15k"][1:], "--output", "x"]))
+    lbfgs["save_state"] = None
+    const = vars(parse_constant([*launcher.CONVERGENCE["constant_convergence50k"][1:],
+                                 "--output", "x"]))
+    expected = {
+        "spatial_lbfgs_obs16": {"observations": 16}, "spatial_lbfgs_obs32": {"observations": 32},
+        "spatial_lbfgs_obs64": {"observations": 64}, "spatial_lbfgs_obs256": {"observations": 256},
+        "spatial_lbfgs_init_only": {"observation_seed": 42},
+        "spatial_lbfgs_layout_only": {"network_seed": 42},
+        "spatial_lbfgs_noise0p01": {"noise_std": 0.01}, "spatial_lbfgs_noise0p05": {"noise_std": 0.05},
+        "spatial_lbfgs_init_far": {"alpha_initial": -1.0, "beta_initial": 1.0},
+        "constant_adam50k_noise0p01": {"noise_std": 0.01},
+        "constant_adam50k_init_high": {"k_initial": 5.0},
+    }
+    rows = {**launcher.SENSITIVITY_A, **launcher.SENSITIVITY_B}
+    assert set(rows) == set(expected)
+    for name, (module, *args) in rows.items():
+        assert args.count("--observations") <= 1
+        spatial = module.endswith("_spatial")
+        parsed = vars((parse_spatial if spatial else parse_constant)([*args, "--output", "x"]))
+        assert {k: v for k, v in parsed.items() if v != (lbfgs if spatial else const)[k]} == \
+            expected[name], name

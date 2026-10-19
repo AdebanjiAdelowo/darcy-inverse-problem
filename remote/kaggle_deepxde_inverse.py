@@ -22,7 +22,7 @@ import sys
 import time
 
 REF = "<40-character commit SHA>"
-STAGE = "baseline"  # "smoke" | "baseline" | "convergence" | "lbfgs" | "sensitivity"
+STAGE = "baseline"  # smoke | baseline | convergence | lbfgs | sensitivity_a | sensitivity_b
 REPO = "https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git"
 BUNDLE_NAME = "darcy-inverse-problem.bundle"
 DEEPXDE = "deepxde==1.15.0"
@@ -57,8 +57,9 @@ LBFGS = {
         "--lbfgs-record-every", "10", "--save-state", str(OUT / "states")],
 }
 
-# Pre-registered one-factor-at-a-time sensitivity study around the spatial
-# baseline (docs/DEEPXDE_REMOTE_RESULTS.md). Runs only with STAGE="sensitivity".
+# Pre-registered one-factor-at-a-time sensitivity matrix at the original 10 000
+# Adam iterations. Kept for provenance only and no longer runnable: that budget
+# does not converge (docs/DEEPXDE_REMOTE_RESULTS.md, Deviation 4).
 SENSITIVITY = {
     **{f"spatial_obs{n}": ["remote.run_deepxde_inverse_spatial", "--iterations", "10000",
                            "--seeds", *SEEDS, "--observations", str(n)]
@@ -78,6 +79,32 @@ SENSITIVITY = {
     "constant_init_high": ["remote.run_deepxde_inverse", "--iterations", "10000",
                            "--seeds", *SEEDS, "--k-initial", "5.0"],
 }
+
+# Sensitivity study with the validated configurations (Deviation 4): spatial
+# rows use adam+lbfgs exactly as in LBFGS; constant rows use 50 000 Adam
+# iterations as in CONVERGENCE. One factor changes per row.
+def _spatial(observations="128", *extra):
+    """The LBFGS-stage command with one sensor count and no --save-state."""
+    base = LBFGS["spatial_adam50k_lbfgs15k"]
+    base = base[:base.index("--save-state")]
+    i = base.index("--observations")
+    return [*base[:i], *base[i + 2:], "--observations", observations, *extra]
+
+
+_CONSTANT = CONVERGENCE["constant_convergence50k"]
+SENSITIVITY_A = {
+    **{f"spatial_lbfgs_obs{n}": _spatial(str(n)) for n in (16, 32, 64, 256)},
+    "spatial_lbfgs_init_only": _spatial("128", "--observation-seed", "42"),
+    "spatial_lbfgs_layout_only": _spatial("128", "--network-seed", "42"),
+}
+SENSITIVITY_B = {
+    **{f"spatial_lbfgs_noise{tag}": _spatial("128", "--noise-std", sigma)
+       for tag, sigma in (("0p01", "0.01"), ("0p05", "0.05"))},
+    "spatial_lbfgs_init_far": _spatial("128", "--alpha-initial", "-1.0", "--beta-initial", "1.0"),
+    "constant_adam50k_noise0p01": [*_CONSTANT, "--noise-std", "0.01"],
+    "constant_adam50k_init_high": [*_CONSTANT, "--k-initial", "5.0"],
+}
+STAGES = ("smoke", "baseline", "convergence", "lbfgs", "sensitivity_a", "sensitivity_b")
 
 status = {"ref": REF, "stage": STAGE, "steps": {}}
 
@@ -107,7 +134,7 @@ def main():
         save_status()
         print(status["blocked"])
         return
-    if STAGE not in ("smoke", "baseline", "convergence", "lbfgs", "sensitivity"):
+    if STAGE not in STAGES:
         status["blocked"] = f"unknown STAGE {STAGE!r}"
         save_status()
         return
@@ -138,7 +165,7 @@ def main():
     results.mkdir(exist_ok=True)
     smoke_ok = step("smoke", [sys.executable, "-m", "remote.smoke_deepxde_inverse",
                               "--iterations", "2", "--output-dir", str(results / "smoke"),
-                              *(["--include-lbfgs"] if STAGE == "lbfgs" else [])],
+                              *(["--include-lbfgs"] if STAGE in STAGES[3:] else [])],
                     cwd=CLONE, env=env)
     status["smoke_passed"] = smoke_ok
     save_status()
@@ -146,7 +173,7 @@ def main():
         return
 
     plan = {"baseline": BASELINE, "convergence": CONVERGENCE, "lbfgs": LBFGS,
-            "sensitivity": SENSITIVITY}[STAGE]
+            "sensitivity_a": SENSITIVITY_A, "sensitivity_b": SENSITIVITY_B}[STAGE]
     for name, (module, *args) in plan.items():
         step(name, [sys.executable, "-m", module, *args, "--output",
                     str(results / f"{name}.json")], cwd=CLONE, env=env)

@@ -23,6 +23,9 @@ def parse_args(argv=None):
     parser.add_argument("--beta-initial", type=float, default=0.0)
     parser.add_argument("--observation-seed", type=int, default=None,
                         help="fix sensor layout across seeds (default: layout follows --seeds)")
+    parser.add_argument("--network-seed", type=int, default=None,
+                        help="fix network initialisation across seeds; --seeds then vary only "
+                             "the sensor layout (default: both follow --seeds)")
     parser.add_argument("--trace-every", type=int, default=100)
     parser.add_argument("--lbfgs-maxiter", type=int, default=0,
                         help="0 (default): Adam only. >0: explicit 'adam+lbfgs' configuration, "
@@ -37,6 +40,8 @@ def parse_args(argv=None):
         raise ValueError("iterations, observations and trace-every must be positive")
     if args.noise_std < 0 or len(set(args.seeds)) != len(args.seeds):
         raise ValueError("noise-std must be non-negative and seeds unique")
+    if args.network_seed is not None and args.observation_seed is not None:
+        raise ValueError("fix either --network-seed or --observation-seed, not both")
     if args.lbfgs_maxiter < 0 or args.lbfgs_record_every < 1:
         raise ValueError("lbfgs-maxiter must be >= 0 and lbfgs-record-every positive")
     return args
@@ -73,9 +78,12 @@ def main(argv=None):
                         "config": config}, directory / f"seed{seed}_{stage}.pt")
 
     def fit(seed):
+        network_seed = seed if args.network_seed is None else args.network_seed
+        observation_seed = (args.observation_seed if args.observation_seed is not None
+                            else seed)
         model, alpha, beta = build_model(
-            seed=seed, observations=args.observations, noise_std=args.noise_std,
-            observation_seed=args.observation_seed, alpha_initial=args.alpha_initial,
+            seed=network_seed, observations=args.observations, noise_std=args.noise_std,
+            observation_seed=observation_seed, alpha_initial=args.alpha_initial,
             beta_initial=args.beta_initial)
         trace = parameter_trace({"alpha": alpha, "beta": beta}, period=args.trace_every)
         start = time.perf_counter()
@@ -83,7 +91,9 @@ def main(argv=None):
                     display_every=max(1, args.iterations // 10), callbacks=[trace])
         synchronize()
         adam_seconds = time.perf_counter() - start
-        record = {"seed": seed, "alpha_true": ALPHA_TRUE, "beta_true": BETA_TRUE,
+        record = {"seed": seed, "network_seed": network_seed,
+                  "observation_seed": observation_seed,
+                  "alpha_true": ALPHA_TRUE, "beta_true": BETA_TRUE,
                   **evaluate(model, alpha, beta), "parameter_trace": trace.trace}
         finite = ["alpha_estimated", "beta_estimated", "pressure_relative_l2",
                   "permeability_relative_l2"]
@@ -116,7 +126,7 @@ def main(argv=None):
               "iterations": args.iterations, "seeds": args.seeds,
               "observations": args.observations, "noise_std": args.noise_std,
               "alpha_initial": args.alpha_initial, "beta_initial": args.beta_initial,
-              "observation_seed": args.observation_seed,
+              "observation_seed": args.observation_seed, "network_seed": args.network_seed,
               "evaluation_grid": "41x41 uniform on [0,1]^2", "trace_every": args.trace_every}
     records = []
     for seed in args.seeds:

@@ -278,3 +278,24 @@ def test_lbfgs_options_respect_maxiter_and_keep_defaults(dde_cpu):
     default = set_lbfgs_options()
     assert (default["maxiter"], default["iter_per_step"], default["fun_per_step"]) == \
         (15000, 1000, 1250)
+
+
+def test_network_seed_fixes_initialisation_and_varies_only_layout(dde_cpu, tmp_path, monkeypatch):
+    import json
+    from remote import run_deepxde_inverse_spatial as runner
+    monkeypatch.setattr(runner, "require_remote_cuda", lambda: None)
+    out = tmp_path / "r.json"
+    runner.main(["--iterations", "1", "--seeds", "1", "2", "--network-seed", "7",
+                 "--output", str(out)])
+    records = json.loads(out.read_text())["records"]
+    assert [(r["network_seed"], r["observation_seed"]) for r in records] == [(7, 1), (7, 2)]
+    m1, _, _ = spatial.build_model(seed=7, observation_seed=1)
+    m2, _, _ = spatial.build_model(seed=7, observation_seed=2)
+    assert torch_equal_params(m1, m2)
+    assert not np.array_equal(m1.data.bcs[1].points, m2.data.bcs[1].points)
+    with pytest.raises(ValueError):
+        runner.parse_args(["--network-seed", "1", "--observation-seed", "2"])
+
+
+def torch_equal_params(m1, m2):
+    return all(bool((a == b).all()) for a, b in zip(m1.net.parameters(), m2.net.parameters()))
