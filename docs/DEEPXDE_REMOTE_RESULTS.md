@@ -206,14 +206,56 @@ recovery in this benchmark.
 
 ## Open work
 
-1. **Spatial convergence.** Options, each a decision rather than a default: (a) more Adam iterations at the
-   same settings, a pure extension of Deviation 1; (b) Adam followed by L-BFGS refinement, which is common
-   DeepXDE practice but changes the method; (c) a learning-rate schedule. None has been run.
+1. **Spatial convergence.** Options were (a) more Adam iterations, (b) Adam followed by L-BFGS
+   refinement, (c) a learning-rate schedule. The user chose (b) on 2026-10-19; protocol below
+   (Deviation 3).
 2. **Sensitivity study** (criterion 5) still postponed until the spatial baseline converges. The constant
    benchmark could run its two sensitivity rows now at 50 000 iterations, but that changes the
    pre-registered 10 000-iteration budget and is left for the same decision.
 3. **Separating initialisation from sensor layout** (`--observation-seed`) is part of the sensitivity
    study and has not been run.
+
+## Adam + L-BFGS refinement protocol (Deviation 3, fixed before the run)
+
+**Configuration `adam+lbfgs`**, separate from and not replacing the Adam-only default: the spatial
+benchmark exactly as in the 50 000-iteration diagnostic (same PDE, network, data, sensor layouts, seeds 42,
+0, 1, 2, 3, loss definition with unit weights, evaluation grid), then DeepXDE's PyTorch L-BFGS
+(`torch.optim.LBFGS`, strong-Wolfe line search) on the same loss and variables with DeepXDE's default
+options: history 100, `gtol` 1e-8, `ftol` 0, `maxiter` 15 000, `maxfun` 18 750, up to 50 line-search steps,
+float32. Runner flag `--lbfgs-maxiter 15000`; launcher stage `lbfgs`.
+
+**Why the Adam stage is rerun.** Kernel v3 stored parameter traces and metrics but no network weights, so
+there is no complete state to resume from. The Adam stage is therefore reproduced from scratch in the same
+process. As a check that refinement starts from the same state as the documented Adam-only result, the
+Adam-stage trace is compared with kernel v3 at all 101 shared checkpoints (every 500 iterations); any
+difference is reported. The Adam-only metrics of the same run (`adam_stage` in each record) are the primary
+comparison, and kernel v3 is the historical reference. Network and parameter state after each stage is
+saved to the kernel output (`--save-state`) and is not committed.
+
+**Recorded.** Per seed: Adam-stage and final estimates and errors, L-BFGS iterations, function
+evaluations, stop reason, final max absolute gradient, total loss at every 10th function evaluation,
+parameter values per DeepXDE outer step (at most 1000 L-BFGS iterations each), final loss components, and
+separate synchronised times for the two stages.
+
+**DeepXDE detail found while implementing.** DeepXDE 1.15 computes the PyTorch per-step limits
+(`iter_per_step = min(1000, maxiter)`, `fun_per_step`) only at import, from the default options; a later
+`set_LBFGS_options(maxiter=...)` does not update them, so budgets below 1000 or not a multiple of 1000 are
+overshot. `src/deepxde_lbfgs.py` recomputes them with DeepXDE's formula. For `maxiter` 15 000 the values
+(1000, 1250) are the defaults, so the full run is unaffected; the 20-iteration smoke case is. Also, when
+L-BFGS stops early, DeepXDE leaves its loop before callbacks and loss updates run; the final point and loss
+components are recorded explicitly.
+
+**Acceptance (unchanged).** Criterion 3 as pre-registered: *recovered* only if the relative parameter
+error is below 1e-2 for every seed. Training loss is reported but is not evidence of recovery.
+
+**Decision rules fixed in advance.**
+- Smoke first: the 2-iteration gate for all three cases (constant, spatial, spatial with 20 L-BFGS
+  iterations) must pass before the full run.
+- If refinement does **not** meet criterion 3, no further GPU time is spent. The next step is an analysis of
+  identifiability, loss-component balance and gradient behaviour, using the saved states on CPU (loss and
+  gradient evaluations only, no training).
+- The sensitivity study (criterion 5) runs only if `adam+lbfgs` meets criterion 3. It then uses `adam+lbfgs`,
+  with the network-initialisation seed and the sensor-layout seed varied separately.
 
 ## Deviations
 
@@ -228,3 +270,5 @@ recovery in this benchmark.
    to sensors, noise or initialisation, so it is not run until a converged budget or optimiser is agreed.
    Changing the optimiser (for example Adam followed by L-BFGS) would be a change of method and is left as an
    explicit decision.
+3. **L-BFGS refinement** (`adam+lbfgs`), chosen by the user after the 50 000-iteration diagnostic; protocol
+   in the section above.
