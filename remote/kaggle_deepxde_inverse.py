@@ -22,7 +22,7 @@ import sys
 import time
 
 REF = "<40-character commit SHA>"
-STAGE = "baseline"  # "smoke" | "baseline" | "convergence" | "sensitivity"
+STAGE = "baseline"  # "smoke" | "baseline" | "convergence" | "lbfgs" | "sensitivity"
 REPO = "https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git"
 BUNDLE_NAME = "darcy-inverse-problem.bundle"
 DEEPXDE = "deepxde==1.15.0"
@@ -46,6 +46,15 @@ CONVERGENCE = {
         [module, *[("50000" if prev == "--iterations" else a)
                    for prev, a in zip([None, *args], args)], "--trace-every", "500"]
     for name, (module, *args) in BASELINE.items()
+}
+
+# Explicit "adam+lbfgs" configuration (docs/DEEPXDE_REMOTE_RESULTS.md, L-BFGS
+# protocol): the 50 000-iteration Adam diagnostic rerun from scratch (no network
+# checkpoint exists from kernel v3), then DeepXDE's default L-BFGS, maxiter 15000.
+LBFGS = {
+    "spatial_adam50k_lbfgs15k": [
+        *CONVERGENCE["spatial_convergence50k"], "--lbfgs-maxiter", "15000",
+        "--lbfgs-record-every", "10", "--save-state", str(OUT / "states")],
 }
 
 # Pre-registered one-factor-at-a-time sensitivity study around the spatial
@@ -98,7 +107,7 @@ def main():
         save_status()
         print(status["blocked"])
         return
-    if STAGE not in ("smoke", "baseline", "convergence", "sensitivity"):
+    if STAGE not in ("smoke", "baseline", "convergence", "lbfgs", "sensitivity"):
         status["blocked"] = f"unknown STAGE {STAGE!r}"
         save_status()
         return
@@ -128,14 +137,15 @@ def main():
     results = OUT / "results"
     results.mkdir(exist_ok=True)
     smoke_ok = step("smoke", [sys.executable, "-m", "remote.smoke_deepxde_inverse",
-                              "--iterations", "2", "--output-dir",
-                              str(results / "smoke")], cwd=CLONE, env=env)
+                              "--iterations", "2", "--output-dir", str(results / "smoke"),
+                              *(["--include-lbfgs"] if STAGE == "lbfgs" else [])],
+                    cwd=CLONE, env=env)
     status["smoke_passed"] = smoke_ok
     save_status()
     if not smoke_ok or STAGE == "smoke":
         return
 
-    plan = {"baseline": BASELINE, "convergence": CONVERGENCE,
+    plan = {"baseline": BASELINE, "convergence": CONVERGENCE, "lbfgs": LBFGS,
             "sensitivity": SENSITIVITY}[STAGE]
     for name, (module, *args) in plan.items():
         step(name, [sys.executable, "-m", module, *args, "--output",

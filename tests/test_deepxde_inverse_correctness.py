@@ -205,3 +205,76 @@ def test_deepxde_modules_import_without_fenicsx():
             "bad = [m for m in ('dolfinx', 'ufl', 'petsc4py', 'deepxde', 'torch') "
             "if m in sys.modules]; assert not bad, bad")
     subprocess.run([sys.executable, "-c", code], check=True)
+
+
+def test_lbfgs_refinement_logs_without_changing_the_optimisation(dde_cpu):
+    from src.deepxde_lbfgs import refine_lbfgs, set_lbfgs_options
+    dde, torch = dde_cpu
+
+    def adam_then_plain_lbfgs():
+        model, alpha, beta = spatial.build_model(seed=5)
+        model.train(iterations=3, display_every=1, verbose=0)
+        set_lbfgs_options(maxiter=5)
+        model.compile("L-BFGS", external_trainable_variables=[alpha, beta])
+        model.train(display_every=1, verbose=0)
+        return float(alpha.detach()), float(beta.detach())
+
+    model, alpha, beta = spatial.build_model(seed=5)
+    model.train(iterations=3, display_every=1, verbose=0)
+    adam = (float(alpha.detach()), float(beta.detach()))
+    info = refine_lbfgs(model, {"alpha": alpha, "beta": beta}, maxiter=5, record_every=2)
+    logged = (float(alpha.detach()), float(beta.detach()))
+    assert logged == adam_then_plain_lbfgs()  # the logging wrapper is read-only
+    assert logged != adam
+    assert 0 < info["lbfgs_iterations"] <= 5
+    assert info["function_evaluations"] == info["logged_evaluations"] > 0
+    assert info["finite_history"] and info["options"]["maxiter"] == 5
+    assert info["evaluation_history"]["columns"] == ["total_loss", "alpha", "beta"]
+    assert info["evaluation_history"]["index"][-1] == info["logged_evaluations"] - 1
+    assert info["start_iteration"] == 3
+
+
+def test_spatial_runner_adam_lbfgs_end_to_end_on_cpu(dde_cpu, tmp_path, monkeypatch):
+    import json
+    from remote import run_deepxde_inverse_spatial as runner
+    monkeypatch.setattr(runner, "require_remote_cuda", lambda: None)  # CPU, 2+3 iterations only
+    out = tmp_path / "r.json"
+    runner.main(["--iterations", "2", "--seeds", "42", "--lbfgs-maxiter", "3",
+                 "--trace-every", "1", "--save-state", str(tmp_path / "state"),
+                 "--output", str(out)])
+    payload = json.loads(out.read_text())
+    record = payload["records"][0]
+    assert payload["config"]["optimizer"] == "adam+lbfgs"
+    assert record["status"] == "ok" and record["parameter_trace"]["epoch"] == [0, 1, 2]
+    assert record["adam_stage"]["alpha_estimated"] == record["parameter_trace"]["alpha"][-1]
+    assert record["alpha_estimated"] == record["lbfgs"]["outer_step_trace"]["alpha"][-1]
+    assert record["lbfgs"]["outer_step_trace"]["epoch"][-1] == 2 + record["lbfgs"]["lbfgs_iterations"]
+    assert len(record["final_loss_train"]) == 3 and record["lbfgs"]["lbfgs_iterations"] <= 3
+    assert sorted(p.name for p in (tmp_path / "state").iterdir()) == \
+        ["seed42_adam.pt", "seed42_adam_lbfgs.pt"]
+    from remote.smoke_deepxde_inverse import validate_record
+    validate_record("spatial_lbfgs", record)
+
+
+def test_spatial_runner_default_is_adam_only(dde_cpu, tmp_path, monkeypatch):
+    import json
+    from remote import run_deepxde_inverse_spatial as runner
+    monkeypatch.setattr(runner, "require_remote_cuda", lambda: None)
+    out = tmp_path / "r.json"
+    runner.main(["--iterations", "2", "--seeds", "42", "--output", str(out)])
+    payload = json.loads(out.read_text())
+    assert payload["config"]["optimizer"] == "adam" and payload["config"]["lbfgs_maxiter"] == 0
+    assert "lbfgs" not in payload["records"][0] and "adam_stage" not in payload["records"][0]
+
+
+def test_lbfgs_options_respect_maxiter_and_keep_defaults(dde_cpu):
+    from deepxde.optimizers.config import LBFGS_options
+    from src.deepxde_lbfgs import set_lbfgs_options
+    dde, _ = dde_cpu
+    before = LBFGS_options["iter_per_step"]
+    dde.optimizers.set_LBFGS_options(maxiter=before + 7)
+    assert LBFGS_options["iter_per_step"] == before  # upstream 1.15: not recomputed
+    assert set_lbfgs_options(maxiter=5)["iter_per_step"] == 5
+    default = set_lbfgs_options()
+    assert (default["maxiter"], default["iter_per_step"], default["fun_per_step"]) == \
+        (15000, 1000, 1250)

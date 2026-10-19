@@ -49,11 +49,24 @@ def summarize(payload):
         "seeds_total": len(records), "seeds_ok": len(ok),
         "failed": [{"seed": r["seed"], "status": r.get("status"), "error": r.get("error")}
                    for r in records if r.get("status") != "ok"],
+        "optimizer": payload["config"].get("optimizer", "adam"),
         "statistics": {m: describe([r[m] for r in ok]) for m in METRICS[benchmark]} if ok else {},
         "recovery": recovery_label([r[PARAMETER_ERROR[benchmark]] for r in ok]),
     }
+    staged = [r for r in ok if "adam_stage" in r]
+    if staged:
+        summary["adam_stage_statistics"] = {
+            m: describe([r["adam_stage"][m] for r in staged])
+            for m in METRICS[benchmark] if m in staged[0]["adam_stage"]}
+        summary["adam_stage_recovery"] = recovery_label(
+            [r["adam_stage"][PARAMETER_ERROR[benchmark]] for r in staged])
+        summary["lbfgs_statistics"] = {
+            m: describe([r["lbfgs"][m] for r in staged])
+            for m in ("lbfgs_iterations", "function_evaluations", "seconds",
+                      "final_max_abs_gradient", "final_total_loss")}
+        summary["lbfgs_stop_reasons"] = sorted({r["lbfgs"]["stop_reason"] for r in staged})
     if len(ok) < len(records):
-        summary["recovery"] +=f" ({len(records) - len(ok)} seed(s) failed)"
+        summary["recovery"] += f" ({len(records) - len(ok)} seed(s) failed)"
     return summary
 
 
@@ -61,9 +74,16 @@ def markdown(name, summary):
     lines = [f"**{name}** ({summary['benchmark']}, {summary['seeds_ok']}/{summary['seeds_total']} "
              f"seeds ok, {summary['device']}): {summary['recovery']}", "",
              "| metric | mean | std | median | min | max |", "|---|---|---|---|---|---|"]
-    for metric, s in summary["statistics"].items():
-        lines.append(f"| {metric} | {s['mean']:.4g} | {s['std']:.3g} | {s['median']:.4g} | "
-                     f"{s['min']:.4g} | {s['max']:.4g} |")
+    rows = [("", summary["statistics"])]
+    if "adam_stage_statistics" in summary:
+        rows += [("adam_stage.", summary["adam_stage_statistics"]),
+                 ("lbfgs.", summary["lbfgs_statistics"])]
+        lines[0] += (f" (after L-BFGS); Adam stage alone: {summary['adam_stage_recovery']}; "
+                     f"L-BFGS stop: {', '.join(summary['lbfgs_stop_reasons'])}")
+    for prefix, stats in rows:
+        for metric, s in stats.items():
+            lines.append(f"| {prefix}{metric} | {s['mean']:.4g} | {s['std']:.3g} | "
+                         f"{s['median']:.4g} | {s['min']:.4g} | {s['max']:.4g} |")
     return "\n".join(lines)
 
 

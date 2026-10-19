@@ -28,3 +28,21 @@ def test_summary_excludes_failed_seeds_and_flags_them():
     assert s["seeds_ok"] == 1 and s["failed"][0]["seed"] == 0
     assert s["statistics"]["relative_k_error"]["n"] == 1
     assert s["recovery"] == "recovered (1 seed(s) failed)"
+
+
+def test_summary_reports_adam_stage_and_lbfgs_separately():
+    def rec(seed, final, adam):
+        base = {"alpha_estimated": 0.5, "beta_estimated": -0.3, "pressure_relative_l2": 0.01,
+                "permeability_relative_l2": 0.01, "wall_seconds": 1.0}
+        return {"seed": seed, "status": "ok", **base, "parameter_relative_error": final,
+                "adam_stage": {**base, "parameter_relative_error": adam},
+                "lbfgs": {"lbfgs_iterations": 900, "function_evaluations": 1100, "seconds": 9.0,
+                          "final_max_abs_gradient": 1e-6, "final_total_loss": 1e-7,
+                          "stop_reason": "gtol"}}
+    payload = {"config": {"benchmark": "spatial_k", "optimizer": "adam+lbfgs"},
+               "environment": {"device": "Tesla T4"},
+               "records": [rec(0, 1e-3, 0.3), rec(1, 2e-3, 0.25)]}
+    s = summarize(payload)
+    assert s["recovery"] == "recovered" and s["adam_stage_recovery"] == "not recovered"
+    assert s["adam_stage_statistics"]["parameter_relative_error"]["mean"] == 0.275
+    assert s["lbfgs_stop_reasons"] == ["gtol"] and s["optimizer"] == "adam+lbfgs"

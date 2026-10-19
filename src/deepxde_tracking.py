@@ -6,6 +6,11 @@ nothing here changes the optimisation.
 """
 
 
+def iteration_of(state):
+    """Iteration counter of a DeepXDE TrainState (``epoch`` before DeepXDE 1.15)."""
+    return int(state.iteration if hasattr(state, "iteration") else state.epoch)
+
+
 def parameter_trace(variables, transforms=None, period=100):
     """Return a DeepXDE callback that samples ``variables`` every ``period`` epochs.
 
@@ -20,17 +25,13 @@ def parameter_trace(variables, transforms=None, period=100):
         raise ValueError("period must be positive")
     transforms = transforms or {}
 
-    def iteration(state):
-        # DeepXDE >= 1.15 renamed TrainState.epoch to TrainState.iteration.
-        return int(state.iteration if hasattr(state, "iteration") else state.epoch)
-
     class ParameterTrace(dde.callbacks.Callback):
         def __init__(self):
             super().__init__()
             self.trace = {"epoch": [], **{name: [] for name in variables}}
 
         def _record(self):
-            self.trace["epoch"].append(iteration(self.model.train_state))
+            self.trace["epoch"].append(iteration_of(self.model.train_state))
             for name, var in variables.items():
                 value = float(var.detach().cpu().item())
                 self.trace[name].append(transforms.get(name, lambda v: v)(value))
@@ -40,11 +41,11 @@ def parameter_trace(variables, transforms=None, period=100):
                 self._record()
 
         def on_epoch_end(self):
-            if iteration(self.model.train_state) % period == 0:
+            if iteration_of(self.model.train_state) % period == 0:
                 self._record()
 
         def on_train_end(self):
-            if self.trace["epoch"][-1] != iteration(self.model.train_state):
+            if self.trace["epoch"][-1] != iteration_of(self.model.train_state):
                 self._record()
 
     return ParameterTrace()
