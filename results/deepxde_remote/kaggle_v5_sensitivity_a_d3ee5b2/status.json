@@ -1,0 +1,70 @@
+{
+  "ref": "d3ee5b2db6a030f6f304afde2fffc0e385514f72",
+  "stage": "sensitivity_a",
+  "steps": {
+    "clone": {
+      "returncode": 0,
+      "seconds": 1.2,
+      "command": "git clone --quiet https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git /kaggle/working/repo"
+    },
+    "checkout": {
+      "returncode": 0,
+      "seconds": 0.1,
+      "command": "git -C /kaggle/working/repo checkout --quiet d3ee5b2db6a030f6f304afde2fffc0e385514f72"
+    },
+    "install_deepxde": {
+      "returncode": 0,
+      "seconds": 5.3,
+      "command": "/usr/bin/python3 -m pip install --quiet deepxde==1.15.0"
+    },
+    "nvidia_smi": {
+      "returncode": 0,
+      "seconds": 0.4,
+      "command": "nvidia-smi"
+    },
+    "pip_freeze": {
+      "returncode": 0,
+      "seconds": 1.9,
+      "command": "/usr/bin/python3 -m pip freeze"
+    },
+    "smoke": {
+      "returncode": 0,
+      "seconds": 33.0,
+      "command": "/usr/bin/python3 -m remote.smoke_deepxde_inverse --iterations 2 --output-dir /kaggle/working/outputs/results/smoke --include-lbfgs"
+    },
+    "spatial_lbfgs_obs16": {
+      "returncode": 0,
+      "seconds": 2713.7,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 50000 --seeds 42 0 1 2 3 --trace-every 500 --lbfgs-maxiter 15000 --lbfgs-record-every 10 --observations 16 --output /kaggle/working/outputs/results/spatial_lbfgs_obs16.json"
+    },
+    "spatial_lbfgs_obs32": {
+      "returncode": 0,
+      "seconds": 2690.8,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 50000 --seeds 42 0 1 2 3 --trace-every 500 --lbfgs-maxiter 15000 --lbfgs-record-every 10 --observations 32 --output /kaggle/working/outputs/results/spatial_lbfgs_obs32.json"
+    },
+    "spatial_lbfgs_obs64": {
+      "returncode": 0,
+      "seconds": 2716.1,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 50000 --seeds 42 0 1 2 3 --trace-every 500 --lbfgs-maxiter 15000 --lbfgs-record-every 10 --observations 64 --output /kaggle/working/outputs/results/spatial_lbfgs_obs64.json"
+    },
+    "spatial_lbfgs_obs256": {
+      "returncode": 0,
+      "seconds": 2737.3,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 50000 --seeds 42 0 1 2 3 --trace-every 500 --lbfgs-maxiter 15000 --lbfgs-record-every 10 --observations 256 --output /kaggle/working/outputs/results/spatial_lbfgs_obs256.json"
+    },
+    "spatial_lbfgs_init_only": {
+      "returncode": 0,
+      "seconds": 2660.9,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 50000 --seeds 42 0 1 2 3 --trace-every 500 --lbfgs-maxiter 15000 --lbfgs-record-every 10 --observations 128 --observation-seed 42 --output /kaggle/working/outputs/results/spatial_lbfgs_init_only.json"
+    },
+    "spatial_lbfgs_layout_only": {
+      "returncode": 0,
+      "seconds": 2620.1,
+      "command": "/usr/bin/python3 -m remote.run_deepxde_inverse_spatial --iterations 50000 --seeds 42 0 1 2 3 --trace-every 500 --lbfgs-maxiter 15000 --lbfgs-record-every 10 --observations 128 --network-seed 42 --output /kaggle/working/outputs/results/spatial_lbfgs_layout_only.json"
+    }
+  },
+  "source": "https://github.com/AdebanjiAdelowo/darcy-inverse-problem.git",
+  "head": "d3ee5b2db6a030f6f304afde2fffc0e385514f72",
+  "smoke_passed": true,
+  "finished_utc": "2026-10-20T01:28:24Z"
+}

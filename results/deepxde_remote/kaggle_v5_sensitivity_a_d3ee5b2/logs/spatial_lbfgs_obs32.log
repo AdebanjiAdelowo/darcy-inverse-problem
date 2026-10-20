@@ -1,0 +1,151 @@
+Using backend: pytorch
+Other supported backends: tensorflow.compat.v1, tensorflow, jax, paddle.
+paddle supports more examples now and is recommended.
+Warning: 512 points required, but 529 points sampled.
+Compiling model...
+'compile' took 1.141916 s
+
+Training model...
+
+/usr/local/lib/python3.13/dist-packages/torch/autograd/graph.py:869: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:335.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+Step      Train loss                        Test loss                         Test metric
+0         [1.14e+02, 4.81e-02, 4.04e-01]    [1.39e+02, 4.81e-02, 4.04e-01]    []  
+5000      [8.85e-04, 2.58e-03, 1.21e-03]    [7.45e-04, 2.58e-03, 1.21e-03]    []  
+10000     [3.59e-04, 7.28e-04, 9.06e-04]    [3.17e-04, 7.28e-04, 9.06e-04]    []  
+15000     [1.87e-04, 3.45e-04, 6.80e-04]    [1.70e-04, 3.45e-04, 6.80e-04]    []  
+20000     [6.87e-04, 1.89e-04, 5.70e-04]    [6.88e-04, 1.89e-04, 5.70e-04]    []  
+25000     [1.06e-04, 1.54e-04, 4.07e-04]    [9.85e-05, 1.54e-04, 4.07e-04]    []  
+30000     [7.16e-05, 1.23e-04, 3.08e-04]    [6.52e-05, 1.23e-04, 3.08e-04]    []  
+35000     [8.44e-03, 1.28e-04, 2.59e-04]    [8.00e-03, 1.28e-04, 2.59e-04]    []  
+40000     [5.29e-05, 8.05e-05, 1.83e-04]    [4.80e-05, 8.05e-05, 1.83e-04]    []  
+45000     [4.66e-05, 6.69e-05, 1.43e-04]    [4.20e-05, 6.69e-05, 1.43e-04]    []  
+50000     [4.71e-03, 6.92e-05, 1.61e-04]    [5.13e-03, 6.92e-05, 1.61e-04]    []  
+
+Best model at step 45000:
+  train loss: 2.56e-04
+  test loss: 2.52e-04
+  test metric: []
+
+'train' took 514.721841 s
+
+Compiling model...
+'compile' took 0.000269 s
+
+Warning: 512 points required, but 529 points sampled.
+Compiling model...
+'compile' took 0.000202 s
+
+Training model...
+
+Step      Train loss                        Test loss                         Test metric
+0         [1.16e+02, 2.74e-02, 4.93e-01]    [1.41e+02, 2.74e-02, 4.93e-01]    []  
+5000      [5.46e-04, 1.50e-03, 1.10e-03]    [4.64e-04, 1.50e-03, 1.10e-03]    []  
+10000     [2.66e-04, 4.93e-04, 7.55e-04]    [2.48e-04, 4.93e-04, 7.55e-04]    []  
+15000     [2.25e-04, 2.56e-04, 5.57e-04]    [2.02e-04, 2.56e-04, 5.57e-04]    []  
+20000     [6.06e-05, 1.75e-04, 4.16e-04]    [4.75e-05, 1.75e-04, 4.16e-04]    []  
+25000     [2.31e-04, 1.27e-04, 3.04e-04]    [2.14e-04, 1.27e-04, 3.04e-04]    []  
+30000     [2.50e-02, 1.08e-04, 4.23e-04]    [2.38e-02, 1.08e-04, 4.23e-04]    []  
+35000     [1.22e-04, 8.13e-05, 1.58e-04]    [1.11e-04, 8.13e-05, 1.58e-04]    []  
+40000     [1.05e-03, 7.27e-05, 1.04e-04]    [1.01e-03, 7.27e-05, 1.04e-04]    []  
+45000     [6.60e-04, 4.60e-05, 1.03e-04]    [6.40e-04, 4.60e-05, 1.03e-04]    []  
+50000     [4.74e-03, 4.51e-05, 7.92e-05]    [4.52e-03, 4.51e-05, 7.92e-05]    []  
+
+Best model at step 35000:
+  train loss: 3.61e-04
+  test loss: 3.50e-04
+  test metric: []
+
+'train' took 513.778493 s
+
+Compiling model...
+'compile' took 0.000239 s
+
+Warning: 512 points required, but 529 points sampled.
+Compiling model...
+'compile' took 0.000207 s
+
+Training model...
+
+Step      Train loss                        Test loss                         Test metric
+0         [1.11e+02, 1.62e-02, 1.74e-01]    [1.36e+02, 1.62e-02, 1.74e-01]    []  
+5000      [3.54e-04, 8.95e-04, 9.17e-04]    [3.38e-04, 8.95e-04, 9.17e-04]    []  
+10000     [4.71e-04, 3.96e-04, 7.14e-04]    [4.42e-04, 3.96e-04, 7.14e-04]    []  
+15000     [1.22e-03, 2.37e-04, 5.85e-04]    [1.12e-03, 2.37e-04, 5.85e-04]    []  
+20000     [8.24e-05, 1.81e-04, 4.17e-04]    [7.87e-05, 1.81e-04, 4.17e-04]    []  
+25000     [1.93e-03, 9.18e-05, 4.20e-04]    [1.91e-03, 9.18e-05, 4.20e-04]    []  
+30000     [7.08e-05, 1.12e-04, 2.62e-04]    [6.79e-05, 1.12e-04, 2.62e-04]    []  
+35000     [7.39e-05, 8.48e-05, 2.16e-04]    [7.06e-05, 8.48e-05, 2.16e-04]    []  
+40000     [9.09e-05, 7.31e-05, 1.66e-04]    [8.61e-05, 7.31e-05, 1.66e-04]    []  
+45000     [3.65e-04, 6.62e-05, 1.46e-04]    [3.65e-04, 6.62e-05, 1.46e-04]    []  
+50000     [7.33e-03, 1.46e-04, 5.59e-05]    [7.11e-03, 1.46e-04, 5.59e-05]    []  
+
+Best model at step 40000:
+  train loss: 3.30e-04
+  test loss: 3.25e-04
+  test metric: []
+
+'train' took 518.833038 s
+
+Compiling model...
+'compile' took 0.000247 s
+
+Warning: 512 points required, but 529 points sampled.
+Compiling model...
+'compile' took 0.000172 s
+
+Training model...
+
+Step      Train loss                        Test loss                         Test metric
+0         [1.14e+02, 3.32e-03, 3.33e-01]    [1.39e+02, 3.32e-03, 3.33e-01]    []  
+5000      [6.54e-04, 1.06e-03, 9.62e-04]    [5.68e-04, 1.06e-03, 9.62e-04]    []  
+10000     [2.91e-04, 3.44e-04, 7.23e-04]    [2.33e-04, 3.44e-04, 7.23e-04]    []  
+15000     [4.25e-04, 2.16e-04, 5.31e-04]    [4.17e-04, 2.16e-04, 5.31e-04]    []  
+20000     [1.65e-03, 1.26e-04, 4.68e-04]    [1.68e-03, 1.26e-04, 4.68e-04]    []  
+25000     [1.24e-04, 1.13e-04, 3.13e-04]    [1.02e-04, 1.13e-04, 3.13e-04]    []  
+30000     [1.09e-04, 8.73e-05, 2.49e-04]    [8.68e-05, 8.73e-05, 2.49e-04]    []  
+35000     [7.11e-05, 6.92e-05, 1.94e-04]    [5.35e-05, 6.92e-05, 1.94e-04]    []  
+40000     [6.63e-03, 4.12e-05, 2.36e-04]    [6.78e-03, 4.12e-05, 2.36e-04]    []  
+45000     [1.12e-04, 5.08e-05, 1.23e-04]    [9.25e-05, 5.08e-05, 1.23e-04]    []  
+50000     [9.04e-04, 4.26e-05, 1.10e-04]    [8.94e-04, 4.26e-05, 1.10e-04]    []  
+
+Best model at step 45000:
+  train loss: 2.86e-04
+  test loss: 2.67e-04
+  test metric: []
+
+'train' took 519.143166 s
+
+Compiling model...
+'compile' took 0.000218 s
+
+Warning: 512 points required, but 529 points sampled.
+Compiling model...
+'compile' took 0.000153 s
+
+Training model...
+
+Step      Train loss                        Test loss                         Test metric
+0         [1.14e+02, 1.79e-02, 4.74e-01]    [1.39e+02, 1.79e-02, 4.74e-01]    []  
+5000      [6.00e-03, 1.30e-03, 1.13e-03]    [5.73e-03, 1.30e-03, 1.13e-03]    []  
+10000     [5.96e-03, 3.63e-04, 9.54e-04]    [6.03e-03, 3.63e-04, 9.54e-04]    []  
+15000     [1.72e-02, 2.69e-04, 5.44e-04]    [1.72e-02, 2.69e-04, 5.44e-04]    []  
+20000     [1.52e-04, 1.77e-04, 3.69e-04]    [1.35e-04, 1.77e-04, 3.69e-04]    []  
+25000     [2.50e-03, 1.51e-04, 2.46e-04]    [2.51e-03, 1.51e-04, 2.46e-04]    []  
+30000     [8.47e-05, 9.36e-05, 1.83e-04]    [7.17e-05, 9.36e-05, 1.83e-04]    []  
+35000     [1.21e-03, 6.59e-05, 1.65e-04]    [1.16e-03, 6.59e-05, 1.65e-04]    []  
+40000     [7.79e-05, 5.85e-05, 9.51e-05]    [6.98e-05, 5.85e-05, 9.51e-05]    []  
+45000     [1.74e-04, 4.59e-05, 7.56e-05]    [1.61e-04, 4.59e-05, 7.56e-05]    []  
+50000     [7.67e-03, 4.22e-05, 1.36e-04]    [7.57e-03, 4.22e-05, 1.36e-04]    []  
+
+Best model at step 40000:
+  train loss: 2.32e-04
+  test loss: 2.23e-04
+  test metric: []
+
+'train' took 516.798794 s
+
+Compiling model...
+'compile' took 0.000235 s
+
+Wrote 5 records to /kaggle/working/outputs/results/spatial_lbfgs_obs32.json; failed seeds: none

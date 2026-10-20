@@ -1,0 +1,626 @@
+{
+  "constant_adam50k_init_high": {
+    "benchmark": "constant_k",
+    "config": {
+      "benchmark": "constant_k",
+      "iterations": 50000,
+      "seeds": [
+        42,
+        0,
+        1,
+        2,
+        3
+      ],
+      "observations": 100,
+      "noise_std": 0.0,
+      "k_initial": 5.0,
+      "observation_seed": null,
+      "evaluation_grid": "41x41 uniform on [0,1]^2",
+      "trace_every": 500
+    },
+    "device": "Tesla T4",
+    "seeds_total": 5,
+    "seeds_ok": 5,
+    "failed": [],
+    "optimizer": "adam",
+    "statistics": {
+      "k_estimated": {
+        "n": 5,
+        "mean": 1.7114006305341678,
+        "std": 0.0012629066541075876,
+        "median": 1.7113982380944703,
+        "min": 1.7099744010056976,
+        "max": 1.7133171520344106
+      },
+      "relative_k_error": {
+        "n": 5,
+        "mean": 0.006706253255392876,
+        "std": 0.0007428862671221106,
+        "median": 0.0067048459379237535,
+        "min": 0.005867294709233933,
+        "max": 0.007833618843770965
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.010739673599598593,
+        "std": 0.0009897586567607962,
+        "median": 0.011039504029938394,
+        "min": 0.009070244330075186,
+        "max": 0.01167971720211151
+      },
+      "wall_seconds": {
+        "n": 5,
+        "mean": 399.4663223748001,
+        "std": 3.0436240224102074,
+        "median": 398.1352688959996,
+        "min": 397.4830703210009,
+        "max": 404.85391486499975
+      }
+    },
+    "recovery": "recovered"
+  },
+  "constant_adam50k_noise0p01": {
+    "benchmark": "constant_k",
+    "config": {
+      "benchmark": "constant_k",
+      "iterations": 50000,
+      "seeds": [
+        42,
+        0,
+        1,
+        2,
+        3
+      ],
+      "observations": 100,
+      "noise_std": 0.01,
+      "k_initial": 0.8,
+      "observation_seed": null,
+      "evaluation_grid": "41x41 uniform on [0,1]^2",
+      "trace_every": 500
+    },
+    "device": "Tesla T4",
+    "seeds_total": 5,
+    "seeds_ok": 5,
+    "failed": [],
+    "optimizer": "adam",
+    "statistics": {
+      "k_estimated": {
+        "n": 5,
+        "mean": 1.700441968360439,
+        "std": 0.003509410222524203,
+        "median": 1.6997926163569812,
+        "min": 1.6960921489667786,
+        "max": 1.7049209253976427
+      },
+      "relative_k_error": {
+        "n": 5,
+        "mean": 0.0015819234876504704,
+        "std": 0.0011036137887401518,
+        "median": 0.001710100191746921,
+        "min": 0.00012199037824632634,
+        "max": 0.0028946619986133957
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.009234426610020868,
+        "std": 0.002206577802155851,
+        "median": 0.009455379963865196,
+        "min": 0.00658583012833675,
+        "max": 0.011767566012274439
+      },
+      "wall_seconds": {
+        "n": 5,
+        "mean": 403.20696158439966,
+        "std": 2.93224116859312,
+        "median": 404.4451481119995,
+        "min": 399.5345686010005,
+        "max": 406.6217596459992
+      }
+    },
+    "recovery": "recovered"
+  },
+  "spatial_lbfgs_init_far": {
+    "benchmark": "spatial_k",
+    "config": {
+      "benchmark": "spatial_k",
+      "optimizer": "adam+lbfgs",
+      "lbfgs_maxiter": 15000,
+      "iterations": 50000,
+      "seeds": [
+        42,
+        0,
+        1,
+        2,
+        3
+      ],
+      "observations": 128,
+      "noise_std": 0.0,
+      "alpha_initial": -1.0,
+      "beta_initial": 1.0,
+      "observation_seed": null,
+      "network_seed": null,
+      "evaluation_grid": "41x41 uniform on [0,1]^2",
+      "trace_every": 500
+    },
+    "device": "Tesla T4",
+    "seeds_total": 5,
+    "seeds_ok": 5,
+    "failed": [],
+    "optimizer": "adam+lbfgs",
+    "statistics": {
+      "alpha_estimated": {
+        "n": 5,
+        "mean": 0.5002857267856597,
+        "std": 0.0003664993820770411,
+        "median": 0.5000682473182678,
+        "min": 0.49995335936546326,
+        "max": 0.5007718801498413
+      },
+      "beta_estimated": {
+        "n": 5,
+        "mean": -0.3003405570983887,
+        "std": 0.00023185545391998073,
+        "median": -0.3004533052444458,
+        "min": -0.3005395531654358,
+        "max": -0.30007004737854004
+      },
+      "parameter_relative_error": {
+        "n": 5,
+        "mean": 0.0008251473551944798,
+        "std": 0.0006546967150338921,
+        "median": 0.0007815162363901178,
+        "min": 0.00016772115944839298,
+        "max": 0.0016062869906659492
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.0007513956857514545,
+        "std": 0.00022868968735736256,
+        "median": 0.000677280795132466,
+        "min": 0.0004822911996217289,
+        "max": 0.0010872063493958446
+      },
+      "permeability_relative_l2": {
+        "n": 5,
+        "mean": 0.0001867220771063169,
+        "std": 0.00014330762015866692,
+        "median": 0.0002516040221870261,
+        "min": 2.9710366341425215e-05,
+        "max": 0.00034617529020543265
+      },
+      "wall_seconds": {
+        "n": 5,
+        "mean": 516.1357858272,
+        "std": 7.601103631285104,
+        "median": 514.9237774020003,
+        "min": 508.10468899399984,
+        "max": 528.7000174499999
+      }
+    },
+    "recovery": "recovered",
+    "adam_stage_statistics": {
+      "alpha_estimated": {
+        "n": 5,
+        "mean": 0.20868563950061797,
+        "std": 0.04749467787991554,
+        "median": 0.20319443941116333,
+        "min": 0.1512865424156189,
+        "max": 0.28325846791267395
+      },
+      "beta_estimated": {
+        "n": 5,
+        "mean": 0.01872285008430481,
+        "std": 0.05963514935988444,
+        "median": 0.02438993938267231,
+        "min": -0.07448505610227585,
+        "max": 0.09206108003854752
+      },
+      "parameter_relative_error": {
+        "n": 5,
+        "mean": 0.7405829980245987,
+        "std": 0.13033480648333826,
+        "median": 0.7512900156993804,
+        "min": 0.5364202743590115,
+        "max": 0.8998577763138402
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.042286061126793506,
+        "std": 0.007098624917060699,
+        "median": 0.0433118134260237,
+        "min": 0.031125994505143934,
+        "max": 0.05082530218017117
+      },
+      "permeability_relative_l2": {
+        "n": 5,
+        "mean": 0.12650930132778965,
+        "std": 0.02188384754131443,
+        "median": 0.12819188149483013,
+        "min": 0.09239880078773702,
+        "max": 0.15350072449920868
+      }
+    },
+    "adam_stage_recovery": "not recovered",
+    "lbfgs_statistics": {
+      "lbfgs_iterations": {
+        "n": 5,
+        "mean": 1075.4,
+        "std": 347.1797805172415,
+        "median": 996.0,
+        "min": 728.0,
+        "max": 1654.0
+      },
+      "function_evaluations": {
+        "n": 5,
+        "mean": 1127.4,
+        "std": 362.9535782989334,
+        "median": 1047.0,
+        "min": 765.0,
+        "max": 1732.0
+      },
+      "seconds": {
+        "n": 5,
+        "mean": 26.003437768000005,
+        "std": 8.608258581495235,
+        "median": 24.06704118200014,
+        "min": 17.466573542999868,
+        "max": 40.35389793400009
+      },
+      "final_max_abs_gradient": {
+        "n": 5,
+        "mean": 5.379351641749963e-05,
+        "std": 1.6431784197640658e-05,
+        "median": 5.563349259318784e-05,
+        "min": 3.6977988202124834e-05,
+        "max": 7.147550059016794e-05
+      },
+      "final_total_loss": {
+        "n": 5,
+        "mean": 3.1838060067457264e-06,
+        "std": 1.3342275409076926e-06,
+        "median": 3.4226354728161823e-06,
+        "min": 1.3419816013993113e-06,
+        "max": 5.00323403684888e-06
+      }
+    },
+    "lbfgs_stop_reasons": [
+      "stalled (no progress in an outer step: line search or tolerance_change)"
+    ]
+  },
+  "spatial_lbfgs_noise0p01": {
+    "benchmark": "spatial_k",
+    "config": {
+      "benchmark": "spatial_k",
+      "optimizer": "adam+lbfgs",
+      "lbfgs_maxiter": 15000,
+      "iterations": 50000,
+      "seeds": [
+        42,
+        0,
+        1,
+        2,
+        3
+      ],
+      "observations": 128,
+      "noise_std": 0.01,
+      "alpha_initial": 0.0,
+      "beta_initial": 0.0,
+      "observation_seed": null,
+      "network_seed": null,
+      "evaluation_grid": "41x41 uniform on [0,1]^2",
+      "trace_every": 500
+    },
+    "device": "Tesla T4",
+    "seeds_total": 5,
+    "seeds_ok": 5,
+    "failed": [],
+    "optimizer": "adam+lbfgs",
+    "statistics": {
+      "alpha_estimated": {
+        "n": 5,
+        "mean": 0.5031294703483582,
+        "std": 0.007056284756543358,
+        "median": 0.5000299215316772,
+        "min": 0.4970858693122864,
+        "max": 0.5132021307945251
+      },
+      "beta_estimated": {
+        "n": 5,
+        "mean": -0.30260822772979734,
+        "std": 0.011692277895167313,
+        "median": -0.3001454174518585,
+        "min": -0.3162321448326111,
+        "max": -0.28948089480400085
+      },
+      "parameter_relative_error": {
+        "n": 5,
+        "mean": 0.01837748492849543,
+        "std": 0.013688765564017843,
+        "median": 0.018719581740988755,
+        "min": 0.00025461350966271817,
+        "max": 0.035882929883270166
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.002722354555485228,
+        "std": 0.000873096515165066,
+        "median": 0.002780760187041744,
+        "min": 0.0014613353372251283,
+        "max": 0.0035921670024191997
+      },
+      "permeability_relative_l2": {
+        "n": 5,
+        "mean": 0.0034898623370746397,
+        "std": 0.0023588201174816375,
+        "median": 0.004399031791871434,
+        "min": 6.445464508642215e-05,
+        "max": 0.006110357059809113
+      },
+      "wall_seconds": {
+        "n": 5,
+        "mean": 508.15266136520006,
+        "std": 3.179587949989667,
+        "median": 508.81391581599996,
+        "min": 503.34546366600006,
+        "max": 511.743860282
+      }
+    },
+    "recovery": "not recovered",
+    "adam_stage_statistics": {
+      "alpha_estimated": {
+        "n": 5,
+        "mean": 0.38298286199569703,
+        "std": 0.02130602420127002,
+        "median": 0.3751147985458374,
+        "min": 0.3689916133880615,
+        "max": 0.4200626015663147
+      },
+      "beta_estimated": {
+        "n": 5,
+        "mean": -0.1741577535867691,
+        "std": 0.0261947085339677,
+        "median": -0.16255447268486023,
+        "min": -0.22067046165466309,
+        "max": -0.15880560874938965
+      },
+      "parameter_relative_error": {
+        "n": 5,
+        "mean": 0.29481836080943113,
+        "std": 0.05717924317055884,
+        "median": 0.31848717086168665,
+        "min": 0.19314093697753182,
+        "max": 0.3303253898599948
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.01751410402993774,
+        "std": 0.003527145345033075,
+        "median": 0.018985348973267875,
+        "min": 0.01125902740981562,
+        "max": 0.019520448348681104
+      },
+      "permeability_relative_l2": {
+        "n": 5,
+        "mean": 0.05100292637637237,
+        "std": 0.009472082861957493,
+        "median": 0.05470733158078997,
+        "min": 0.03421249715202062,
+        "max": 0.05692307460428317
+      }
+    },
+    "adam_stage_recovery": "not recovered",
+    "lbfgs_statistics": {
+      "lbfgs_iterations": {
+        "n": 5,
+        "mean": 556.0,
+        "std": 72.50172411743047,
+        "median": 598.0,
+        "min": 458.0,
+        "max": 616.0
+      },
+      "function_evaluations": {
+        "n": 5,
+        "mean": 583.4,
+        "std": 75.87687394720476,
+        "median": 628.0,
+        "min": 482.0,
+        "max": 653.0
+      },
+      "seconds": {
+        "n": 5,
+        "mean": 13.363658569999984,
+        "std": 1.828733633056389,
+        "median": 14.408718432000114,
+        "min": 10.864861806000022,
+        "max": 14.976078632000053
+      },
+      "final_max_abs_gradient": {
+        "n": 5,
+        "mean": 6.478569557657465e-05,
+        "std": 2.4072085149444444e-05,
+        "median": 6.621290231123567e-05,
+        "min": 4.110101144760847e-05,
+        "max": 0.00010265788296237588
+      },
+      "final_total_loss": {
+        "n": 5,
+        "mean": 0.00010010104742832481,
+        "std": 8.673247168936105e-06,
+        "median": 9.949252125807106e-05,
+        "min": 8.819155482342467e-05,
+        "max": 0.00011006199929397553
+      }
+    },
+    "lbfgs_stop_reasons": [
+      "stalled (no progress in an outer step: line search or tolerance_change)"
+    ]
+  },
+  "spatial_lbfgs_noise0p05": {
+    "benchmark": "spatial_k",
+    "config": {
+      "benchmark": "spatial_k",
+      "optimizer": "adam+lbfgs",
+      "lbfgs_maxiter": 15000,
+      "iterations": 50000,
+      "seeds": [
+        42,
+        0,
+        1,
+        2,
+        3
+      ],
+      "observations": 128,
+      "noise_std": 0.05,
+      "alpha_initial": 0.0,
+      "beta_initial": 0.0,
+      "observation_seed": null,
+      "network_seed": null,
+      "evaluation_grid": "41x41 uniform on [0,1]^2",
+      "trace_every": 500
+    },
+    "device": "Tesla T4",
+    "seeds_total": 5,
+    "seeds_ok": 5,
+    "failed": [],
+    "optimizer": "adam+lbfgs",
+    "statistics": {
+      "alpha_estimated": {
+        "n": 5,
+        "mean": 0.5149804294109345,
+        "std": 0.037883289647669065,
+        "median": 0.5028718113899231,
+        "min": 0.4818914830684662,
+        "max": 0.5678381323814392
+      },
+      "beta_estimated": {
+        "n": 5,
+        "mean": -0.31210588216781615,
+        "std": 0.06152045083780767,
+        "median": -0.3004691004753113,
+        "min": -0.38146933913230896,
+        "max": -0.24444285035133362
+      },
+      "parameter_relative_error": {
+        "n": 5,
+        "mean": 0.09870989136965942,
+        "std": 0.06735700405244925,
+        "median": 0.10004851977010287,
+        "min": 0.004990389562546048,
+        "max": 0.18181491415930492
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.01299138495575366,
+        "std": 0.004276684277078969,
+        "median": 0.013803338878770477,
+        "min": 0.007241725230871206,
+        "max": 0.016946750214044244
+      },
+      "permeability_relative_l2": {
+        "n": 5,
+        "mean": 0.018591313174656073,
+        "std": 0.011460914896091636,
+        "median": 0.022741914305709366,
+        "min": 0.001696889085308926,
+        "max": 0.03111417936199807
+      },
+      "wall_seconds": {
+        "n": 5,
+        "mean": 500.77833871459995,
+        "std": 2.1462009752699154,
+        "median": 500.30853358000013,
+        "min": 498.7054739649998,
+        "max": 503.75486523900054
+      }
+    },
+    "recovery": "not recovered",
+    "adam_stage_statistics": {
+      "alpha_estimated": {
+        "n": 5,
+        "mean": 0.3898995935916901,
+        "std": 0.04180065999543054,
+        "median": 0.3669639527797699,
+        "min": 0.36417144536972046,
+        "max": 0.46216583251953125
+      },
+      "beta_estimated": {
+        "n": 5,
+        "mean": -0.17956796139478684,
+        "std": 0.06385417644808344,
+        "median": -0.15573957562446594,
+        "min": -0.27419593930244446,
+        "max": -0.1172766163945198
+      },
+      "parameter_relative_error": {
+        "n": 5,
+        "mean": 0.2814331406126593,
+        "std": 0.12655108156451172,
+        "median": 0.3378497210450666,
+        "min": 0.07853949507438335,
+        "max": 0.38762635426179487
+      },
+      "pressure_relative_l2": {
+        "n": 5,
+        "mean": 0.02176957605257441,
+        "std": 0.008212042182033091,
+        "median": 0.020007737257306604,
+        "min": 0.010549913072215084,
+        "max": 0.031315300027380324
+      },
+      "permeability_relative_l2": {
+        "n": 5,
+        "mean": 0.050102061393144305,
+        "std": 0.020066331067220857,
+        "median": 0.058229937459368254,
+        "min": 0.016811934684850524,
+        "max": 0.06695537422299302
+      }
+    },
+    "adam_stage_recovery": "not recovered",
+    "lbfgs_statistics": {
+      "lbfgs_iterations": {
+        "n": 5,
+        "mean": 387.8,
+        "std": 36.506163863106735,
+        "median": 391.0,
+        "min": 335.0,
+        "max": 429.0
+      },
+      "function_evaluations": {
+        "n": 5,
+        "mean": 411.2,
+        "std": 35.09558376776201,
+        "median": 414.0,
+        "min": 360.0,
+        "max": 454.0
+      },
+      "seconds": {
+        "n": 5,
+        "mean": 9.08380469220001,
+        "std": 0.8384198524266564,
+        "median": 9.048288588000105,
+        "min": 7.83166705099984,
+        "max": 10.049946645000091
+      },
+      "final_max_abs_gradient": {
+        "n": 5,
+        "mean": 0.00013914190349169077,
+        "std": 4.422593862583048e-05,
+        "median": 0.0001667493488639593,
+        "min": 8.465268183499575e-05,
+        "max": 0.00017395243048667908
+      },
+      "final_total_loss": {
+        "n": 5,
+        "mean": 0.002388944989070296,
+        "std": 0.00022591311945655823,
+        "median": 0.0023206504993140697,
+        "min": 0.002088646637275815,
+        "max": 0.002650437643751502
+      }
+    },
+    "lbfgs_stop_reasons": [
+      "stalled (no progress in an outer step: line search or tolerance_change)"
+    ]
+  }
+}

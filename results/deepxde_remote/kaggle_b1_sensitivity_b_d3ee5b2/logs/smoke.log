@@ -1,0 +1,3 @@
+PASS constant inverse smoke
+PASS spatial inverse smoke
+PASS spatial_lbfgs inverse smoke

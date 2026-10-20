@@ -3,7 +3,9 @@
 Status: **smoke gate PASSED on CUDA (constant, spatial, and spatial with L-BFGS). Constant k: RECOVERED
 with 50 000 Adam iterations. Spatial k: NOT recovered with Adam alone (10 000 or 50 000 iterations);
 RECOVERED with the explicit `adam+lbfgs` configuration (50 000 Adam iterations, then L-BFGS), 5/5 seeds
-below the pre-registered tolerance. Sensitivity study: protocol fixed (Deviation 4), runs PENDING.**
+below the pre-registered tolerance. Sensitivity study (Deviation 4) COMPLETED: recovered for every
+noise-free row (16 to 256 sensors, initialisation only, layout only, far initial guess) and for both
+constant-k rows; NOT recovered with observation noise 0.01 or 0.05.**
 
 The protocol and criteria below were committed (656c591) before any GPU run and are unchanged. Deviations
 are listed under *Deviations*.
@@ -87,6 +89,8 @@ Exact steps are in `docs/CLAUDE_CODE_DEEPXDE_REMOTE_HANDOFF.md`.
 | v2 | 5b63bb6 | All steps exit 0: smoke gate, constant baseline, spatial baseline. Evidence in `results/deepxde_remote/kaggle_v2_5b63bb6/`. |
 | v3 | 03b7744 | All steps exit 0: smoke gate, 50 000-iteration diagnostic for both benchmarks (Deviation 1). Cloned from the now-public GitHub repository. Evidence in `results/deepxde_remote/kaggle_v3_03b7744/`. |
 | v4 | 5d710f7 | All steps exit 0: smoke gate (3 cases), `adam+lbfgs` spatial run (Deviation 3). Evidence in `results/deepxde_remote/kaggle_v4_5d710f7/`; the 10 network/parameter state files are not committed, their SHA-256 hashes are in `STATES_NOT_COMMITTED.sha256`. |
+| v5 | d3ee5b2 | Stage `sensitivity_a`: smoke gate (3 cases) and 6 spatial rows, all exit 0. Evidence in `results/deepxde_remote/kaggle_v5_sensitivity_a_d3ee5b2/`. |
+| b v1 | d3ee5b2 | Second private kernel, run in parallel. Stage `sensitivity_b`: smoke gate and 5 rows, all exit 0. Evidence in `results/deepxde_remote/kaggle_b1_sensitivity_b_d3ee5b2/`. |
 
 Environment (v2, from the result JSON and `nvidia-smi`): Tesla T4 (2 visible, `cuda:0` used),
 Python 3.13.15, PyTorch 2.11.0+cu128 (CUDA 12.8), DeepXDE 1.15.0, NumPy 2.1.3, Kaggle Linux image.
@@ -267,12 +271,80 @@ observations; the noisy case is part of the sensitivity study.
 took about 5 percent longer than in v3 (492 s) on the same nominal hardware and identical software, an
 example of session-to-session timing variation.
 
+### Sensitivity study (Deviation 4)
+
+Both kernels ran at commit d3ee5b2 on Tesla T4s with `pip freeze` identical to v4. Every row has 5/5 seeds
+with `status: ok`, finite values throughout, and an L-BFGS stop by the same float32 line-search stall as in
+v4. Statistics are mean ± sample standard deviation over seeds 42, 0, 1, 2, 3.
+
+**Consistency check (fixed in advance).** In the initialisation-only and layout-only rows, the seed-42
+member uses network seed 42 and observation seed 42, so it is the v4 baseline seed-42 run. In both rows it
+reproduces v4 exactly: identical Adam trace, the same 488 L-BFGS iterations, and identical final alpha,
+beta, pressure and permeability errors.
+
+**Spatial k, `adam+lbfgs`, one factor changed per row** (baseline: 128 sensors, noise-free, start at 0, 0;
+first line repeated from v4 for comparison).
+
+| row | alpha | beta | parameter rel. error: median (max) | pressure rel. L2 | k-field rel. L2 | criterion 3 |
+|---|---|---|---|---|---|---|
+| baseline, 128 sensors (v4) | 0.5006 ± 0.0010 | -0.3004 ± 0.0012 | 1.8e-3 (5.1e-3) | 7.8e-4 ± 2.5e-4 | 4.2e-4 ± 3.3e-4 | recovered |
+| 16 sensors | 0.5003 ± 0.0008 | -0.3004 ± 0.0009 | 1.7e-3 (3.6e-3) | 6.4e-4 ± 1.5e-4 | 3.2e-4 ± 2.0e-4 | recovered |
+| 32 sensors | 0.4996 ± 0.0008 | -0.2999 ± 0.0005 | 1.5e-3 (2.9e-3) | 8.1e-4 ± 3.0e-4 | 3.5e-4 ± 2.5e-4 | recovered |
+| 64 sensors | 0.5004 ± 0.0008 | -0.3005 ± 0.0006 | 1.2e-3 (3.5e-3) | 7.2e-4 ± 3.9e-4 | 3.2e-4 ± 2.2e-4 | recovered |
+| 256 sensors | 0.5009 ± 0.0008 | -0.3009 ± 0.0006 | 2.4e-3 (4.2e-3) | 7.8e-4 ± 2.2e-4 | 5.1e-4 ± 1.9e-4 | recovered |
+| initialisation only (layout fixed) | 0.5005 ± 0.0005 | -0.3004 ± 0.0009 | 1.8e-3 (2.8e-3) | 7.3e-4 ± 1.5e-4 | 3.8e-4 ± 0.9e-4 | recovered |
+| layout only (network fixed) | 0.5010 ± 0.0012 | -0.3007 ± 0.0013 | 2.4e-3 (5.9e-3) | 6.4e-4 ± 1.2e-4 | 5.6e-4 ± 3.8e-4 | recovered |
+| far start (alpha = -1, beta = 1) | 0.5003 ± 0.0004 | -0.3003 ± 0.0002 | 7.8e-4 (1.6e-3) | 7.5e-4 ± 2.3e-4 | 1.9e-4 ± 1.4e-4 | recovered |
+| noise sigma = 0.01 | 0.5031 ± 0.0071 | -0.3026 ± 0.0117 | 1.9e-2 (3.6e-2) | 2.7e-3 ± 0.9e-3 | 3.5e-3 ± 2.4e-3 | not recovered |
+| noise sigma = 0.05 | 0.5150 ± 0.0379 | -0.3121 ± 0.0615 | 0.10 (0.18) | 1.3e-2 ± 0.4e-2 | 1.9e-2 ± 1.1e-2 | not recovered |
+
+**Constant k, 50 000 Adam iterations.**
+
+| row | k | relative k error (mean, max) | pressure rel. L2 | criterion 3 |
+|---|---|---|---|---|
+| baseline, start 0.8 (v3) | 1.7002 ± 0.0033 | mean 1.3e-3, max 2.9e-3 | 1.2e-2 ± 0.4e-2 | recovered |
+| noise sigma = 0.01 | 1.7004 ± 0.0035 | mean 1.6e-3, max 2.9e-3 | 9.2e-3 ± 2.2e-3 | recovered |
+| start k = 5 | 1.7114 ± 0.0013 | mean 6.7e-3, max 7.8e-3 | 1.1e-2 ± 0.1e-2 | recovered |
+
+**Findings, stated narrowly.**
+
+- **Sensor count.** The pre-registered expectation that error grows as sensors decrease is **not
+  supported** between 16 and 256 noise-free sensors. Every row is recovered, the median parameter error stays
+  between 1.2e-3 and 2.4e-3, and there is no monotone trend over this range. The cause was not
+  investigated.
+- **Initialisation versus sensor layout.** Both are recovered when varied separately. The spread over
+  seeds is somewhat smaller with the layout fixed (parameter error std 6.9e-4, max 2.8e-3) than with the
+  network fixed (std 2.0e-3, max 5.9e-3), which is close to the baseline where both vary (std 2.0e-3, max
+  5.1e-3). With five seeds per row this is descriptive only; no test of the difference was made.
+- **Observation noise.** The expectation that error grows with noise is supported. With noisy data the
+  pre-registered tolerance is not met: median parameter error 1.9e-2 at sigma 0.01 and 0.10 at sigma 0.05.
+  Spread across seeds is large (at sigma 0.05, from 5.0e-3 to 0.18), and each seed draws both its sensor
+  layout and its noise realisation, so the two are confounded in these rows. The noisy fit itself is close:
+  pressure relative L2 2.7e-3 and 1.3e-2. No regularisation or noise-aware weighting was used.
+- **Far initial guess.** Recovered (max error 1.6e-3) although the Adam stage ended further from the truth
+  (parameter error 0.74 ± 0.13, against 0.30 in the baseline); L-BFGS then needed more iterations (728 to
+  1654).
+- **Constant k.** Recovered with noise 0.01 and from k = 5. From k = 5 the estimate approaches the truth from
+  above and was still decreasing at the end (by 0.0013 to 0.0027 over the last 5000 iterations); the
+  maximum error of 7.8e-3 is inside the tolerance with little margin.
+
+**Cost.** Kernel v5: 16 139 s in 6 rows plus a 33 s smoke gate (about 4.5 GPU hours). Kernel b v1:
+11 655 s in 5 rows plus a 37 s smoke gate (about 3.2 GPU hours); the two kernels ran at the same time. Mean
+time per seed by row: 501 to 547 s for spatial rows and 399 to 403 s for constant rows. Mean L-BFGS time per
+seed by row: 9.1 s (noise 0.05) to 26.0 s (far start).
+
 ## Open work
 
 1. **Spatial convergence.** Resolved for this benchmark by the user's choice (b), Adam followed by
    L-BFGS (Deviation 3, results above).
-2. **Sensitivity study** (criterion 5): protocol fixed below (Deviation 4); runs pending.
-3. **Shorter Adam stages before L-BFGS** and float64 L-BFGS are untested.
+2. **Sensitivity study** (criterion 5): completed (Deviation 4, results above).
+3. **Noisy observations.** Spatial k does not reach the tolerance with noise 0.01 or 0.05; untested
+   remedies include loss weighting by the noise level, regularisation of the parameters, and more sensors
+   with noise. Noise realisation and sensor layout are confounded in the noise rows.
+4. **Shorter Adam stages before L-BFGS**, float64 L-BFGS, other architectures, learning rates and loss
+   weights are untested.
+5. **Comparison with the FEM-adjoint study** remains out of scope: the problems differ in dimension,
+   noise and discretisation.
 
 ## Adam + L-BFGS refinement protocol (Deviation 3, fixed before the run)
 

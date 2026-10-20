@@ -1,0 +1,18 @@
+[{"stream_name":"stdout","time":2.6191289319999997,"data":"clone: rc=0 (1.9 s)\n"}
+,{"stream_name":"stdout","time":2.666475024,"data":"checkout: rc=0 (0.0 s)\n"}
+,{"stream_name":"stdout","time":8.43483652,"data":"install_deepxde: rc=0 (5.8 s)\n"}
+,{"stream_name":"stdout","time":8.817063968,"data":"nvidia_smi: rc=0 (0.4 s)\n"}
+,{"stream_name":"stdout","time":10.572998914,"data":"pip_freeze: rc=0 (1.8 s)\n"}
+,{"stream_name":"stdout","time":47.257707407,"data":"smoke: rc=0 (36.7 s)\n"}
+,{"stream_name":"stdout","time":2591.172361749,"data":"spatial_lbfgs_noise0p01: rc=0 (2543.9 s)\n"}
+,{"stream_name":"stdout","time":5098.243397177,"data":"spatial_lbfgs_noise0p05: rc=0 (2507.1 s)\n"}
+,{"stream_name":"stdout","time":7682.096562399,"data":"spatial_lbfgs_init_far: rc=0 (2583.9 s)\n"}
+,{"stream_name":"stdout","time":9701.4021557,"data":"constant_adam50k_noise0p01: rc=0 (2019.3 s)\n"}
+,{"stream_name":"stdout","time":11701.909542509,"data":"constant_adam50k_init_high: rc=0 (2000.5 s)\n"}
+,{"stream_name":"stderr","time":11704.079314281,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":11704.079346907,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":11704.368022579,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":11704.368049387,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":11705.14179726,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":11706.216798819,"data":"[NbConvertApp] Writing 310489 bytes to __results__.html\n"}
+]
