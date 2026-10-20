@@ -104,7 +104,52 @@ SENSITIVITY_B = {
     "constant_adam50k_noise0p01": [*_CONSTANT, "--noise-std", "0.01"],
     "constant_adam50k_init_high": [*_CONSTANT, "--k-initial", "5.0"],
 }
-STAGES = ("smoke", "baseline", "convergence", "lbfgs", "sensitivity_a", "sensitivity_b")
+# Noise-robustness study (docs/DEEPXDE_NOISE_ROBUSTNESS.md). Tuples are
+# network:layout:noise seeds; every method is refined from the same Adam state.
+_NOISE = ["remote.run_deepxde_noise_study", "--iterations", "50000", "--trace-every", "500",
+          "--lbfgs-maxiter", "15000", "--lbfgs-record-every", "10"]
+V4_STATES = "{V4_STATES}"  # resolved at run time to the attached checkpoint dataset
+_CENTER = "42:42:42"
+_NOISE_ONLY = [f"42:42:{e}" for e in (0, 1, 2, 3)]
+_LAYOUT_ONLY = [f"42:{l}:42" for l in (0, 1, 2, 3)]
+_NETWORK_ONLY = [f"{n}:42:42" for n in (0, 1, 2, 3)]
+_V4_TUPLES = [f"{s}:{s}:0" for s in (42, 0, 1, 2, 3)]
+NOISE_PILOT = {  # exploratory; tuples deliberately outside the confirmatory design
+    "pilot_sigma0_from_v4_seed42": [*_NOISE, "--noise-std", "0.0", "--tuples", "42:42:0",
+                                    "--init-from", V4_STATES],
+    "pilot_sigma0p01": [*_NOISE, "--noise-std", "0.01", "--tuples", "7:7:7", "7:7:8"],
+}
+NOISE_PRIMARY_A = {
+    "noise_sigma0p01": [*_NOISE, "--noise-std", "0.01", "--tuples", _CENTER, *_NOISE_ONLY,
+                        *_LAYOUT_ONLY, *_NETWORK_ONLY],
+}
+NOISE_PRIMARY_B = {
+    "noise_sigma0p05": [*_NOISE, "--noise-std", "0.05", "--tuples", _CENTER, *_NOISE_ONLY],
+    "noise_sigma0_from_v4": [*_NOISE, "--noise-std", "0.0", "--tuples", *_V4_TUPLES,
+                             "--init-from", V4_STATES],
+}
+NOISE_SENSORS = {
+    f"noise_sigma0p01_obs{n}": [*_NOISE, "--noise-std", "0.01", "--observations", str(n),
+                                "--methods", "baseline", "likelihood_weighted",
+                                "--tuples", _CENTER, *_NOISE_ONLY]
+    for n in (32, 256)
+}
+EFFICIENCY = {
+    "efficiency_sigma0_adam20k_snapshots": [
+        "remote.run_deepxde_noise_study", "--iterations", "20000", "--adam-snapshots", "5000",
+        "10000", "--trace-every", "500", "--lbfgs-maxiter", "15000", "--lbfgs-record-every",
+        "10", "--noise-std", "0.0", "--methods", "baseline", "--tuples", *_V4_TUPLES],
+}
+FLOAT64 = {
+    "float64_sigma0_from_v4": [*_NOISE, "--noise-std", "0.0", "--methods", "baseline",
+                               "--float64", "--tuples", *_V4_TUPLES, "--init-from", V4_STATES],
+}
+STAGE_PLANS = {"noise_pilot": NOISE_PILOT, "noise_primary_a": NOISE_PRIMARY_A,
+               "noise_primary_b": NOISE_PRIMARY_B, "noise_sensors": NOISE_SENSORS,
+               "efficiency": EFFICIENCY, "float64": FLOAT64}
+
+STAGES = ("smoke", "baseline", "convergence", "lbfgs", "sensitivity_a", "sensitivity_b",
+          *STAGE_PLANS)
 
 status = {"ref": REF, "stage": STAGE, "steps": {}}
 
@@ -167,14 +212,27 @@ def main():
                               "--iterations", "2", "--output-dir", str(results / "smoke"),
                               *(["--include-lbfgs"] if STAGE in STAGES[3:] else [])],
                     cwd=CLONE, env=env)
+    if smoke_ok and STAGE in STAGE_PLANS:
+        smoke_ok = step("smoke_noise_study", [sys.executable, "-m", "remote.smoke_noise_study",
+                                              "--output-dir", str(results / "smoke_noise")],
+                        cwd=CLONE, env=env)
     status["smoke_passed"] = smoke_ok
     save_status()
     if not smoke_ok or STAGE == "smoke":
         return
 
     plan = {"baseline": BASELINE, "convergence": CONVERGENCE, "lbfgs": LBFGS,
-            "sensitivity_a": SENSITIVITY_A, "sensitivity_b": SENSITIVITY_B}[STAGE]
+            "sensitivity_a": SENSITIVITY_A, "sensitivity_b": SENSITIVITY_B,
+            **STAGE_PLANS}[STAGE]
+    states = sorted(Path("/kaggle/input").rglob("seed42_adam.pt"))
+    status["v4_states"] = str(states[0].parent) if states else None
     for name, (module, *args) in plan.items():
+        if V4_STATES in args:
+            if not states:
+                status["steps"][name] = {"returncode": None, "skipped": "no checkpoint dataset"}
+                save_status()
+                continue
+            args = [str(states[0].parent) if a == V4_STATES else a for a in args]
         step(name, [sys.executable, "-m", module, *args, "--output",
                     str(results / f"{name}.json")], cwd=CLONE, env=env)
 

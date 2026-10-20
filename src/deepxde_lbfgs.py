@@ -32,7 +32,8 @@ def set_lbfgs_options(**options):
     return dict(LBFGS_options)
 
 
-def refine_lbfgs(model, variables, maxiter, record_every=10, **options):
+def refine_lbfgs(model, variables, maxiter, record_every=10, loss_weights=None,
+                 penalty=None, **options):
     """Run L-BFGS on ``model`` (already compiled and trained with Adam).
 
     ``variables`` maps names to the external ``dde.Variable`` objects. Returns
@@ -53,13 +54,18 @@ def refine_lbfgs(model, variables, maxiter, record_every=10, **options):
     config = dict(LBFGS_options)
 
     start_iteration = iteration_of(model.train_state)
-    model.compile("L-BFGS", external_trainable_variables=list(variables.values()))
+    model.compile("L-BFGS", loss_weights=loss_weights,
+                  external_trainable_variables=list(variables.values()))
     evaluations = []
     original_step = model.opt.step
 
     def logged_step(closure):
         def logged_closure():
             loss = closure()
+            if penalty is not None:
+                extra = penalty()
+                extra.backward()  # closure() already zeroed and filled the gradients
+                loss = loss + extra.detach()
             evaluations.append(torch.stack(
                 [loss.detach().reshape(())] + [v.detach().reshape(()) for v in variables.values()]))
             return loss
@@ -82,6 +88,10 @@ def refine_lbfgs(model, variables, maxiter, record_every=10, **options):
     _, final_losses = model.outputs_losses_train(
         model.train_state.X_train, model.train_state.y_train, model.train_state.train_aux_vars)
     final_loss_components = [float(v) for v in final_losses.detach().cpu().reshape(-1)]
+    final_penalty = float(penalty().detach()) if penalty is not None else 0.0
+    # DeepXDE applies loss_weights inside outputs_losses; keep raw components too.
+    raw_components = (final_loss_components if loss_weights is None else
+                      [c / w for c, w in zip(final_loss_components, loss_weights)])
     func_evals = int(state.get("func_evals", 0))
     grad = state.get("prev_flat_grad")
     grad_max = float(grad.abs().max()) if grad is not None else math.nan
@@ -106,6 +116,9 @@ def refine_lbfgs(model, variables, maxiter, record_every=10, **options):
         "final_max_abs_gradient": grad_max,
         "final_total_loss": losses[-1] if losses else math.nan,
         "final_loss_components": final_loss_components,
+        "final_raw_loss_components": raw_components,
+        "final_penalty": final_penalty,
+        "loss_weights": loss_weights,
         "initial_total_loss": losses[0] if losses else math.nan,
         "finite_history": all(math.isfinite(v) for row in history for v in row),
         "start_iteration": start_iteration,
