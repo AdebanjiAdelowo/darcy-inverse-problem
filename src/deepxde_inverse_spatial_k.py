@@ -29,10 +29,26 @@ def manufactured_forcing(x, alpha=ALPHA_TRUE, beta=BETA_TRUE):
     return k*(2*np.pi**2*p-alpha*px-beta*py)
 
 
-def observation_data(seed, observations, noise_std=0.0):
+def noise_draws(noise_seed, observations):
+    """Standard-normal noise from a stream independent of every layout stream.
+
+    ``default_rng([noise_seed, 1])`` is seeded through a different SeedSequence
+    entropy from ``default_rng(layout_seed)``, so it is independent of the sensor
+    layout even when the two seeds are equal. Draws are prefix-nested: the first
+    m draws for n > m observations equal the draws for m observations.
+    """
+    return np.random.default_rng([noise_seed, 1]).standard_normal((observations, 1))
+
+
+def observation_data(seed, observations, noise_std=0.0, noise_seed=None):
     """Sensor locations and (optionally noisy) pressure values.
 
-    With ``noise_std == 0`` the draws are identical to the original protocol.
+    Noise is absolute: ``noise_std`` is the standard deviation of i.i.d. Gaussian
+    noise added to the pressure (whose maximum is 1). With ``noise_std == 0`` the
+    draws are identical to the original protocol. With ``noise_seed=None`` (the
+    original protocol) the noise continues the layout stream, so layout and noise
+    realisation are coupled; with a ``noise_seed`` they are independent and the
+    noise is ``noise_std * noise_draws(noise_seed, observations)``.
     """
     if observations < 1 or noise_std < 0:
         raise ValueError("observations must be positive and noise_std non-negative")
@@ -40,13 +56,16 @@ def observation_data(seed, observations, noise_std=0.0):
     xy = rng.uniform(0.05, 0.95, (observations, 2))
     values = exact_pressure(xy)
     if noise_std > 0:
-        values = values + rng.normal(0.0, noise_std, size=values.shape)
+        if noise_seed is None:
+            values = values + rng.normal(0.0, noise_std, size=values.shape)
+        else:
+            values = values + noise_std * noise_draws(noise_seed, observations)
     return xy, values
 
 
 def build_model(alpha_true=ALPHA_TRUE, beta_true=BETA_TRUE, seed=42, observations=128,
                 noise_std=0.0, observation_seed=None, alpha_initial=0.0,
-                beta_initial=0.0):
+                beta_initial=0.0, noise_seed=None):
     import deepxde as dde
     import torch
 
@@ -69,7 +88,7 @@ def build_model(alpha_true=ALPHA_TRUE, beta_true=BETA_TRUE, seed=42, observation
         return -k*(pxx+pyy+alpha*px+beta*py)-source
 
     xy, values = observation_data(seed if observation_seed is None else observation_seed,
-                                  observations, noise_std)
+                                  observations, noise_std, noise_seed)
     bc = dde.icbc.DirichletBC(geometry,lambda _:0.0,lambda _,on_boundary:on_boundary)
     obs = dde.icbc.PointSetBC(xy,values)
     data = dde.data.PDE(geometry,pde,[bc,obs],num_domain=512,
