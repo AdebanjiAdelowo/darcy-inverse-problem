@@ -41,8 +41,11 @@ map → ill-posed inverse problem → regularisation → PDE-constrained optimis
 noise/sensor sensitivity analysis → honest quantitative evaluation**; Part II extends this to
 **probability → priors → likelihood → posterior inference → uncertainty quantification →
 identifiability / information content**, using established mathematics throughout rather than a new
-method. No neural network, PINN, learned surrogate, or neural posterior estimator is used anywhere in
-this repository (a deliberate scope boundary).
+method. No neural network, PINN, learned surrogate, or neural posterior estimator is used in Parts I or
+II (a deliberate scope boundary). A separate, supplementary set of manufactured physics-informed neural
+network (PINN) coefficient-identification benchmarks, built with DeepXDE, is described in
+[DeepXDE inverse-PINN benchmarks](#deepxde-inverse-pinn-benchmarks-supplementary); it does not replace or
+feed into Parts I and II.
 
 One evaluation of the Part I objective and its gradient (`InverseProblem.objective_and_gradient` in
 `src/adjoint.py`) costs one forward and one adjoint solve with the same Darcy operator; L-BFGS
@@ -843,6 +846,68 @@ Measured on: Apple M3 Pro, macOS 26.6.2-arm64, same environment as Part I and `f
 - Same deterministic-inversion limitations as Part I apply where relevant (fixed observation bump
   width untested for sensitivity, sensors kept away from the Dirichlet boundary, CPU-only).
 
+## DeepXDE inverse-PINN benchmarks (supplementary)
+
+Two low-dimensional manufactured benchmarks for $-\nabla\cdot(k\nabla p)=f$ on the unit square with zero
+Dirichlet boundary data and $p=\sin(\pi x)\sin(\pi y)$, solved as PINN inverse problems with DeepXDE 1.15
+(PyTorch backend). A 2-64-64-64-1 tanh network represents the pressure; the unknown coefficients are
+trained jointly from the PDE residual, the boundary condition and noise-free point observations of the
+pressure.
+
+| Benchmark | Unknowns | Truth | Observations |
+|---|---|---|---|
+| Constant permeability | $k=e^{\log k}$ | $k=1.7$ | 100 |
+| Spatially varying permeability | $\alpha,\beta$ in $k=e^{\alpha x+\beta y}$ | $\alpha=0.5,\ \beta=-0.3$ | 128 |
+
+These are two-parameter (or one-parameter) identification problems with an analytic truth. They are
+**not** comparable to the FEM-adjoint and Bayesian reconstructions of Parts I and II, which recover a
+high-dimensional log-permeability field from noisy data on a finite-element mesh, and no error or runtime
+below should be set against those results.
+
+The evaluation protocol and the recovery criterion were fixed before any GPU run: a benchmark counts as
+*recovered* only if the relative parameter error is below $10^{-2}$ for every one of five seeds (42, 0, 1, 2,
+3). Pressure and permeability-field errors are relative $L^2$ errors on a fixed $41\times41$ grid that is
+disjoint from the observation points. All runs used one NVIDIA Tesla T4 on Kaggle.
+
+| Benchmark and optimiser | Estimates (mean ± std over 5 seeds) | Max relative parameter error | Pressure rel. $L^2$ | Recovered |
+|---|---|---|---|---|
+| Constant k, Adam, 10 000 iterations | $k=1.626\pm0.020$ | $6.1\times10^{-2}$ | $3.5\times10^{-2}$ | no |
+| Constant k, Adam, 50 000 iterations | $k=1.700\pm0.003$ | $2.9\times10^{-3}$ | $1.2\times10^{-2}$ | yes |
+| Spatial k, Adam, 10 000 iterations | $\alpha=0.190\pm0.018,\ \beta=0.072\pm0.033$ | 0.91 | $5.1\times10^{-2}$ | no |
+| Spatial k, Adam, 50 000 iterations | $\alpha=0.381\pm0.018,\ \beta=-0.173\pm0.020$ | 0.34 | $1.9\times10^{-2}$ | no |
+| Spatial k, Adam 50 000 + L-BFGS | $\alpha=0.5006\pm0.0010,\ \beta=-0.3004\pm0.0012$ | $5.1\times10^{-3}$ | $7.8\times10^{-4}$ | yes |
+
+Findings:
+
+- With Adam alone, the parameters move toward the truth slowly and monotonically while the training loss
+  is already small, so a small loss is not evidence of parameter recovery here. At 10 000 iterations
+  neither benchmark is recovered; at 50 000 the constant benchmark is, and the spatial one is still about
+  30 percent off and still moving.
+- A short L-BFGS refinement after the 50 000 Adam iterations (488 to 665 L-BFGS iterations, about 15 s per
+  seed) recovers both spatial parameters to about 0.2 percent and reduces the permeability-field error
+  from $5.2\times10^{-2}$ to $4.2\times10^{-4}$. L-BFGS stopped on a float32 line-search stall rather than at
+  its gradient tolerance.
+- Sensitivity of the Adam + L-BFGS spatial result, one factor at a time with five seeds each: it stays
+  recovered with 16, 32, 64 or 256 noise-free sensors (median parameter error $1.2\times10^{-3}$ to
+  $2.4\times10^{-3}$, with no trend over this range), when only the network initialisation or only the
+  sensor layout varies across seeds, and from a far initial guess ($\alpha=-1,\ \beta=1$). With
+  observation noise it is not recovered: median parameter error $1.9\times10^{-2}$ at noise standard
+  deviation 0.01 and 0.10 at 0.05 (pressure peak 1), with large spread across seeds. The constant
+  benchmark stays recovered with noise 0.01 and from $k=5$.
+- Runs are reproducible on this setup: recorded parameter trajectories from separate Kaggle sessions are
+  identical at every shared checkpoint.
+- Cost per seed on one T4: about 85 s (constant) and 103 s (spatial) for 10 000 Adam iterations; 407 s and
+  492 to 515 s for 50 000; 15 s for the L-BFGS refinement.
+
+Limitations: the spatial parameters are recovered only from noise-free data, and no noise-aware
+weighting or regularisation of the PINN loss was tried; in the noisy runs the noise realisation and the
+sensor layout vary together; five seeds per configuration; float32 throughout; a single network
+architecture, learning rate and loss weighting; the Adam budget before L-BFGS was not varied. Full per-seed
+results, the pre-registered protocol and every deviation from it are in
+[`docs/DEEPXDE_REMOTE_RESULTS.md`](docs/DEEPXDE_REMOTE_RESULTS.md), and the raw outputs with SHA-256
+manifests are in `results/deepxde_remote/`. Reproduction instructions (remote CUDA only) are in
+[`docs/CLAUDE_CODE_DEEPXDE_REMOTE_HANDOFF.md`](docs/CLAUDE_CODE_DEEPXDE_REMOTE_HANDOFF.md).
+
 ## Reproducibility (Part I)
 
 ```bash
@@ -908,7 +973,10 @@ darcy-inverse-problem/
 │   ├── linear_gaussian_validation.py   Part II: analytically-solvable posterior for sampler validation
 │   ├── bayesian_darcy.py                Part II: PDE posterior (Phi, xi-space gradient), reusing
 │   │                                      Part I's forward/adjoint code
-│   └── bayesian_experiment.py            Part II: shared MAP + pCN experiment runner
+│   ├── bayesian_experiment.py            Part II: shared MAP + pCN experiment runner
+│   ├── deepxde_inverse_constant_k.py     Supplementary: constant-k inverse PINN (DeepXDE)
+│   ├── deepxde_inverse_spatial_k.py      Supplementary: two-parameter spatial-k inverse PINN
+│   └── deepxde_tracking.py, deepxde_lbfgs.py   Supplementary: training traces, L-BFGS refinement
 ├── scripts/
 │   ├── verify_forward.py, verify_gradient.py    Part I verification (run before trusting anything else)
 │   ├── run_reconstruction_demo.py                Part I: headline smooth/structured reconstructions
@@ -916,8 +984,10 @@ darcy-inverse-problem/
 │   ├── kl_prior_study.py, validate_sampler.py, verify_bayesian_gradient.py   Part II verification
 │   ├── run_posterior_demo.py                      Part II: headline MAP/posterior/UQ demo
 │   ├── bayesian_sensor_study.py, bayesian_noise_study.py, bayesian_prior_sensitivity.py
-│   └── (each accepts --config smoke|local|full)
-├── tests/                    56 pytest tests
+│   ├── summarize_deepxde_inverse.py               Supplementary: statistics from PINN result files
+│   └── (each Part I/II script accepts --config smoke|local|full)
+├── remote/                   Supplementary: CUDA-only PINN runners, smoke gate, Kaggle launcher
+├── tests/                    pytest suite (PINN tests skip without PyTorch/DeepXDE)
 ├── configs/                  smoke.yaml / local.yaml / full.yaml (both Part I and Part II sections)
 ├── figures/, results/        generated outputs backing every number in this README
 ```
