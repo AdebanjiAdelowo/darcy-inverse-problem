@@ -1022,7 +1022,7 @@ conda activate fenicsx
 
 **Prior related work.** `Image_inpainting` (a pre-existing repository) demonstrates the same
 regularised-inverse-problem skillset — total-variation regularisation solved via Douglas-Rachford
-splitting — applied to a different problem class (image denoising, no PDE forward operator). It is
+splitting, applied to a different problem class (image inpainting of missing regions, no PDE forward operator). It is
 cited here as prior evidence of that skillset, not reused: this repository's forward operator, adjoint
 derivation, and regularisation machinery are implemented independently for the PDE-constrained
 setting.
