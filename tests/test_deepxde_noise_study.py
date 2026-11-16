@@ -68,6 +68,22 @@ def test_noise_runner_arguments():
 
 # ------------------------------------------------------------ DeepXDE on CPU
 
+def test_memory_reporting_dispatches_to_cuda_without_allocating(monkeypatch):
+    import sys
+    from types import SimpleNamespace
+    from remote import run_deepxde_noise_study as runner
+
+    calls = []
+    cuda = SimpleNamespace(is_available=lambda: True,
+                           reset_peak_memory_stats=lambda: calls.append("reset"),
+                           max_memory_allocated=lambda: 1234)
+    monkeypatch.setitem(sys.modules, "torch", SimpleNamespace(cuda=cuda))
+    runner.reset_peak_memory()
+    assert calls == ["reset"] and runner.peak_memory() == 1234
+    cuda.is_available = lambda: False
+    runner.reset_peak_memory()
+    assert calls == ["reset"] and runner.peak_memory() == 0
+
 @pytest.fixture(scope="module")
 def dde_cpu():
     os.environ.setdefault("DDE_BACKEND", "pytorch")

@@ -31,12 +31,12 @@ from src.deepxde_tracking import loss_history, parameter_trace
 def reset_peak_memory():
     import torch
     if torch.cuda.is_available():
-        reset_peak_memory()
+        torch.cuda.reset_peak_memory_stats()
 
 
 def peak_memory():
     import torch
-    return peak_memory() if torch.cuda.is_available() else 0
+    return torch.cuda.max_memory_allocated() if torch.cuda.is_available() else 0
 
 
 def parse_tuple(text):
