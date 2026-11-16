@@ -1,0 +1,60 @@
+
+===== smooth / full: n=8000, r=15
+lambda[:4] = [1.      0.44739 0.44739 0.2509 ]
+ESS repo (maxlag 1000) : [7.7, 4.9, 4.9, 86.1, 8.6, 8.3, 7.6, 9.7, 20.0, 5.6, 5.4, 6.3, 5.8, 14.4, 7.2]
+ESS Geyer untruncated  : [6.6, 3.1, 3.1, 86.5, 8.6, 8.3, 5.1, 8.9, 20.0, 3.7, 3.5, 5.4, 4.2, 14.4, 6.6]
+ESS batch means (20)   : [21.6, 19.7, 19.7, 107.6, 22.5, 22.0, 25.9, 26.1, 37.3, 21.1, 20.7, 21.8, 23.0, 27.9, 23.6]
+  median repo=7.6 untrunc=6.6 bm=22.5
+split-Rhat (4 within-chain segments): [1.45, 3.33, 3.38, 1.01, 1.58, 1.64, 1.61, 1.47, 1.16, 1.75, 1.88, 1.5, 1.78, 1.18, 1.97]  max=3.38, #>1.01=15
+xi_0 (constant mode): mean=+0.066, sd=0.353  [exact posterior: N(0,1)]; range=[-0.962,+0.771]
+  ACF xi_0 at lags 100/500/1000/2000: [0.882, 0.493, 0.177, -0.037]
+sample sd per dim: [0.353, 0.37, 0.43, 0.042, 0.189, 0.187, 0.162, 0.139, 0.142, 0.349, 0.367, 0.239, 0.191, 0.137, 0.216]
+rel err MAP=0.3868  postmean=1.0009
+  constant-offset (nodal mean) truth=+0.0111 MAP=+0.0103 postmean=+0.0564
+  mean-removed rel err MAP=0.3869  postmean=0.9959
+pointwise post sd: min=0.298 median=0.564 max=0.675  [exact posterior: >= 1 everywhere, from xi_0 alone]
+
+===== smooth / local: n=3000, r=15
+lambda[:4] = [1.      0.44739 0.44739 0.2509 ]
+ESS repo (maxlag 1000) : [3.3, 3.8, 3.7, 26.0, 9.4, 10.3, 9.7, 10.3, 11.7, 5.2, 5.7, 4.4, 6.8, 5.1, 15.7]
+ESS Geyer untruncated  : [3.3, 3.8, 3.7, 30.7, 9.4, 10.3, 9.7, 10.5, 12.8, 5.1, 5.7, 4.4, 6.8, 5.1, 15.7]
+ESS batch means (20)   : [19.8, 20.5, 20.5, 46.3, 21.5, 22.5, 23.6, 26.2, 26.1, 22.3, 21.2, 21.0, 21.9, 21.6, 27.0]
+  median repo=6.8 untrunc=6.8 bm=21.9
+split-Rhat (4 within-chain segments): [2.78, 2.43, 2.41, 1.13, 1.3, 1.23, 1.32, 1.24, 1.3, 1.73, 2.0, 2.1, 1.28, 1.55, 1.17]  max=2.78, #>1.01=15
+xi_0 (constant mode): mean=+0.005, sd=0.316  [exact posterior: N(0,1)]; range=[-0.536,+0.673]
+  ACF xi_0 at lags 100/500/1000/2000: [0.873, 0.457, -0.045, -0.287]
+sample sd per dim: [0.316, 0.18, 0.204, 0.039, 0.129, 0.117, 0.11, 0.088, 0.111, 0.156, 0.2, 0.197, 0.153, 0.14, 0.106]
+rel err MAP=0.3866  postmean=1.0382
+  constant-offset (nodal mean) truth=+0.0111 MAP=+0.0103 postmean=+0.0018
+  mean-removed rel err MAP=0.3867  postmean=1.0383
+pointwise post sd: min=0.227 median=0.370 max=0.499  [exact posterior: >= 1 everywhere, from xi_0 alone]
+
+===== structured / full: n=8000, r=15
+lambda[:4] = [1.      0.44739 0.44739 0.2509 ]
+ESS repo (maxlag 1000) : [5.4, 6.8, 6.9, 72.7, 5.0, 5.0, 14.9, 15.5, 13.6, 5.6, 6.0, 11.1, 7.0, 8.9, 9.2]
+ESS Geyer untruncated  : [4.0, 4.4, 4.6, 74.4, 3.2, 3.2, 15.1, 15.7, 14.1, 3.7, 4.0, 9.3, 5.2, 8.2, 7.7]
+ESS batch means (20)   : [19.8, 22.4, 22.8, 82.6, 19.7, 19.6, 41.2, 33.9, 28.5, 20.6, 21.0, 25.4, 23.1, 24.0, 24.2]
+  median repo=7.0 untrunc=5.2 bm=23.1
+split-Rhat (4 within-chain segments): [2.64, 1.71, 1.67, 1.03, 2.81, 3.01, 1.26, 1.28, 1.11, 1.76, 1.67, 1.32, 1.42, 1.42, 1.59]  max=3.01, #>1.01=15
+xi_0 (constant mode): mean=+0.375, sd=0.515  [exact posterior: N(0,1)]; range=[-0.797,+1.274]
+  ACF xi_0 at lags 100/500/1000/2000: [0.94, 0.74, 0.497, 0.038]
+sample sd per dim: [0.515, 0.189, 0.199, 0.044, 0.471, 0.474, 0.115, 0.129, 0.169, 0.36, 0.366, 0.199, 0.227, 0.216, 0.2]
+rel err MAP=0.8074  postmean=1.4656
+  constant-offset (nodal mean) truth=-0.0188 MAP=-0.0030 postmean=+0.3601
+  mean-removed rel err MAP=0.8073  postmean=1.0720
+pointwise post sd: min=0.370 median=0.622 max=0.800  [exact posterior: >= 1 everywhere, from xi_0 alone]
+
+===== structured / local: n=3000, r=15
+lambda[:4] = [1.      0.44739 0.44739 0.2509 ]
+ESS repo (maxlag 1000) : [3.8, 6.8, 6.8, 19.6, 10.8, 9.4, 17.7, 20.2, 8.0, 6.5, 9.0, 9.8, 7.1, 12.2, 4.5]
+ESS Geyer untruncated  : [3.8, 6.9, 6.9, 21.4, 10.8, 9.4, 17.7, 20.2, 8.0, 6.5, 9.0, 9.8, 7.1, 12.2, 4.7]
+ESS batch means (20)   : [19.9, 24.7, 25.2, 40.0, 23.1, 23.4, 29.5, 34.2, 21.6, 22.3, 22.1, 25.2, 23.4, 24.8, 22.1]
+  median repo=9.0 untrunc=9.0 bm=23.4
+split-Rhat (4 within-chain segments): [2.48, 1.52, 1.52, 1.15, 1.33, 1.38, 1.07, 1.12, 1.55, 1.49, 1.49, 1.3, 1.56, 1.17, 1.65]  max=2.48, #>1.01=15
+xi_0 (constant mode): mean=-0.242, sd=0.291  [exact posterior: N(0,1)]; range=[-0.797,+0.342]
+  ACF xi_0 at lags 100/500/1000/2000: [0.893, 0.386, -0.249, -0.13]
+sample sd per dim: [0.291, 0.112, 0.114, 0.044, 0.126, 0.118, 0.097, 0.082, 0.166, 0.149, 0.172, 0.124, 0.148, 0.134, 0.173]
+rel err MAP=0.8074  postmean=1.0911
+  constant-offset (nodal mean) truth=-0.0188 MAP=-0.0031 postmean=-0.2490
+  mean-removed rel err MAP=0.8073  postmean=0.9072
+pointwise post sd: min=0.221 median=0.311 max=0.503  [exact posterior: >= 1 everywhere, from xi_0 alone]
