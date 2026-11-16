@@ -76,8 +76,21 @@ class BayesianDarcyProblem:
         return misfit, grad_xi, p
 
     def neg_log_likelihood(self, xi: np.ndarray) -> float:
-        """Phi(xi): for use as pCN's Phi (gradient not needed by pCN)."""
+        """Phi(xi) for pCN, which needs only the likelihood value: ONE forward
+        solve, no adjoint solve. Identical arithmetic to the misfit inside
+        neg_log_likelihood_and_grad (verified in tests/test_likelihood_path.py)."""
+        misfit, _ = self._ip.misfit_only(self.prior.sample_array(xi))
+        return misfit
+
+    def neg_log_likelihood_legacy(self, xi: np.ndarray) -> float:
+        """Historical pCN likelihood path: forward + adjoint solve + gradient
+        assembly, of which only the value is used. Kept for equivalence tests and
+        benchmarks; results stored before Milestone 2 were produced with it."""
         return self.neg_log_likelihood_and_grad(xi)[0]
+
+    def solve_counts(self) -> tuple[int, int]:
+        """Cumulative (forward, adjoint) PDE solves performed by this problem."""
+        return self._ip.solve_counts()
 
     def neg_log_posterior_and_grad(self, xi: np.ndarray):
         """Psi(xi) = Phi(xi) + (1/2)||xi||^2: for gradient-based MAP optimisation."""

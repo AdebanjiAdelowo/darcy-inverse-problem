@@ -103,22 +103,43 @@ class InverseProblem:
         self._m = Function(self.dm.V_m)
         self._bcs_p = pressure_bcs(self.dm)
         self._bcs_adj = homogeneous_bcs(self.dm)
+        # cumulative PDE solve counters (diagnostics only; no effect on results)
+        self.n_forward_solves = 0
+        self.n_adjoint_solves = 0
+
+    def solve_counts(self) -> tuple[int, int]:
+        return self.n_forward_solves, self.n_adjoint_solves
 
     def _regularizer_form(self, m):
         if self.reg_type == "h1":
             return h1_seminorm(m)
         return l2_prior(m, self.m0)
 
-    def objective_and_gradient(self, m_array: np.ndarray):
+    def _forward(self, m_array: np.ndarray):
         self._m.x.array[:] = m_array
-        m = self._m
+        p = solve_forward(self.dm, self._m, bcs=self._bcs_p)
+        self.n_forward_solves += 1
+        return p
 
+    def _misfit(self, pred: np.ndarray) -> float:
+        return 0.5 * np.sum(((pred - self.y) / self.sigma) ** 2)
+
+    def misfit_only(self, m_array: np.ndarray):
+        """Data misfit (1/2)||Hp(m) - y||^2_{Gamma^-1} from ONE forward solve,
+        with no regularisation assembly and no adjoint solve. Uses exactly the
+        same forward solve and misfit arithmetic as objective_and_gradient, so
+        the value is identical to the misfit computed there. Returns (misfit, p)."""
+        p = self._forward(m_array)
+        return self._misfit(self.obs.apply(p)), p
+
+    def objective_and_gradient(self, m_array: np.ndarray):
         # --- forward solve ---
-        p = solve_forward(self.dm, m, bcs=self._bcs_p)
+        p = self._forward(m_array)
+        m = self._m
 
         pred = self.obs.apply(p)
         weighted_residual = (pred - self.y) / self.sigma**2
-        misfit = 0.5 * np.sum(((pred - self.y) / self.sigma) ** 2)
+        misfit = self._misfit(pred)
 
         R_form = self._regularizer_form(m)
         reg = fem.assemble_scalar(fem.form(R_form))
@@ -155,6 +176,7 @@ class InverseProblem:
         ksp.getPC().setFactorSolverType("mumps")
         ksp.solve(b_vec, lam.x.petsc_vec)
         lam.x.scatter_forward()
+        self.n_adjoint_solves += 1
 
         # --- gradient assembly ---
         phi = ufl.TestFunction(self.dm.V_m)

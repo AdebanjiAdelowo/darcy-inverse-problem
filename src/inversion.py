@@ -15,9 +15,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 import numpy as np
-from scipy.optimize import minimize
 
 from src.adjoint import InverseProblem
+from src.optim_diagnostics import OptimizerDiagnostics, run_lbfgsb_with_diagnostics
 
 
 @dataclass
@@ -27,8 +27,10 @@ class OptimizationHistory:
     reg: list = field(default_factory=list)
     grad_norm: list = field(default_factory=list)
     n_iterations: int = 0
-    converged: bool = False
+    converged: bool = False  # SciPy success flag (historical meaning, unchanged)
     message: str = ""
+    diagnostics: OptimizerDiagnostics | None = None
+    predicted_observations: np.ndarray | None = None  # H p(m) at the returned iterate
 
 
 def run_lbfgs(
@@ -49,13 +51,15 @@ def run_lbfgs(
         history.misfit.append(misfit)
         history.reg.append(reg_val)
         history.grad_norm.append(float(np.linalg.norm(g)))
-        return J, g
+        return J, g, misfit, reg_val, pred
 
-    result = minimize(
-        objective_and_grad, m0, jac=True, method="L-BFGS-B",
-        options={"maxiter": max_iter, "gtol": gtol, "ftol": ftol},
+    x, diag, pred_final, result = run_lbfgsb_with_diagnostics(
+        objective_and_grad, m0, max_iter=max_iter, gtol=gtol, ftol=ftol,
+        solve_counter=ip.solve_counts,
     )
     history.n_iterations = result.nit
     history.converged = bool(result.success)
     history.message = str(result.message)
-    return result.x, history
+    history.diagnostics = diag
+    history.predicted_observations = pred_final
+    return x, history

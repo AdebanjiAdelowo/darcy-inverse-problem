@@ -41,6 +41,7 @@ def run_reconstruction(
     max_iter: int = 150,
     data: SyntheticData | None = None,
 ) -> ReconstructionResult:
+    data_provided = data is not None
     if data is None:
         data = generate_synthetic_data(
             truth_fn, sensor_locations, truth_mesh_n, sensor_width, relative_noise, data_seed
@@ -58,6 +59,22 @@ def run_reconstruction(
     rel_m_error = float(
         np.linalg.norm(m_rec - m_true_on_inv.x.array) / np.linalg.norm(m_true_on_inv.x.array)
     )
+
+    # diagnostics only: identifiability-aware errors and pressure prediction at
+    # the returned iterate (no extra PDE solve; the historical rel_m_error above
+    # is unchanged and remains the reported metric of the historical scripts)
+    if history.diagnostics is not None:
+        from src.identifiability import mass_matrix, observation_prediction_error, reconstruction_errors
+        extra = {"truth_available": True, "reg_type": reg_type, "alpha": alpha,
+                 "inv_mesh_n": inv_mesh_n, "truth_mesh_n": truth_mesh_n,
+                 "n_sensors": int(len(sensor_locations)), "relative_noise": relative_noise,
+                 "data_seed": "supplied by caller" if data_provided else data_seed,
+                 "initial_guess": "zeros"}
+        extra.update(reconstruction_errors(m_rec, m_true_on_inv.x.array, mass_matrix(inv_dm.V_m)))
+        if history.predicted_observations is not None:
+            extra.update(observation_prediction_error(history.predicted_observations, data.y_clean,
+                                                      data.y_noisy, data.sigma))
+        history.diagnostics.extra.update(extra)
 
     return ReconstructionResult(
         m_rec=m_rec, m_true_on_inv_mesh=m_true_on_inv.x.array.copy(), history=history, data=data,
