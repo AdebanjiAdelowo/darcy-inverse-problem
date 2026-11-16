@@ -1,0 +1,20 @@
+--- reg_type=h1, alpha=0.001 ---
+J(m0) = 2.009028e+03, directional derivative = 2.909283e+00
+       eps     |J(m+eps*dm)-J(m)|   zeroth order      1st-order remainder   observed order
+  1.00e-02           2.910731e-02            nan             1.447456e-05              nan
+  5.00e-03           1.455003e-02          1.000             3.618439e-06            2.000
+  2.50e-03           7.274112e-03          1.000             9.045055e-07            2.000
+  1.25e-03           3.636830e-03          1.000             2.260746e-07            2.000
+  6.25e-04           1.818358e-03          1.000             5.649675e-08            2.001
+
+--- reg_type=l2, alpha=0.01 ---
+J(m0) = 1.994780e+03, directional derivative = 2.942463e+00
+       eps     |J(m+eps*dm)-J(m)|   zeroth order      1st-order remainder   observed order
+  1.00e-02           2.943934e-02            nan             1.470972e-05              nan
+  5.00e-03           1.471599e-02          1.000             3.677420e-06            2.000
+  2.50e-03           7.357076e-03          1.000             9.193445e-07            2.000
+  1.25e-03           3.678308e-03          1.000             2.298319e-07            2.000
+  6.25e-04           1.839097e-03          1.000             5.745897e-08            2.000
+
+Wrote results/gradient_verification.txt
+wrote results/m2/reproduction/single_thread/verify_gradient.json

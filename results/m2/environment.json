@@ -1,0 +1,120 @@
+{
+  "git": {
+    "commit": "a7a64471db40c3055c86096efcce0e26577509e5",
+    "branch": "main",
+    "dirty": true,
+    "modified_or_untracked": [
+      "README.md",
+      "scripts/run_posterior_demo.py",
+      "src/adjoint.py",
+      "src/bayesian_darcy.py",
+      "src/bayesian_experiment.py",
+      "src/experiment.py",
+      "src/inversion.py",
+      "docs/REPRODUCIBILITY.md",
+      "docs/audit/PRIOR_AUDIT_BRANCH_REVIEW.md",
+      "environment/",
+      "results/m2/",
+      "scripts/compare_baselines.py",
+      "scripts/record_environment.py",
+      "scripts/reproduce_baselines.py",
+      "scripts/summarize_m2.py",
+      "src/identifiability.py",
+      "src/optim_diagnostics.py",
+      "tests/test_ess_estimator_bias.py",
+      "tests/test_identifiability.py",
+      "tests/test_likelihood_path.py",
+      "tests/test_optimizer_diagnostics.py"
+    ]
+  },
+  "os": {
+    "system": "Darwin",
+    "release": "25.6.0",
+    "macos": "26.6.2",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "hardware": {
+    "machine": "arm64",
+    "cpu_brand": "Apple M3 Pro",
+    "logical_cpus": 11,
+    "performance_cores": "5",
+    "efficiency_cores": "6",
+    "memory_gib": 18.0
+  },
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+  },
+  "fem_environment": {
+    "python": "3.12.12",
+    "executable_env": "fenicsx",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "dolfinx": "0.10.0",
+    "ufl": "2025.2.1",
+    "basix": "0.10.0",
+    "ffcx": "0.10.0",
+    "petsc4py": "3.24.3",
+    "petsc": "3.24.3",
+    "mpi4py": "4.1.2",
+    "pyyaml": "6.0.3",
+    "matplotlib": "3.11.2",
+    "mpi_library": "MPICH Version:      4.3.2",
+    "petsc_version_info": {
+      "major": 3,
+      "minor": 24,
+      "subminor": 3,
+      "release": true,
+      "date": "Jan 01, 2026",
+      "authorinfo": [
+        "The PETSc Team",
+        "petsc-maint@mcs.anl.gov",
+        "https://petsc.org/"
+      ]
+    },
+    "numpy_blas": {
+      "name": "blas",
+      "found": true,
+      "version": "3.9.0",
+      "detection method": "pkgconfig",
+      "include directory": "/opt/anaconda3/envs/fenicsx/include",
+      "lib directory": "/opt/anaconda3/envs/fenicsx/lib",
+      "openblas configuration": "unknown",
+      "pc file directory": "/opt/anaconda3/envs/fenicsx/lib/pkgconfig"
+    }
+  },
+  "numerical_configuration": {
+    "forward_and_adjoint_solver": {
+      "ksp_type": "preonly",
+      "pc_type": "lu",
+      "pc_factor_mat_solver_type": "mumps",
+      "source": "src/forward.py (forward), src/adjoint.py (adjoint)"
+    },
+    "elements": {
+      "pressure": "Lagrange P2",
+      "log_permeability": "Lagrange P1",
+      "mesh": "dolfinx create_unit_square, triangles"
+    },
+    "optimiser": {
+      "method": "scipy.optimize.minimize L-BFGS-B",
+      "gtol": 1e-06,
+      "ftol": 1e-12,
+      "maxcor": "SciPy default (10)",
+      "maxls": "SciPy default (20)",
+      "source": "src/inversion.py, src/bayesian_experiment.py"
+    },
+    "sampler": {
+      "method": "pCN",
+      "rng": "numpy.random.default_rng(seed)",
+      "source": "src/pcn_sampler.py"
+    }
+  },
+  "deepxde_environment": {
+    "python": "3.12.2",
+    "numpy": "2.5.4",
+    "torch": "2.14.1",
+    "deepxde": "1.15.0"
+  }
+}

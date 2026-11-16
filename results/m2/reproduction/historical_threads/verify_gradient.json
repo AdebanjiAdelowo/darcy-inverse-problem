@@ -1,0 +1,41 @@
+{
+ "experiment": "verify_gradient",
+ "script": "scripts/verify_gradient.py",
+ "argv": [],
+ "wall_seconds": 0.7427538749980158,
+ "captured_runs": [],
+ "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5",
+ "uncommitted_paths_at_start": [
+  "README.md",
+  "scripts/run_posterior_demo.py",
+  "src/adjoint.py",
+  "src/bayesian_darcy.py",
+  "src/bayesian_experiment.py",
+  "src/experiment.py",
+  "src/inversion.py",
+  "docs/REPRODUCIBILITY.md",
+  "docs/audit/PRIOR_AUDIT_BRANCH_REVIEW.md",
+  "environment/",
+  "results/m2/",
+  "scripts/compare_baselines.py",
+  "scripts/record_environment.py",
+  "scripts/reproduce_baselines.py",
+  "src/identifiability.py",
+  "src/optim_diagnostics.py",
+  "tests/test_ess_estimator_bias.py",
+  "tests/test_identifiability.py",
+  "tests/test_likelihood_path.py",
+  "tests/test_optimizer_diagnostics.py"
+ ],
+ "started": "2026-11-16T19:58:46+0100",
+ "finished": "2026-11-16T19:58:47+0100",
+ "python": "3.12.12",
+ "executable_env": "fenicsx",
+ "tag": "historical_threads",
+ "thread_env": {
+  "OMP_NUM_THREADS": "11",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": null,
+  "VECLIB_MAXIMUM_THREADS": null
+ }
+}

@@ -1,0 +1,514 @@
+{
+ "tag": "single_thread",
+ "experiments": {
+  "verify_forward": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/forward_verification.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/forward_verification.txt",
+     "n_lines": [
+      15,
+      15
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 60,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 2.0259420830007002,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "verify_gradient": {
+   "verdict": "printed_precision",
+   "comparisons": [
+    {
+     "historical": "results/gradient_verification.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/gradient_verification.txt",
+     "n_lines": [
+      18,
+      18
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 58,
+     "n_differing_tokens": 9,
+     "max_abs_difference": 1.1140000000004162e-11,
+     "max_rel_difference": 0.0001939150704213573,
+     "largest_differences": [
+      {
+       "rel": 0.0001939150704213573,
+       "line": 17,
+       "historical": "5.744783e-08",
+       "reproduced": "5.745897e-08"
+      },
+      {
+       "rel": 4.0177688037815685e-05,
+       "line": 8,
+       "historical": "5.649902e-08",
+       "reproduced": "5.649675e-08"
+      },
+      {
+       "rel": 2.08852654886863e-05,
+       "line": 16,
+       "historical": "2.298271e-07",
+       "reproduced": "2.298319e-07"
+      },
+      {
+       "rel": 5.970148593682664e-06,
+       "line": 6,
+       "historical": "9.045001e-07",
+       "reproduced": "9.045055e-07"
+      },
+      {
+       "rel": 2.211654445862467e-06,
+       "line": 7,
+       "historical": "2.260751e-07",
+       "reproduced": "2.260746e-07"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 0.5394230419988162,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "verify_bayesian_gradient": {
+   "verdict": "printed_precision",
+   "comparisons": [
+    {
+     "historical": "results/bayesian_gradient_verification.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/bayesian_gradient_verification.txt",
+     "n_lines": [
+      7,
+      7
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 18,
+     "n_differing_tokens": 3,
+     "max_abs_difference": 0.00010000000000331966,
+     "max_rel_difference": 5.18624721372735e-07,
+     "largest_differences": [
+      {
+       "rel": 5.18624721372735e-07,
+       "line": 7,
+       "historical": "7.712706e-05",
+       "reproduced": "7.712702e-05"
+      },
+      {
+       "rel": 4.2411590919559483e-07,
+       "line": 1,
+       "historical": "2.357846e+02",
+       "reproduced": "2.357845e+02"
+      },
+      {
+       "rel": 2.0289655105762752e-07,
+       "line": 4,
+       "historical": "4.928620e-03",
+       "reproduced": "4.928619e-03"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 0.39923654200174497,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "validate_sampler": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/sampler_validation.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/sampler_validation.txt",
+     "n_lines": [
+      18,
+      18
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 60,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 0.9885134579999431,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "reconstruction_demo": {
+   "verdict": "discrepancy",
+   "comparisons": [
+    {
+     "historical": "results/reconstruction_demo_full.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/reconstruction_demo_full.txt",
+     "n_lines": [
+      4,
+      4
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 16,
+     "n_differing_tokens": 1,
+     "max_abs_difference": 1.0,
+     "max_rel_difference": 0.007246376811594203,
+     "largest_differences": [
+      {
+       "rel": 0.007246376811594203,
+       "line": 3,
+       "historical": "138",
+       "reproduced": "139"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": [
+      {
+       "historical": [
+        12.0
+       ],
+       "reproduced": [
+        8.45
+       ]
+      },
+      {
+       "historical": [
+        10.09
+       ],
+       "reproduced": [
+        6.54
+       ]
+      }
+     ]
+    }
+   ],
+   "wall_seconds": 17.319868708000286,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "regularization_study": {
+   "verdict": "discrepancy",
+   "comparisons": [
+    {
+     "historical": "results/regularization_study_full.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/regularization_study_full.txt",
+     "n_lines": [
+      15,
+      15
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 62,
+     "n_differing_tokens": 2,
+     "max_abs_difference": 7.00000000000145e-05,
+     "max_rel_difference": 0.0011722899952374733,
+     "largest_differences": [
+      {
+       "rel": 0.0011722899952374733,
+       "line": 3,
+       "historical": "5.4594e-02",
+       "reproduced": "5.4530e-02"
+      },
+      {
+       "rel": 0.00011797819088873729,
+       "line": 3,
+       "historical": "5.9333e-01",
+       "reproduced": "5.9340e-01"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 59.83742258300117,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "noise_study": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/noise_study_full.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/noise_study_full.txt",
+     "n_lines": [
+      7,
+      7
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 22,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 35.712620916998276,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "sensor_study": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/sensor_study_full.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/sensor_study_full.txt",
+     "n_lines": [
+      7,
+      7
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 21,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 191.54565416699916,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "posterior_demo": {
+   "verdict": "discrepancy",
+   "comparisons": [
+    {
+     "historical": "results/posterior_demo_full.txt",
+     "reproduced": "results/m2/reproduction/single_thread/text/posterior_demo_full.txt",
+     "n_lines": [
+      40,
+      40
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 148,
+     "n_differing_tokens": 20,
+     "max_abs_difference": 0.0001000000000000445,
+     "max_rel_difference": 0.0027027027027025927,
+     "largest_differences": [
+      {
+       "rel": 0.0027027027027025927,
+       "line": 15,
+       "historical": "0.0370",
+       "reproduced": "0.0369"
+      },
+      {
+       "rel": 0.0003492839678658365,
+       "line": 33,
+       "historical": "0.2863",
+       "reproduced": "0.2862"
+      },
+      {
+       "rel": 0.0003326679973386194,
+       "line": 18,
+       "historical": "-0.3006",
+       "reproduced": "-0.3005"
+      },
+      {
+       "rel": 0.0002585315408480985,
+       "line": 9,
+       "historical": "0.3868",
+       "reproduced": "0.3869"
+      },
+      {
+       "rel": 0.0002226675573368715,
+       "line": 33,
+       "historical": "-0.4491",
+       "reproduced": "-0.4492"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    },
+    {
+     "historical": "results/posterior_samples_smooth_full.npz",
+     "reproduced": "results/m2/reproduction/single_thread/text/posterior_samples_smooth_full.npz",
+     "all_identical": false,
+     "arrays": {
+      "xi_samples": {
+       "shape": [
+        8000,
+        15
+       ],
+       "identical": false,
+       "max_abs_difference": 0.00012481105440720341
+      },
+      "m_map": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 0.00012965365372974436
+      },
+      "m_post_mean": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 8.16150253528658e-05
+      },
+      "m_post_std": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 1.0612601422543833e-05
+      },
+      "m_true": {
+       "shape": [
+        289
+       ],
+       "identical": true,
+       "max_abs_difference": 0.0
+      },
+      "eigenvalues": {
+       "shape": [
+        15
+       ],
+       "identical": false,
+       "max_abs_difference": 9.658940314238862e-14
+      }
+     },
+     "chain_accept_pattern_identical": true,
+     "chain_moves": [
+      3205,
+      3205
+     ],
+     "max_abs_difference_of_sample_means": 9.196901493532805e-05
+    },
+    {
+     "historical": "results/posterior_samples_structured_full.npz",
+     "reproduced": "results/m2/reproduction/single_thread/text/posterior_samples_structured_full.npz",
+     "all_identical": false,
+     "arrays": {
+      "xi_samples": {
+       "shape": [
+        8000,
+        15
+       ],
+       "identical": false,
+       "max_abs_difference": 0.00029521228922510523
+      },
+      "m_map": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 0.0002168243710565232
+      },
+      "m_post_mean": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 0.0001305071350218845
+      },
+      "m_post_std": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 1.712939779641154e-05
+      },
+      "m_true": {
+       "shape": [
+        289
+       ],
+       "identical": true,
+       "max_abs_difference": 0.0
+      },
+      "eigenvalues": {
+       "shape": [
+        15
+       ],
+       "identical": false,
+       "max_abs_difference": 9.658940314238862e-14
+      }
+     },
+     "chain_accept_pattern_identical": true,
+     "chain_moves": [
+      3529,
+      3529
+     ],
+     "max_abs_difference_of_sample_means": 0.00021125073620520407
+    }
+   ],
+   "wall_seconds": 220.23849295800028,
+   "thread_env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  }
+ }
+}

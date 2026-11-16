@@ -1,0 +1,121 @@
+{
+ "experiment": "pcn_benchmark",
+ "configuration": {
+  "truth_mesh_n": 64,
+  "inv_mesh_n": 16,
+  "sensor_grid": 5,
+  "sensor_width": 0.035,
+  "relative_noise": 0.02,
+  "prior_r": 15,
+  "prior_gamma": 0.05,
+  "prior_delta": 1.0,
+  "n_samples": 8000,
+  "beta": 0.02,
+  "burn_in": 0,
+  "map_max_iter": 120,
+  "truth": "smooth_truth(seed=1)",
+  "data_seed": 7,
+  "mcmc_seed": 1,
+  "x0": "MAP (map_max_iter as configured)",
+  "n_proposals": 1000,
+  "repeats_per_path": 2
+ },
+ "single_evaluation": {
+  "n_points": 200,
+  "seconds_per_eval_legacy": [
+   0.031592891039999814,
+   0.03002975207999043
+  ],
+  "seconds_per_eval_forward_only": [
+   0.012638924170005339,
+   0.012358976044997689
+  ],
+  "max_abs_difference": 0.0,
+  "max_rel_difference": 0.0,
+  "bitwise_identical": true
+ },
+ "chains": [
+  {
+   "path": "legacy",
+   "repeat": 0,
+   "seconds": 29.490505249999842,
+   "solves": [
+    1001,
+    1001
+   ],
+   "acceptance_rate": 0.391
+  },
+  {
+   "path": "forward_only",
+   "repeat": 0,
+   "seconds": 12.08439695800189,
+   "solves": [
+    1001,
+    0
+   ],
+   "acceptance_rate": 0.391
+  },
+  {
+   "path": "forward_only",
+   "repeat": 1,
+   "seconds": 12.858337333000236,
+   "solves": [
+    1001,
+    0
+   ],
+   "acceptance_rate": 0.391
+  },
+  {
+   "path": "legacy",
+   "repeat": 1,
+   "seconds": 29.803160250001383,
+   "solves": [
+    1001,
+    1001
+   ],
+   "acceptance_rate": 0.391
+  }
+ ],
+ "chains_bitwise_identical": true,
+ "max_abs_chain_difference": 0.0,
+ "acceptance_rates_identical": true,
+ "mean_seconds_per_chain": {
+  "legacy": 29.646832750000613,
+  "forward_only": 12.471367145501063
+ },
+ "mean_ms_per_proposal": {
+  "legacy": 29.646832750000613,
+  "forward_only": 12.471367145501063
+ },
+ "speedup": 2.3771918831445396,
+ "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5",
+ "uncommitted_paths_at_start": [
+  "scripts/run_posterior_demo.py",
+  "src/adjoint.py",
+  "src/bayesian_darcy.py",
+  "src/bayesian_experiment.py",
+  "src/experiment.py",
+  "src/inversion.py",
+  "environment/",
+  "results/m2/",
+  "scripts/record_environment.py",
+  "scripts/reproduce_baselines.py",
+  "src/identifiability.py",
+  "src/optim_diagnostics.py",
+  "tests/test_ess_estimator_bias.py",
+  "tests/test_identifiability.py",
+  "tests/test_likelihood_path.py",
+  "tests/test_optimizer_diagnostics.py"
+ ],
+ "started": "2026-11-16T19:54:42+0100",
+ "finished": "2026-11-16T19:56:30+0100",
+ "python": "3.12.12",
+ "executable_env": "fenicsx",
+ "tag": "single_thread",
+ "thread_env": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": null,
+  "VECLIB_MAXIMUM_THREADS": null
+ }
+}

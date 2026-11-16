@@ -1,0 +1,18 @@
+pCN sampler validation: linear-Gaussian problem, r=8, n_obs=20, noise_std=0.3
+pCN settings: beta=0.05, burn_in=5000, n_samples=40000, n_proposals=45000
+acceptance rate: 0.3860
+
+posterior mean relative error (MCMC vs. analytical): 5.9038e-03
+posterior variance mean absolute error: 5.8597e-04
+ESS per dimension: [544, 252, 534, 184, 231, 179, 401, 861]
+mean ESS: 398.2  (ESS / n_proposals = 0.00885)
+
+ dim  true mean  MCMC mean   true var   MCMC var
+   0     0.8965     0.8957     0.0095     0.0099
+   1    -0.2359    -0.2368     0.0148     0.0146
+   2    -0.7332    -0.7334     0.0131     0.0124
+   3     0.4619     0.4527     0.0223     0.0234
+   4     0.9108     0.9048     0.0191     0.0195
+   5     0.8136     0.8032     0.0275     0.0289
+   6     1.9620     1.9617     0.0081     0.0078
+   7     0.1234     0.1267     0.0083     0.0083

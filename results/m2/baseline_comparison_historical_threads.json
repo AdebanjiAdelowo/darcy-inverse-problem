@@ -1,0 +1,470 @@
+{
+ "tag": "historical_threads",
+ "experiments": {
+  "verify_forward": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/forward_verification.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/forward_verification.txt",
+     "n_lines": [
+      15,
+      15
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 60,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 1.1460189579993312,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "verify_gradient": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/gradient_verification.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/gradient_verification.txt",
+     "n_lines": [
+      18,
+      18
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 58,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 0.7427538749980158,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "verify_bayesian_gradient": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/bayesian_gradient_verification.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/bayesian_gradient_verification.txt",
+     "n_lines": [
+      7,
+      7
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 18,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 0.5534580839994305,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "validate_sampler": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/sampler_validation.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/sampler_validation.txt",
+     "n_lines": [
+      18,
+      18
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 60,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 0.8604781249996449,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "reconstruction_demo": {
+   "verdict": "discrepancy",
+   "comparisons": [
+    {
+     "historical": "results/reconstruction_demo_full.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/reconstruction_demo_full.txt",
+     "n_lines": [
+      4,
+      4
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 16,
+     "n_differing_tokens": 1,
+     "max_abs_difference": 1.0,
+     "max_rel_difference": 0.007246376811594203,
+     "largest_differences": [
+      {
+       "rel": 0.007246376811594203,
+       "line": 3,
+       "historical": "138",
+       "reproduced": "139"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": [
+      {
+       "historical": [
+        12.0
+       ],
+       "reproduced": [
+        10.25
+       ]
+      },
+      {
+       "historical": [
+        10.09
+       ],
+       "reproduced": [
+        9.05
+       ]
+      }
+     ]
+    }
+   ],
+   "wall_seconds": 20.413092874998256,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "regularization_study": {
+   "verdict": "discrepancy",
+   "comparisons": [
+    {
+     "historical": "results/regularization_study_full.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/regularization_study_full.txt",
+     "n_lines": [
+      15,
+      15
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 62,
+     "n_differing_tokens": 3,
+     "max_abs_difference": 0.00010999999999994348,
+     "max_rel_difference": 0.0016118987434516213,
+     "largest_differences": [
+      {
+       "rel": 0.0016118987434516213,
+       "line": 3,
+       "historical": "5.4594e-02",
+       "reproduced": "5.4506e-02"
+      },
+      {
+       "rel": 0.0001871257485029734,
+       "line": 3,
+       "historical": "0.5344",
+       "reproduced": "0.5343"
+      },
+      {
+       "rel": 0.00018539429996788207,
+       "line": 3,
+       "historical": "5.9333e-01",
+       "reproduced": "5.9344e-01"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 78.37278220900043,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "noise_study": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/noise_study_full.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/noise_study_full.txt",
+     "n_lines": [
+      7,
+      7
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 22,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 42.441257458998734,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "sensor_study": {
+   "verdict": "bitwise",
+   "comparisons": [
+    {
+     "historical": "results/sensor_study_full.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/sensor_study_full.txt",
+     "n_lines": [
+      7,
+      7
+     ],
+     "raw_text_identical": true,
+     "normalised_text_identical": true,
+     "printed_numbers_identical": true,
+     "n_numeric_tokens": 21,
+     "n_differing_tokens": 0,
+     "max_abs_difference": 0.0,
+     "max_rel_difference": 0.0,
+     "largest_differences": [],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    }
+   ],
+   "wall_seconds": 271.59944512499715,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  },
+  "posterior_demo": {
+   "verdict": "discrepancy",
+   "comparisons": [
+    {
+     "historical": "results/posterior_demo_full.txt",
+     "reproduced": "results/m2/reproduction/historical_threads/text/posterior_demo_full.txt",
+     "n_lines": [
+      40,
+      40
+     ],
+     "raw_text_identical": false,
+     "normalised_text_identical": false,
+     "printed_numbers_identical": false,
+     "n_numeric_tokens": 148,
+     "n_differing_tokens": 18,
+     "max_abs_difference": 0.0001000000000000445,
+     "max_rel_difference": 0.0027027027027025927,
+     "largest_differences": [
+      {
+       "rel": 0.0027027027027025927,
+       "line": 15,
+       "historical": "0.0370",
+       "reproduced": "0.0369"
+      },
+      {
+       "rel": 0.0003326679973386194,
+       "line": 18,
+       "historical": "-0.3006",
+       "reproduced": "-0.3005"
+      },
+      {
+       "rel": 0.0002585315408480985,
+       "line": 9,
+       "historical": "0.3868",
+       "reproduced": "0.3869"
+      },
+      {
+       "rel": 0.00020781379883621983,
+       "line": 32,
+       "historical": "-0.4812",
+       "reproduced": "-0.4811"
+      },
+      {
+       "rel": 0.00018416206261508098,
+       "line": 35,
+       "historical": "-0.5430",
+       "reproduced": "-0.5431"
+      }
+     ],
+     "structural_mismatch_lines": [],
+     "timings_seconds": []
+    },
+    {
+     "historical": "results/posterior_samples_smooth_full.npz",
+     "reproduced": "results/m2/reproduction/historical_threads/text/posterior_samples_smooth_full.npz",
+     "all_identical": false,
+     "arrays": {
+      "xi_samples": {
+       "shape": [
+        8000,
+        15
+       ],
+       "identical": false,
+       "max_abs_difference": 0.0001588689987026548
+      },
+      "m_map": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 0.00017228348857484255
+      },
+      "m_post_mean": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 0.00010832763347023988
+      },
+      "m_post_std": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 1.5094490578126951e-05
+      },
+      "m_true": {
+       "shape": [
+        289
+       ],
+       "identical": true,
+       "max_abs_difference": 0.0
+      },
+      "eigenvalues": {
+       "shape": [
+        15
+       ],
+       "identical": true,
+       "max_abs_difference": 0.0
+      }
+     },
+     "chain_accept_pattern_identical": true,
+     "chain_moves": [
+      3205,
+      3205
+     ],
+     "max_abs_difference_of_sample_means": 0.0001170651540758072
+    },
+    {
+     "historical": "results/posterior_samples_structured_full.npz",
+     "reproduced": "results/m2/reproduction/historical_threads/text/posterior_samples_structured_full.npz",
+     "all_identical": false,
+     "arrays": {
+      "xi_samples": {
+       "shape": [
+        8000,
+        15
+       ],
+       "identical": false,
+       "max_abs_difference": 7.842602219287897e-05
+      },
+      "m_map": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 0.00011370997984525011
+      },
+      "m_post_mean": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 6.838595247321555e-05
+      },
+      "m_post_std": {
+       "shape": [
+        289
+       ],
+       "identical": false,
+       "max_abs_difference": 8.440089290573383e-06
+      },
+      "m_true": {
+       "shape": [
+        289
+       ],
+       "identical": true,
+       "max_abs_difference": 0.0
+      },
+      "eigenvalues": {
+       "shape": [
+        15
+       ],
+       "identical": true,
+       "max_abs_difference": 0.0
+      }
+     },
+     "chain_accept_pattern_identical": true,
+     "chain_moves": [
+      3529,
+      3529
+     ],
+     "max_abs_difference_of_sample_means": 5.612081722605744e-05
+    }
+   ],
+   "wall_seconds": 470.07255466599963,
+   "thread_env": {
+    "OMP_NUM_THREADS": "11",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+   },
+   "git_commit": "a7a64471db40c3055c86096efcce0e26577509e5"
+  }
+ }
+}

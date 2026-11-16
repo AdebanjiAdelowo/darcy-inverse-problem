@@ -1,0 +1,8 @@
+  1.00e-02           1.968011e-02              nan
+  5.00e-03           4.928620e-03            1.997
+  2.50e-03           1.233228e-03            1.999
+  1.25e-03           3.084411e-04            1.999
+  6.25e-04           7.712706e-05            2.000
+
+Wrote results/bayesian_gradient_verification.txt
+wrote results/m2/reproduction/historical_threads/verify_bayesian_gradient.json

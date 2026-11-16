@@ -1,0 +1,5 @@
+smooth: rel_m_error=0.3489, final_misfit=9.6271e+00, final_reg=3.0539e+01, n_iter=139, converged=True, time=8.45s
+structured: rel_m_error=0.8488, final_misfit=2.4074e+01, final_reg=1.4223e+01, n_iter=125, converged=True, time=6.54s
+
+Wrote results/reconstruction_demo_full.txt and figures/reconstruction_*.png
+wrote results/m2/reproduction/single_thread/reconstruction_demo.json
