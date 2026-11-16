@@ -18,20 +18,28 @@ In many subsurface-flow problems, permeability—the property that controls how 
 
 The forward physics is Darcy flow. The first part solves a regularised inverse problem using finite elements, an adjoint gradient and numerical optimisation. The second takes a Bayesian view: rather than returning only one reconstructed field, it samples plausible fields consistent with the data and prior assumptions.
 
-The deterministic formulation and gradient verification are strong. The Bayesian section is deliberately marked qualified at present because the stored full PDE chains mix slowly and the recorded optimisation endpoints did not satisfy the optimiser's success flag. Those diagnostics will be rerun before the Bayesian numerical results are treated as final.
+The forward solver and the adjoint gradient are verified. The Bayesian results stored in this repository are not converged and are documented below as historical results, together with the limitations listed in the next section.
 
 ## Scientific status at a glance
 
-> **Working status:** this summary reflects the evidence currently in the repository. Items marked pending will be updated after the planned reruns; historical numerical results remain documented below for provenance.
-
 | | |
 |---|---|
-| **Current status** | **QUALIFIED — Bayesian validation rerun pending** |
 | **Problem** | Recover spatial log-permeability from sparse noisy Darcy-flow observations |
 | **Methods** | FEM forward solve, adjoint L-BFGS reconstruction, KL Gaussian prior and pCN MCMC |
-| **Verified so far** | Adjoint Taylor test and independent linear-Gaussian pCN validation |
-| **Current finding** | Deterministic formulation is sound; existing full Bayesian chains have very low effective sample sizes and stored MAP endpoints did not satisfy the optimizer success flag |
-| **Pending update** | Record optimizer diagnostics, rerun MAP with justified stopping, and perform controlled pCN mixing/multiple-chain checks |
+| **Verified** | Forward-solver manufactured-solution convergence, adjoint and KL-space Taylor tests, linear-Gaussian pCN validation |
+| **Identifiability** | With zero source and the flow-cell boundary conditions, pressure is unchanged when permeability is multiplied by a positive constant, so only the mean-free log-permeability (the spatial contrast) is identifiable |
+| **Stored Bayesian results** | Not converged; see the limitations below |
+
+## Known limitations of the stored results
+
+These points are established by the audits in [`docs/audit/`](docs/audit/) and apply to the historical numbers reported further down, which are kept unchanged for provenance.
+
+- **The absolute permeability scale is not identifiable.** Replacing $k$ by $ck$ ($c>0$) leaves $p$ and every observation unchanged (verified to $10^{-12}$ in `tests/test_identifiability.py`). The mean of $m=\log k$ is set by the initial guess (deterministic inversion) or by the prior alone (Bayesian inversion). Both synthetic truths have mean close to zero, so the historical error values are only slightly affected, but they mix an identifiable and an unidentifiable part.
+- **Stored Bayesian variances violate an exact lower bound.** The first KL mode of the prior is the constant function with variance $\delta^{-2}=1$, and the likelihood does not depend on its coefficient, so the exact posterior satisfies $\mathrm{Var}[m(x)\mid y]\ge 1$ everywhere and $\int\mathrm{Var}[m\mid y]\,dx\ge 1$. Every stored posterior standard deviation, credible interval and integrated posterior variance (0.13 to 0.40) is below this bound.
+- **The stored pCN chains have not converged.** Split-chain $\hat R$ (four segments of the single chain) reaches 3.4 and exceeds 1.01 for all 15 coordinates; the effective sample sizes are single digits, and the ESS estimator's lag cap of 1000 makes them slightly optimistic.
+- **The Bayesian sensor, noise and prior-sensitivity trends are not scientifically validated.** The integrated variance increases with the pCN acceptance rate in both the sensor and the noise study, and three runs of the same nominal setting with different noise draws give 0.295, 0.234 and 0.188.
+- **The posterior predictive coverage is not a calibration result.** The 95% intervals are built from 20 posterior draws without observation noise and are then compared with noisy data.
+- **Several optimisations stopped at their iteration limit.** All nine regularisation-study runs, all five noise-study runs and both Bayesian MAP runs terminated at 120 iterations without meeting SciPy's convergence tests; only the two headline reconstructions converged.
 
 ## Overview
 
@@ -269,7 +277,8 @@ visibly under-recovered — see "Sensor-density/placement study" for why). **The
 recovered very poorly at this $\alpha$**: the reconstruction is nearly featureless, missing both
 inclusions almost entirely. This is not a bug or a mesh issue — the same qualitative failure appears
 at `local` resolution (rel. error 0.875, `figures/reconstruction_structured_local.png`) — and a
-supplementary $\alpha$-sweep specifically for the structured truth (0.01 to 30) found the error stays
+supplementary $\alpha$-sweep specifically for the structured truth (0.01 to 30; *audit note: no stored
+output of this sweep exists in the repository, so this range is unverified*) found the error stays
 in the 0.82–0.89 range across the *entire* range, i.e. **no choice of H1-seminorm regularisation
 strength recovers these inclusions well**. This is a negative result, not a parameter-tuning
 failure: H1-seminorm regularisation directly penalises the sharp gradients that
@@ -305,6 +314,11 @@ of $\alpha$ from $10^{-1}$ to $10^5$:
 | $10^4$ | 1462 | 550.3 | 0.783 |
 | $10^5$ | 2583 | 101.2 | 0.970 |
 
+> **Audit note.** All nine runs in this table stopped at the 120-iteration cap with SciPy's success flag `False`
+> (`results/regularization_study_full.txt`), so the misfit, regularisation and error values are those of
+> unconverged iterates. At $\alpha=100$ the misfit (19.18) is close to the discrepancy target (18.0), so the
+> discrepancy-principle choice may change once the runs converge.
+
 a textbook bias-variance U-curve in the retrospective error (figure: `figures/regularization_study_full.png`,
 L-curve and error-vs-$\alpha$ side by side). **The retrospective-best column requires $m_{\mathrm{true}}$
 and is never available for a real inverse problem** — it is reported here purely to show what the
@@ -338,6 +352,9 @@ relative-noise levels:
 | 0.05 | 0.372 | 0.528 |
 | 0.10 | 0.442 | 0.592 |
 | 0.20 | 0.616 | 0.610 |
+
+> **Audit note.** All five runs reached the 120-iteration cap (`results/noise_study_full.txt`); each noise
+> level uses a single noise realisation.
 
 (figure: `figures/noise_study_full.png`.) Monotonic, honestly reported degradation — no instability is
 hidden. (An earlier version of this study had a real bug here: the noise-weighting $\sigma$ was floored
@@ -564,6 +581,11 @@ at the MAP:
 | ESS per KL dimension | 4.9 to 86.1 (mean 13.5) out of 8,000 retained samples |
 | mean ESS / retained samples | ~0.17% (~0.14% of the 10,000 proposals) |
 
+> **Audit note.** The ESS estimator (`src/pcn_sampler.py`) truncates the autocorrelation sum at lag 1000,
+> which caps the integrated autocorrelation time near 2,000 and so bounds the reported ESS below by about 4.
+> Without the cap the median ESS is 6.6 (smooth) and 5.2 (structured). The slowest coordinate is the
+> constant KL mode, which the data cannot inform (see "Known limitations of the stored results").
+
 **This is a genuinely important, diagnosed limitation, not a footnote.** ESS this low (most dimensions
 under 1% efficiency, vs. ~40% for the toy linear-Gaussian validation problem at a comparable acceptance
 rate) means the number of *effectively independent* draws is small. Two further checks confirm this
@@ -592,6 +614,9 @@ labels are zero-based KL indices, so "dim 1" to "dim 3" are the second to fourth
 ESS 4.9, 4.9 and 86.1 out of 8,000 in `results/posterior_demo_full.txt`. Two coefficients drift
 slowly with almost no autocorrelation decay; the third mixes well.*
 
+> **Audit note.** No stored output supports the 2,000-iteration MAP rerun described in the next paragraph;
+> the stored MAP runs (`results/posterior_demo_full.txt`) terminated at their 120-iteration cap.
+
 **Ruled out as the cause**: the MAP starting point itself. Running L-BFGS-B to a much tighter tolerance
 (2,000 iterations instead of 120) changes the negative-log-posterior gradient norm from $1.5\times10^{-3}$
 to $3\times10^{-5}$ but leaves every reported $\xi_{\mathrm{MAP}}$ coefficient unchanged to 3 decimal
@@ -604,7 +629,9 @@ estimate throughout. Posterior mean, standard deviation, and credible intervals 
 sampler's correctness is independently established; the issue is chain length, not algorithm
 correctness), but are explicitly flagged wherever the split-chain check indicates they should be read
 with caution, and *aggregate/integrated* quantities (below) turn out to give more robust, physically
-sensible trends than pointwise or per-coefficient values.
+sensible trends than pointwise or per-coefficient values. *Audit note: this robustness claim is not
+supported; every stored integrated variance is below the exact lower bound of 1, and the trends follow the
+pCN acceptance rate.*
 
 ## Posterior mean, MAP, and uncertainty
 
@@ -625,7 +652,8 @@ MAP panel.*
 
 The MAP errors closely
 match Part I's deterministic reconstruction errors at comparable settings (0.35 smooth / 0.85
-structured there), as expected since MAP is exactly the Part-I-equivalent point estimate under this
+structured there; *audit note: the settings differ, with 25 vs 36 sensors, inversion mesh 16 vs 32, and a
+15-mode KL prior vs H1-seminorm regularisation, and both MAP runs stopped at their iteration cap*), as expected since MAP is exactly the Part-I-equivalent point estimate under this
 prior (see "Relationship between MAP and Tikhonov regularisation"). **The posterior-mean errors are
 reported for completeness but should not be read as "the posterior mean is worse than MAP"** — given
 the split-chain diagnostic above, they are better interpreted as showing that 8,000 post-burn-in pCN
@@ -659,6 +687,10 @@ presented as a validated calibration result. The intervals
 themselves are also affected by the chain-length limitation discussed above (they are almost certainly
 wider than a fully-converged chain would give, which would trivially inflate coverage further).
 
+> **Audit note.** The direction stated in the previous sentence is wrong. The exact posterior variance is at
+> least 1 at every point (constant KL mode), so 95% intervals of the exact posterior are at least
+> $2\times1.96=3.92$ wide; the stored intervals (about 1.9 wide) are too narrow, not too wide.
+
 ## Sensor-information study
 
 `python scripts/bayesian_sensor_study.py --config full` — smooth truth, $\alpha$/prior fixed, same
@@ -676,7 +708,9 @@ more observations reduce uncertainty. This aggregate, domain-integrated quantity
 robust to the chain-mixing limitation than the pointwise posterior-mean values above (it is a spatial
 average of the posterior *second moment*, which the split-chain check found comparatively more stable
 than the mean), so this monotonic trend is read as a genuine, if not high-precision, finding rather than
-chain noise. This complements, and answers a different question from, Part I's deterministic sensor
+chain noise. *Audit note: not supported. All three values are below the exact bound of 1, they decrease
+together with the acceptance rate (0.661, 0.401, 0.237), and the variability between nominally identical
+runs (0.188 to 0.295) exceeds the differences in this table.* This complements, and answers a different question from, Part I's deterministic sensor
 study: not just "does more sensors reduce reconstruction *error*" (Part I: yes, with diminishing
 returns past ~9–25 sensors) but "does more sensors reduce reconstruction *uncertainty*" (here: yes,
 continuing to decrease through the largest tested count, without the same clear plateau Part I found
@@ -701,7 +735,8 @@ monotonically with noise level** (0.134 → 0.226 → 0.401), more than tripling
 highest tested noise — the expected direction, quantified rather than only shown as different pictures.
 As with the sensor study, this integrated/aggregate quantity is used as the headline result specifically
 because it is more robust to the diagnosed chain-mixing limitation than pointwise posterior-mean
-values. The acceptance-rate pattern is the mirror image of the sensor study's: noisier data gives a
+values. *Audit note: not supported, for the same reasons as the sensor study; here the variance increases
+together with the acceptance rate (0.158, 0.711, 0.853).* The acceptance-rate pattern is the mirror image of the sensor study's: noisier data gives a
 *less* informative (flatter, more prior-like) likelihood, which pCN — proposing relative to the fixed
 prior scale — accepts more readily.
 
@@ -716,6 +751,9 @@ varying the prior's correlation-length parameter $\gamma$ and KL truncation $r$:
 | short_corr_len | 15 | 0.01 | 72.7% | **0.143** | 1.327 |
 | long_corr_len | 15 | 0.20 | 99.2% | 0.145 | **0.556** |
 | fewer_modes | 6 | 0.05 | 82.2% | 0.285 | 3.427 |
+
+> **Audit note.** These integrated variances are also below the exact constant-mode bound
+> ($\delta^{-2}=1$ for all four variants), and the posterior-mean errors come from unconverged chains.
 
 (figure: `figures/bayesian_prior_sensitivity_full.png`.) Given the posterior-mean caveat above, these
 error figures should be read as indicative rather than precise, but the pattern across variants is
@@ -738,7 +776,9 @@ Part I's H1-seminorm regulariser (Section "Reconstruction results"), now examine
 side. MAP error is **0.807** (vs. 0.387 for the smooth truth at matched settings), and the posterior
 mean/std fields (figure: `figures/posterior_fields_structured_full.png`) show the reconstruction
 smoothing over both inclusions almost entirely — visually similar to Part I's H1-regularised failure,
-which is expected since MAP under this prior **is** the H1-family-equivalent Tikhonov estimate (see
+which is expected since MAP under this prior **is** the H1-family-equivalent Tikhonov estimate (*audit
+note: it is a Tikhonov estimate with the $\mathcal A^{2}$-weighted norm on 15 KL modes, which unlike the
+H1 seminorm also penalises the constant mode; see Limitations (Part II)*) (see
 "Relationship between MAP and Tikhonov regularisation").
 
 **The key Bayesian-specific question is whether the posterior is at least honestly uncertain about
@@ -780,6 +820,10 @@ predictive distribution — this figure is not read as a precise calibration sta
 that both truths give a similar, moderately-below-nominal coverage (rather than, say, near-100% or
 near-0%) is at least consistent with the predictive distribution being in the right regime rather than
 badly mis-specified.
+
+> **Audit note.** This check is not a valid calibration result: the intervals are the 2.5/97.5 percentiles
+> of only 20 draws of the noise-free prediction $Hp^{(s)}$ and are compared with noisy data, so coverage
+> below 95% is expected by construction (`scripts/run_posterior_demo.py`, `posterior_predictive_check`).
 
 ## Computational cost (Part II)
 
@@ -913,7 +957,7 @@ manifests are in `results/deepxde_remote/`. Reproduction instructions (remote CU
 ```bash
 conda env create -f environment.yml && conda activate fenicsx   # or reuse the fem-cylinder-flow env
 
-pytest tests/ -v                              # 56 tests
+pytest tests/ -v                              # FEM and Bayesian tests (PINN tests skip without PyTorch)
 
 python scripts/verify_forward.py              # forward-solver manufactured-solution convergence
 python scripts/verify_gradient.py             # adjoint Taylor-remainder check (run before trusting
@@ -999,6 +1043,10 @@ cd darcy-inverse-problem
 conda env create -f environment.yml
 conda activate fenicsx
 ```
+
+Exact pinned environments (an explicit osx-arm64 conda lock, a version-pinned export, and the PINN
+requirements), the thread settings needed to reproduce the stored results bit for bit, and the baseline
+reproduction commands are documented in [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
 
 ## References
 
