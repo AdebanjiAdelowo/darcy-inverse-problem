@@ -46,6 +46,13 @@ def main():
                 if "meta" in d.files:
                     meta = json.loads(str(d["meta"]))
                     meta.pop("config", None)  # identical for all chains; recorded once below
+                elif "extra" in d.files:  # Milestone 4 checkpoints: run metadata plus chain counters
+                    meta = json.loads(str(d["extra"]))
+                    meta.pop("diagnostic_log", None)
+                    if "state" in d.files:
+                        st = json.loads(str(d["state"]))
+                        meta.update({k: st[k] for k in ("seed", "n_steps", "n_accept", "n_nonfinite", "seconds")})
+                        meta["proposal_config"] = st["proposal"]["config"]
                 shapes = {k: list(d[k].shape) for k in d.files if k != "meta"}
         except Exception as exc:  # never fail on an unreadable archive; record it
             shapes = {"error": str(exc)}
