@@ -3,3 +3,7 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 .venv-deepxde/
+
+# MCMC chain archives are kept outside Git; see results/*/mcmc/MANIFEST.json
+results/m3/mcmc/**/*.npz
+results/m4/chains/
