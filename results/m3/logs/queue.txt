@@ -1,0 +1,21 @@
+opt E-2000 sensor_study
+opt E-2000 regularization_study
+opt E-2000 noise_study
+opt E-2000 reconstruction_demo
+opt E-hist sensor_study
+opt E-hist regularization_study
+opt E-hist noise_study
+opt E-hist reconstruction_demo
+opt P sensor_study
+opt P regularization_study
+opt P noise_study
+opt P reconstruction_demo
+map x x
+chain smooth 0.01 1
+chain smooth 0.01 2
+chain smooth 0.01 3
+chain smooth 0.01 4
+chain structured 0.02 1
+chain structured 0.02 2
+chain structured 0.02 3
+chain structured 0.02 4

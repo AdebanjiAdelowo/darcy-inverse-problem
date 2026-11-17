@@ -1,0 +1,10 @@
+smooth_s3.npz: 10000/100000 proposals, acc=0.617, 13.90 ms/proposal
+smooth_s3.npz: 20000/100000 proposals, acc=0.616, 14.12 ms/proposal
+smooth_s3.npz: 30000/100000 proposals, acc=0.615, 14.21 ms/proposal
+smooth_s3.npz: 40000/100000 proposals, acc=0.620, 14.28 ms/proposal
+smooth_s3.npz: 50000/100000 proposals, acc=0.626, 14.34 ms/proposal
+smooth_s3.npz: 60000/100000 proposals, acc=0.631, 14.33 ms/proposal
+smooth_s3.npz: 70000/100000 proposals, acc=0.636, 14.31 ms/proposal
+smooth_s3.npz: 80000/100000 proposals, acc=0.639, 14.32 ms/proposal
+smooth_s3.npz: 90000/100000 proposals, acc=0.642, 14.32 ms/proposal
+smooth_s3.npz: 100000/100000 proposals, acc=0.644, 14.32 ms/proposal

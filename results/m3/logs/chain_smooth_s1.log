@@ -1,0 +1,10 @@
+smooth_s1.npz: 10000/100000 proposals, acc=0.633, 13.30 ms/proposal
+smooth_s1.npz: 20000/100000 proposals, acc=0.632, 13.76 ms/proposal
+smooth_s1.npz: 30000/100000 proposals, acc=0.634, 13.96 ms/proposal
+smooth_s1.npz: 40000/100000 proposals, acc=0.636, 14.07 ms/proposal
+smooth_s1.npz: 50000/100000 proposals, acc=0.637, 14.16 ms/proposal
+smooth_s1.npz: 60000/100000 proposals, acc=0.640, 14.19 ms/proposal
+smooth_s1.npz: 70000/100000 proposals, acc=0.642, 14.17 ms/proposal
+smooth_s1.npz: 80000/100000 proposals, acc=0.641, 14.20 ms/proposal
+smooth_s1.npz: 90000/100000 proposals, acc=0.642, 14.20 ms/proposal
+smooth_s1.npz: 100000/100000 proposals, acc=0.641, 14.22 ms/proposal

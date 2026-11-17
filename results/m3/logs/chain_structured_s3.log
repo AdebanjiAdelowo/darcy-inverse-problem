@@ -1,0 +1,10 @@
+structured_s3.npz: 10000/100000 proposals, acc=0.440, 13.74 ms/proposal
+structured_s3.npz: 20000/100000 proposals, acc=0.432, 14.66 ms/proposal
+structured_s3.npz: 30000/100000 proposals, acc=0.425, 14.90 ms/proposal
+structured_s3.npz: 40000/100000 proposals, acc=0.427, 14.98 ms/proposal
+structured_s3.npz: 50000/100000 proposals, acc=0.432, 14.97 ms/proposal
+structured_s3.npz: 60000/100000 proposals, acc=0.437, 14.83 ms/proposal
+structured_s3.npz: 70000/100000 proposals, acc=0.439, 14.69 ms/proposal
+structured_s3.npz: 80000/100000 proposals, acc=0.440, 14.70 ms/proposal
+structured_s3.npz: 90000/100000 proposals, acc=0.442, 14.75 ms/proposal
+structured_s3.npz: 100000/100000 proposals, acc=0.443, 14.69 ms/proposal

@@ -1,0 +1,10 @@
+structured_s4.npz: 10000/100000 proposals, acc=0.422, 13.80 ms/proposal
+structured_s4.npz: 20000/100000 proposals, acc=0.427, 14.74 ms/proposal
+structured_s4.npz: 30000/100000 proposals, acc=0.434, 14.96 ms/proposal
+structured_s4.npz: 40000/100000 proposals, acc=0.436, 15.14 ms/proposal
+structured_s4.npz: 50000/100000 proposals, acc=0.441, 14.99 ms/proposal
+structured_s4.npz: 60000/100000 proposals, acc=0.442, 14.84 ms/proposal
+structured_s4.npz: 70000/100000 proposals, acc=0.444, 14.68 ms/proposal
+structured_s4.npz: 80000/100000 proposals, acc=0.446, 14.71 ms/proposal
+structured_s4.npz: 90000/100000 proposals, acc=0.447, 14.74 ms/proposal
+structured_s4.npz: 100000/100000 proposals, acc=0.448, 14.60 ms/proposal

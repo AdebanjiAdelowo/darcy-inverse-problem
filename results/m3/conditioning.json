@@ -1,0 +1,38 @@
+{
+ "smooth": {
+  "n_dofs": 1089,
+  "n_sensors": 36,
+  "euclidean": {
+   "min": 0.2645309607295661,
+   "max": 239.439806011052,
+   "condition_number": 905.148513998839
+  },
+  "regularization_only_euclidean_condition_number": 909.5611769060027,
+  "preconditioned": {
+   "min": 0.9086973423312171,
+   "max": 98.01283729101095,
+   "condition_number": 107.86081649536244,
+   "n_eigenvalues_outside_0.5_2": 6,
+   "smallest_eigenvalue_constant_direction": -5.3290705197364395e-15
+  },
+  "gauss_newton_rank": 36
+ },
+ "structured": {
+  "n_dofs": 1089,
+  "n_sensors": 36,
+  "euclidean": {
+   "min": 0.26361419591253565,
+   "max": 239.4398060106223,
+   "condition_number": 908.296327448412
+  },
+  "regularization_only_euclidean_condition_number": 909.5611769060027,
+  "preconditioned": {
+   "min": 0.908219530283648,
+   "max": 80.23139693627328,
+   "condition_number": 88.33921123807593,
+   "n_eigenvalues_outside_0.5_2": 5,
+   "smallest_eigenvalue_constant_direction": -5.608657536840249e-15
+  },
+  "gauss_newton_rank": 36
+ }
+}

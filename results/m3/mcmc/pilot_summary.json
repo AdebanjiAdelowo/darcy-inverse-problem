@@ -1,0 +1,189 @@
+{
+ "rows": [
+  {
+   "file": "smooth_b0.01_map_s1.npz",
+   "truth": "smooth",
+   "beta": 0.01,
+   "init": "map",
+   "acceptance": 0.635625,
+   "ms_per_proposal": 16.684127453125033,
+   "draws_used": 8000,
+   "min_bulk_ess": 2.2923113959800863,
+   "worst_quantity": "xi_R[9] (KL mode 10)",
+   "min_bulk_ess_per_1000_proposals": 0.2865389244975108,
+   "median_bulk_ess_per_1000_proposals": 0.9758842056143318,
+   "phi_first_last_mean": [
+    7.300729755745177,
+    10.53192740670513
+   ]
+  },
+  {
+   "file": "smooth_b0.02_map_s1.npz",
+   "truth": "smooth",
+   "beta": 0.02,
+   "init": "map",
+   "acceptance": 0.387625,
+   "ms_per_proposal": 16.748420588499926,
+   "draws_used": 8000,
+   "min_bulk_ess": 2.2886208911984287,
+   "worst_quantity": "xi_R[12] (KL mode 13)",
+   "min_bulk_ess_per_1000_proposals": 0.2860776113998036,
+   "median_bulk_ess_per_1000_proposals": 1.2044172751434026,
+   "phi_first_last_mean": [
+    7.4734722327437115,
+    9.090991496933857
+   ]
+  },
+  {
+   "file": "smooth_b0.04_dispersed_s1.npz",
+   "truth": "smooth",
+   "beta": 0.04,
+   "init": "dispersed",
+   "acceptance": 0.180375,
+   "ms_per_proposal": 15.0887488541249,
+   "draws_used": 4000,
+   "min_bulk_ess": 1.7969277871797997,
+   "worst_quantity": "xi_R[13] (KL mode 14)",
+   "min_bulk_ess_per_1000_proposals": 0.44923194679494993,
+   "median_bulk_ess_per_1000_proposals": 1.7085713296807061,
+   "phi_first_last_mean": [
+    124.30363982427112,
+    8.398282408931097
+   ]
+  },
+  {
+   "file": "smooth_b0.04_map_s1.npz",
+   "truth": "smooth",
+   "beta": 0.04,
+   "init": "map",
+   "acceptance": 0.1595,
+   "ms_per_proposal": 16.612132067750057,
+   "draws_used": 8000,
+   "min_bulk_ess": 1.4102490820507263,
+   "worst_quantity": "xi_R[0] (KL mode 1)",
+   "min_bulk_ess_per_1000_proposals": 0.1762811352563408,
+   "median_bulk_ess_per_1000_proposals": 1.006700738098026,
+   "phi_first_last_mean": [
+    6.958721508340317,
+    8.046438389796203
+   ]
+  },
+  {
+   "file": "smooth_b0.08_map_s1.npz",
+   "truth": "smooth",
+   "beta": 0.08,
+   "init": "map",
+   "acceptance": 0.026375,
+   "ms_per_proposal": 16.661145895749996,
+   "draws_used": 8000,
+   "min_bulk_ess": 1.7551220442220814,
+   "worst_quantity": "m_R(0.25, 0.25)",
+   "min_bulk_ess_per_1000_proposals": 0.2193902555277602,
+   "median_bulk_ess_per_1000_proposals": 0.9459653692476399,
+   "phi_first_last_mean": [
+    4.294084305458305,
+    7.990537859131989
+   ]
+  },
+  {
+   "file": "structured_b0.01_map_s1.npz",
+   "truth": "structured",
+   "beta": 0.01,
+   "init": "map",
+   "acceptance": 0.6615,
+   "ms_per_proposal": 15.098011557250063,
+   "draws_used": 8000,
+   "min_bulk_ess": 1.3509403968004496,
+   "worst_quantity": "xi_R[8] (KL mode 9)",
+   "min_bulk_ess_per_1000_proposals": 0.1688675496000562,
+   "median_bulk_ess_per_1000_proposals": 0.6134773250938435,
+   "phi_first_last_mean": [
+    10.501015363289614,
+    14.32093901305724
+   ]
+  },
+  {
+   "file": "structured_b0.02_map_s1.npz",
+   "truth": "structured",
+   "beta": 0.02,
+   "init": "map",
+   "acceptance": 0.4185,
+   "ms_per_proposal": 15.120671703125026,
+   "draws_used": 8000,
+   "min_bulk_ess": 2.0044920917398112,
+   "worst_quantity": "xi_R[11] (KL mode 12)",
+   "min_bulk_ess_per_1000_proposals": 0.2505615114674764,
+   "median_bulk_ess_per_1000_proposals": 0.7893207656749823,
+   "phi_first_last_mean": [
+    10.846054284962227,
+    13.770099825102978
+   ]
+  },
+  {
+   "file": "structured_b0.04_dispersed_s1.npz",
+   "truth": "structured",
+   "beta": 0.04,
+   "init": "dispersed",
+   "acceptance": 0.202125,
+   "ms_per_proposal": 10.287335734375008,
+   "draws_used": 4000,
+   "min_bulk_ess": 1.3299349755870262,
+   "worst_quantity": "xi_R[9] (KL mode 10)",
+   "min_bulk_ess_per_1000_proposals": 0.33248374389675656,
+   "median_bulk_ess_per_1000_proposals": 0.5847459758688927,
+   "phi_first_last_mean": [
+    94.98923133456526,
+    11.878448486280806
+   ]
+  },
+  {
+   "file": "structured_b0.04_map_s1.npz",
+   "truth": "structured",
+   "beta": 0.04,
+   "init": "map",
+   "acceptance": 0.177375,
+   "ms_per_proposal": 15.137401984374947,
+   "draws_used": 8000,
+   "min_bulk_ess": 1.8906854314589834,
+   "worst_quantity": "xi_R[0] (KL mode 1)",
+   "min_bulk_ess_per_1000_proposals": 0.23633567893237292,
+   "median_bulk_ess_per_1000_proposals": 0.7495967327897334,
+   "phi_first_last_mean": [
+    9.921900782051276,
+    10.426918410609897
+   ]
+  },
+  {
+   "file": "structured_b0.08_map_s1.npz",
+   "truth": "structured",
+   "beta": 0.08,
+   "init": "map",
+   "acceptance": 0.044625,
+   "ms_per_proposal": 10.278530901000067,
+   "draws_used": 8000,
+   "min_bulk_ess": 1.5815510435121312,
+   "worst_quantity": "xi_R[9] (KL mode 10)",
+   "min_bulk_ess_per_1000_proposals": 0.1976938804390164,
+   "median_bulk_ess_per_1000_proposals": 1.1052349501854168,
+   "phi_first_last_mean": [
+    7.694864494937094,
+    10.641124103632526
+   ]
+  }
+ ],
+ "selection": {
+  "smooth": {
+   "beta": 0.01,
+   "min_bulk_ess_per_proposal": 0.0002865389244975108,
+   "proposals_per_chain": 1050000,
+   "estimated_hours_per_chain": 4.866203840494801
+  },
+  "structured": {
+   "beta": 0.02,
+   "min_bulk_ess_per_proposal": 0.0002505615114674764,
+   "proposals_per_chain": 1200000,
+   "estimated_hours_per_chain": 5.040223901041676
+  }
+ },
+ "rule": "beta maximising min bulk ESS per proposal over monitored quantities (MAP-started pilots); chain length for predicted pooled bulk ESS >= 600 with 4 chains and 50% warmup"
+}

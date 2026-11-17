@@ -1,0 +1,38 @@
+{
+ "smooth": {
+  "observed_sample_variance_xi0": 0.12451458688123997,
+  "exact_posterior_variance_xi0": 1.0,
+  "simulated_sample_variance_xi0": {
+   "mean": 0.16983096332465003,
+   "q05": 0.042992695496575466,
+   "q50": 0.12949661789154038,
+   "q95": 0.4345763237731361,
+   "fraction_ge_1": 0.00075,
+   "observed_quantile": 0.47725
+  },
+  "accepted_fraction_retained": 0.4006750843855482,
+  "integrated_autocorrelation_time_xi0_proposals": 24956.878315132602,
+  "chain_length_over_tau0": 0.3205529112649157,
+  "stored_integrated_variance_constant_mode_part": 0.12451458688123594,
+  "stored_integrated_variance_mean_free_part": 0.16844746415267325,
+  "stored_integrated_variance_total_from_coefficients": 0.29296205103390927
+ },
+ "structured": {
+  "observed_sample_variance_xi0": 0.26483072506267985,
+  "exact_posterior_variance_xi0": 1.0,
+  "simulated_sample_variance_xi0": {
+   "mean": 0.18836253673350786,
+   "q05": 0.04701728335007307,
+   "q50": 0.14561542418320356,
+   "q95": 0.4792695593452307,
+   "fraction_ge_1": 0.002,
+   "observed_quantile": 0.78775
+  },
+  "accepted_fraction_retained": 0.4411801475184398,
+  "integrated_autocorrelation_time_xi0_proposals": 22665.477755738168,
+  "chain_length_over_tau0": 0.3529596898955575,
+  "stored_integrated_variance_constant_mode_part": 0.2648307250626718,
+  "stored_integrated_variance_mean_free_part": 0.09958624883857103,
+  "stored_integrated_variance_total_from_coefficients": 0.3644169739012427
+ }
+}

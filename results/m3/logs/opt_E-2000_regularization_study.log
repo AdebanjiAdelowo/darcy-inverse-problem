@@ -1,0 +1,15 @@
+  1.00e-01     5.4455e-02     5.9329e-01                       0.5546     377       True
+  1.00e+00     1.2828e+00     2.9379e+00                       0.4334     151       True
+  1.00e+01     6.2748e+00     1.2144e+01                       0.3544     143       True
+  3.00e+01     9.6271e+00     3.0539e+01                       0.3489     139       True
+  1.00e+02     1.9182e+01     8.5617e+01                       0.3505     149       True
+  3.00e+02     5.3025e+01     2.0199e+02                       0.3738     150       True
+  1.00e+03     1.8925e+02     4.4191e+02                       0.4513     159       True
+  1.00e+04     1.4622e+03     5.5030e+02                       0.7829     150       True
+  1.00e+05     2.5833e+03     1.0120e+02                       0.9697     139       True
+Discrepancy-principle target: misfit <= 0.5*n_sensors = 18.00
+Discrepancy-principle alpha choice (truth-free): 3.00e+01 (misfit=9.6271e+00)
+Retrospective best alpha (uses m_true, NOT available in practice): 3.00e+01 (rel_m_error=0.3489)
+
+Wrote results/regularization_study_full.txt and figures/regularization_study_full.png
+wrote results/m3/optimizer/E-2000/regularization_study.json

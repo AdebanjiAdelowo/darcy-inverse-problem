@@ -1,0 +1,8 @@
+     0.000       0.3459         1.5383e-02      56
+     0.010       0.3543         2.7062e-01      57
+     0.050       0.3719         5.2789e-01      17
+     0.100       0.4422         5.9238e-01      10
+     0.200       0.6164         6.1025e-01       7
+
+Wrote results/noise_study_full.txt and figures/noise_study_full.png
+wrote results/m3/optimizer/P/noise_study.json
