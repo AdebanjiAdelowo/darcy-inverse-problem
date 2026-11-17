@@ -193,4 +193,6 @@ def run_lbfgsb_with_diagnostics(fun_split, x0, max_iter: int, gtol: float, ftol:
         iteration_objective=iteration_obj,
     )
     aux_final = None if idx is None else evals[idx][4]
+    # arrays for callers that need them (kept out of the serialised diagnostics)
+    result["initial_gradient"] = g0
     return result.x, diag, aux_final, result

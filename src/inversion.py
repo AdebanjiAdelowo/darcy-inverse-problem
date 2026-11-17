@@ -31,6 +31,8 @@ class OptimizationHistory:
     message: str = ""
     diagnostics: OptimizerDiagnostics | None = None
     predicted_observations: np.ndarray | None = None  # H p(m) at the returned iterate
+    initial_gradient: np.ndarray | None = None  # nodal gradient at the initial guess
+    final_gradient: np.ndarray | None = None  # nodal gradient at the returned iterate
 
 
 def run_lbfgs(
@@ -62,4 +64,6 @@ def run_lbfgs(
     history.message = str(result.message)
     history.diagnostics = diag
     history.predicted_observations = pred_final
+    history.initial_gradient = np.asarray(result["initial_gradient"])
+    history.final_gradient = np.asarray(result.jac)
     return x, history

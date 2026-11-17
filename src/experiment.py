@@ -40,7 +40,15 @@ def run_reconstruction(
     data_seed: int = 0,
     max_iter: int = 150,
     data: SyntheticData | None = None,
+    optimizer: str = "euclidean",
+    precond_gamma: float | None = None,
 ) -> ReconstructionResult:
+    """optimizer: "euclidean" (historical L-BFGS-B on nodal values, default) or
+    "preconditioned" (same objective and tolerances, L-BFGS-B in coordinates
+    u with m = L^{-T} u, P = L L^T = alpha*K + gamma*M; gamma defaults to alpha).
+    See src/preconditioned_inversion.py."""
+    if optimizer not in ("euclidean", "preconditioned"):
+        raise ValueError(f"unknown optimizer {optimizer!r}")
     data_provided = data is not None
     if data is None:
         data = generate_synthetic_data(
@@ -52,7 +60,21 @@ def run_reconstruction(
     ip = InverseProblem(dm=inv_dm, obs=H_inv, y=data.y_noisy, sigma=data.sigma, alpha=alpha, reg_type=reg_type)
 
     m0 = np.zeros(inv_dm.V_m.dofmap.index_map.size_global)
-    m_rec, history = run_lbfgs(ip, m0, max_iter=max_iter)
+    from src.preconditioned_inversion import (first_order_measures, regularization_preconditioner,
+                                              run_lbfgs_preconditioned)
+    gamma = alpha if precond_gamma is None else precond_gamma
+    if optimizer == "euclidean":
+        m_rec, history = run_lbfgs(ip, m0, max_iter=max_iter)
+        g_m0, g_mf = history.initial_gradient, history.final_gradient
+        L = None
+    else:
+        L, _, _ = regularization_preconditioner(inv_dm.V_m, alpha, gamma)
+        m_rec, diag, pred, g_mf, g_m0 = run_lbfgs_preconditioned(ip, m0, L, max_iter=max_iter)
+        history = OptimizationHistory(
+            objective=list(diag.trace_objective), misfit=list(diag.trace_misfit),
+            reg=list(diag.trace_regularization), grad_norm=list(diag.trace_gradient_norm_2),
+            n_iterations=diag.n_iterations, converged=diag.scipy_success, message=diag.scipy_message,
+            diagnostics=diag, predicted_observations=pred, initial_gradient=g_m0, final_gradient=g_mf)
 
     m_true_on_inv = Function(inv_dm.V_m)
     m_true_on_inv.interpolate(truth_fn)
@@ -69,11 +91,16 @@ def run_reconstruction(
                  "inv_mesh_n": inv_mesh_n, "truth_mesh_n": truth_mesh_n,
                  "n_sensors": int(len(sensor_locations)), "relative_noise": relative_noise,
                  "data_seed": "supplied by caller" if data_provided else data_seed,
-                 "initial_guess": "zeros"}
+                 "initial_guess": "zeros", "optimizer": optimizer,
+                 "precond_gamma": gamma if optimizer == "preconditioned" else None}
         extra.update(reconstruction_errors(m_rec, m_true_on_inv.x.array, mass_matrix(inv_dm.V_m)))
         if history.predicted_observations is not None:
             extra.update(observation_prediction_error(history.predicted_observations, data.y_clean,
                                                       data.y_noisy, data.sigma))
+        if g_mf is not None and g_m0 is not None:
+            L_diag = L if L is not None else regularization_preconditioner(inv_dm.V_m, alpha, gamma)[0]
+            extra.update(first_order_measures(g_mf, g_m0, L_diag))
+            extra["first_order_gamma"] = gamma
         history.diagnostics.extra.update(extra)
 
     return ReconstructionResult(
