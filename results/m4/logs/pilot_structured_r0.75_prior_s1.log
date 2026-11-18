@@ -1,0 +1,8 @@
+structured_r0.75_prior_s1.npz: 1000/8000, acc=0.019, 14.82 ms/proposal
+structured_r0.75_prior_s1.npz: 2000/8000, acc=0.011, 15.11 ms/proposal
+structured_r0.75_prior_s1.npz: 3000/8000, acc=0.009, 15.28 ms/proposal
+structured_r0.75_prior_s1.npz: 4000/8000, acc=0.007, 15.81 ms/proposal
+structured_r0.75_prior_s1.npz: 5000/8000, acc=0.006, 15.82 ms/proposal
+structured_r0.75_prior_s1.npz: 6000/8000, acc=0.005, 15.53 ms/proposal
+structured_r0.75_prior_s1.npz: 7000/8000, acc=0.005, 15.65 ms/proposal
+structured_r0.75_prior_s1.npz: 8000/8000, acc=0.004, 15.80 ms/proposal

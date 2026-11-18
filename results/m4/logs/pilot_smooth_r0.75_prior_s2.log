@@ -1,0 +1,8 @@
+smooth_r0.75_prior_s2.npz: 1000/8000, acc=0.037, 15.99 ms/proposal
+smooth_r0.75_prior_s2.npz: 2000/8000, acc=0.020, 16.10 ms/proposal
+smooth_r0.75_prior_s2.npz: 3000/8000, acc=0.016, 15.95 ms/proposal
+smooth_r0.75_prior_s2.npz: 4000/8000, acc=0.014, 15.92 ms/proposal
+smooth_r0.75_prior_s2.npz: 5000/8000, acc=0.014, 16.20 ms/proposal
+smooth_r0.75_prior_s2.npz: 6000/8000, acc=0.013, 16.42 ms/proposal
+smooth_r0.75_prior_s2.npz: 7000/8000, acc=0.015, 16.47 ms/proposal
+smooth_r0.75_prior_s2.npz: 8000/8000, acc=0.031, 16.15 ms/proposal

@@ -1,0 +1,11 @@
+structured_s12.npz: 5000/50000, acc=0.308, 13.22 ms/proposal
+structured_s12.npz: 10000/50000, acc=0.304, 13.18 ms/proposal
+structured_s12.npz: 15000/50000, acc=0.309, 13.25 ms/proposal
+structured_s12.npz: 20000/50000, acc=0.311, 13.28 ms/proposal
+structured_s12.npz: 25000/50000, acc=0.311, 13.27 ms/proposal
+structured_s12.npz: 30000/50000, acc=0.314, 13.25 ms/proposal
+structured_s12.npz: 35000/50000, acc=0.316, 13.31 ms/proposal
+structured_s12.npz: 40000/50000, acc=0.315, 13.36 ms/proposal
+structured_s12.npz: 45000/50000, acc=0.313, 13.61 ms/proposal
+structured_s12.npz: 50000/50000, acc=0.314, 13.74 ms/proposal
+structured_s12_qoi.npz: 10000 draws, 228.3 s

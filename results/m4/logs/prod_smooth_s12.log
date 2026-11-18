@@ -1,0 +1,11 @@
+smooth_s12.npz: 5000/50000, acc=0.168, 15.89 ms/proposal
+smooth_s12.npz: 10000/50000, acc=0.169, 15.75 ms/proposal
+smooth_s12.npz: 15000/50000, acc=0.166, 15.44 ms/proposal
+smooth_s12.npz: 20000/50000, acc=0.168, 14.96 ms/proposal
+smooth_s12.npz: 25000/50000, acc=0.168, 14.81 ms/proposal
+smooth_s12.npz: 30000/50000, acc=0.169, 14.58 ms/proposal
+smooth_s12.npz: 35000/50000, acc=0.169, 14.37 ms/proposal
+smooth_s12.npz: 40000/50000, acc=0.170, 14.23 ms/proposal
+smooth_s12.npz: 45000/50000, acc=0.168, 14.09 ms/proposal
+smooth_s12.npz: 50000/50000, acc=0.167, 13.99 ms/proposal
+smooth_s12_qoi.npz: 10000 draws, 191.4 s

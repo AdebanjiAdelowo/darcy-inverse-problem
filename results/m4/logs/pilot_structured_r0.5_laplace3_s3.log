@@ -1,0 +1,4 @@
+structured_r0.5_laplace3_s3.npz: 1000/4000, acc=0.343, 16.97 ms/proposal
+structured_r0.5_laplace3_s3.npz: 2000/4000, acc=0.327, 16.42 ms/proposal
+structured_r0.5_laplace3_s3.npz: 3000/4000, acc=0.327, 17.36 ms/proposal
+structured_r0.5_laplace3_s3.npz: 4000/4000, acc=0.319, 17.26 ms/proposal

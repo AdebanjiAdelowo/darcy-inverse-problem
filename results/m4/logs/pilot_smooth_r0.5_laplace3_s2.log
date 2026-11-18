@@ -1,0 +1,4 @@
+smooth_r0.5_laplace3_s2.npz: 1000/4000, acc=0.338, 17.73 ms/proposal
+smooth_r0.5_laplace3_s2.npz: 2000/4000, acc=0.332, 16.40 ms/proposal
+smooth_r0.5_laplace3_s2.npz: 3000/4000, acc=0.327, 16.13 ms/proposal
+smooth_r0.5_laplace3_s2.npz: 4000/4000, acc=0.334, 16.00 ms/proposal
