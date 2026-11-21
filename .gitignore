@@ -6,4 +6,5 @@ __pycache__/
 
 # MCMC chain archives are kept outside Git; see results/*/mcmc/MANIFEST.json
 results/m3/mcmc/**/*.npz
-results/m4/chains/
+results/m4/chains/**/*.npz
+results/m5/chains/**/*.npz
