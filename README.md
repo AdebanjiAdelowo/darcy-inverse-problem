@@ -29,6 +29,7 @@ The forward solver and the adjoint gradient are verified. The Bayesian results s
 | **Verified** | Forward-solver manufactured-solution convergence, adjoint and KL-space Taylor tests, linear-Gaussian pCN validation |
 | **Identifiability** | With zero source and the flow-cell boundary conditions, pressure is unchanged when permeability is multiplied by a positive constant, so only the mean-free log-permeability (the spatial contrast) is identifiable |
 | **Stored Bayesian results** | Not converged; see the limitations below |
+| **Revalidated Bayesian inference** | Hessian-informed pCN chains converge on both synthetic datasets; simulation-based calibration is consistent with calibration; gross miscalibration excluded at the tested sensitivity. The Laplace approximation fails calibration at all three tested noise levels. See [Revalidated Bayesian inference](#revalidated-bayesian-inference) |
 
 ## Known limitations of the stored results
 
@@ -40,6 +41,31 @@ These points are established by the audits in [`docs/audit/`](docs/audit/) and a
 - **The Bayesian sensor, noise and prior-sensitivity trends are not scientifically validated.** The integrated variance increases with the pCN acceptance rate in both the sensor and the noise study, and three runs of the same nominal setting with different noise draws give 0.295, 0.234 and 0.188.
 - **The posterior predictive coverage is not a calibration result.** The 95% intervals are built from 20 posterior draws without observation noise and are then compared with noisy data.
 - **Several optimisations stopped at their iteration limit.** All nine regularisation-study runs, all five noise-study runs and both Bayesian MAP runs terminated at 120 iterations without meeting SciPy's convergence tests; only the two headline reconstructions converged.
+
+## Revalidated Bayesian inference
+
+The historical pCN results above are kept for provenance. The Bayesian inference was then redone with pre-registered
+acceptance criteria; the reports are [`docs/audit/MILESTONE_4_REPORT.md`](docs/audit/MILESTONE_4_REPORT.md) and
+[`docs/audit/MILESTONE_5_REPORT.md`](docs/audit/MILESTONE_5_REPORT.md).
+
+- **Constant mode handled exactly.** The unidentifiable constant KL coefficient has an exact $N(0,1)$ posterior and is added
+  analytically; only the 14 mean-free coefficients are sampled. The variance bound $\mathrm{Var}[m(x)\mid y]\ge 1$ is respected.
+- **Converged chains.** A Hessian-informed, prior-reversible pCN sampler (`src/hessian_pcn.py`) converges on both synthetic
+  datasets: smooth truth, 4 x 50,000 proposals, max rank-normalised $\hat R$ 1.006, min bulk ESS 840; structured truth, 4 x
+  100,000 proposals with independent seeds, max $\hat R$ 1.005, min bulk / tail ESS 1135 / 1460. A replay reproduces the archived
+  chain bit for bit.
+- **Simulation-based calibration (44 synthetic datasets drawn from the inference model, one noise level).** The sampler is
+  **consistent with calibration; gross miscalibration excluded at the tested sensitivity**: no rank or PIT test is rejected
+  (27 tests, Bonferroni family-wise 0.01) and none of 108 credible-interval coverage checks excludes its nominal level. At this
+  sample size only gross errors (posterior sd off by a factor of about 2, or a bias of about 1 sd) are reliably detected;
+  errors of about 25% in a single quantity's sd are not resolved. The per-dataset chains in this study are short (max $\hat R$
+  1.02 to 1.10), so the result applies to the fixed sampling procedure used.
+- **The Gauss-Newton Laplace approximation fails calibration at all three tested noise levels** (200 datasets each at
+  $\sigma$, $\sigma/2$ and $2\sigma$). At $\sigma/2$ it is over-confident (error variance up to 2.4 times the reported
+  variance); at $\sigma$ and $2\sigma$ its mean is biased by 0.2 to 0.4 posterior sd in two KL coefficients and at the domain
+  centre, also when the MAP optimisation has converged. On the two reference datasets it underestimates the posterior variance
+  2 to 8 times in the two most data-informed directions. The MCMC removes the bias on identical data, so Laplace-based
+  uncertainty should not replace MCMC for this problem.
 
 ## Overview
 
