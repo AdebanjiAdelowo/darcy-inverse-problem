@@ -1,0 +1,1774 @@
+{
+ "description": "MCMC chain archives kept outside Git (see .gitignore). Verify with: shasum -a 256 -c results/m5/chains/MANIFEST.sha256 (run from the repository root).",
+ "storage_location": "local working copy of the repository at the listed paths; not pushed to GitHub",
+ "code_commit": "ee59198 (sampler unchanged)",
+ "note": "Milestone 5: structured confirmation (4 x 100,000, seeds 21-24, rho 0.5, thin 5); replay of chain 21 (5,000 proposals); SBC datasets 0-43 (seeds 5000-5043; 4 chains x 10,000 proposals, rho 0.5; thinned archives written by scripts/m5_sbc.py mcmc)",
+ "created": "2026-11-21T01:19:08+0100",
+ "n_files": 53,
+ "total_bytes": 52908556,
+ "files": [
+  {
+   "path": "results/m5/chains/confirmation/structured_s21.npz",
+   "bytes": 2429192,
+   "sha256": "f64b29e8e4a29bccbce90d017bbdb5b302df4eb793d9710199c0a1eab6fb82a4",
+   "arrays": {
+    "draws": [
+     20000,
+     14
+    ],
+    "phis": [
+     20000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 100000,
+    "seed": 21,
+    "x0_rule": "laplace3",
+    "forward_solves": 100001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 195.346432,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 100000,
+    "n_accept": 31082,
+    "n_nonfinite": 0,
+    "seconds": 1530.9880383299605,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m5/chains/confirmation/structured_s21_qoi.npz",
+   "bytes": 160778,
+   "sha256": "9583c60c6cb2216cb0bb37232be315a0925af00c193356cca51493afd6a26036",
+   "arrays": {
+    "log_q_r": [
+     20000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m5/chains/confirmation/structured_s22.npz",
+   "bytes": 2429164,
+   "sha256": "f6977f8e7cab5e72b62fed5aa93140a98411d460c44e78af8bbc8a89d1bb7bff",
+   "arrays": {
+    "draws": [
+     20000,
+     14
+    ],
+    "phis": [
+     20000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 100000,
+    "seed": 22,
+    "x0_rule": "laplace3",
+    "forward_solves": 100001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 198.00064,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 100000,
+    "n_accept": 31271,
+    "n_nonfinite": 0,
+    "seconds": 1535.2994389590167,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m5/chains/confirmation/structured_s22_qoi.npz",
+   "bytes": 160778,
+   "sha256": "4d5ebefbe26e6a80805182da26f4006604f7db3f1ef0779741dcf04d0750abd7",
+   "arrays": {
+    "log_q_r": [
+     20000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m5/chains/confirmation/structured_s23.npz",
+   "bytes": 2429160,
+   "sha256": "8a28cf0c7d83070a5c8ea4afd16bb4658f319cc043f5a435d0a4dadfe2d9accf",
+   "arrays": {
+    "draws": [
+     20000,
+     14
+    ],
+    "phis": [
+     20000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 100000,
+    "seed": 23,
+    "x0_rule": "laplace3",
+    "forward_solves": 100001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 201.998336,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 100000,
+    "n_accept": 30778,
+    "n_nonfinite": 0,
+    "seconds": 1543.3585429180239,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m5/chains/confirmation/structured_s23_qoi.npz",
+   "bytes": 160778,
+   "sha256": "81c28460a40b53650eba6ce8018ce41925787aabe9e9abe4bdef863affb43608",
+   "arrays": {
+    "log_q_r": [
+     20000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m5/chains/confirmation/structured_s24.npz",
+   "bytes": 2429184,
+   "sha256": "aa8b925ac6af95c39ecaaef220a396ae7d88ff5521050497dd2a210ff1abb0a9",
+   "arrays": {
+    "draws": [
+     20000,
+     14
+    ],
+    "phis": [
+     20000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 100000,
+    "seed": 24,
+    "x0_rule": "laplace3",
+    "forward_solves": 100001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 194.822144,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 100000,
+    "n_accept": 31247,
+    "n_nonfinite": 0,
+    "seconds": 1547.026376621041,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m5/chains/confirmation/structured_s24_qoi.npz",
+   "bytes": 160778,
+   "sha256": "2f96a0e02c8dd6d5558929a2de22008a1d0acbc296bc9d855b1f82e0e63be504",
+   "arrays": {
+    "log_q_r": [
+     20000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m5/chains/replay/structured_s21_replay.npz",
+   "bytes": 146248,
+   "sha256": "643d7baf5d47f9639df6f0fca864413534039b38f11d2175a63f2fdd82303984",
+   "arrays": {
+    "draws": [
+     1000,
+     14
+    ],
+    "phis": [
+     1000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 5000,
+    "seed": 21,
+    "x0_rule": "laplace3",
+    "forward_solves": 5001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 179.421184,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 5000,
+    "n_accept": 1560,
+    "n_nonfinite": 0,
+    "seconds": 58.22478045799653,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0000.npz",
+   "bytes": 963690,
+   "sha256": "f2b6c40526417105d329d87e56367e7c4d13accaf4f59027e59d20ad214b47ad",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 0,
+    "seed": 5000,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0001.npz",
+   "bytes": 963690,
+   "sha256": "b175c305bc95c037f496ec8b4f02b2b8e5253433486228f24bf92b73bb68803e",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 1,
+    "seed": 5001,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0002.npz",
+   "bytes": 963690,
+   "sha256": "77cb04e4e228f2642e4e3582873318fd3900b304747880b92463b0db0344a22f",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 2,
+    "seed": 5002,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0003.npz",
+   "bytes": 963690,
+   "sha256": "45a0d3ce48d8e2774d855e40dac2b682757d06167657a12d370b7895a9212dfc",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 3,
+    "seed": 5003,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0004.npz",
+   "bytes": 963690,
+   "sha256": "6bc11518605689897d188f2aae28a3a88c2f2fdb84a6563468308b5df3819274",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 4,
+    "seed": 5004,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0005.npz",
+   "bytes": 963690,
+   "sha256": "3786fd10a6472a520417da06918600e68217c8a782f78d5e2870dd67dae6ff13",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 5,
+    "seed": 5005,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0006.npz",
+   "bytes": 963690,
+   "sha256": "e4eab3b0820765a271bdf862377ef944a754b147234a4d3c2680162ccbca68ee",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 6,
+    "seed": 5006,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0007.npz",
+   "bytes": 963690,
+   "sha256": "1fe2d86e1f2277ad8154b36604e342a686d1f9d67a53bfdb740e2a0fad809dae",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 7,
+    "seed": 5007,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0008.npz",
+   "bytes": 963690,
+   "sha256": "407ebb4525e04885285cf1907efb4f1b24d877f1a8ff6ef05a109c6cbc9e2aa6",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 8,
+    "seed": 5008,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0009.npz",
+   "bytes": 963690,
+   "sha256": "36ac928324b7389df76c5ef238f111c0f2f884190f092c61b592dac2917e6b3f",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 9,
+    "seed": 5009,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0010.npz",
+   "bytes": 963694,
+   "sha256": "df2a0b90cd688d799682d2568fc926439d4174aa3348428356a6348e8af2e954",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 10,
+    "seed": 5010,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0011.npz",
+   "bytes": 963694,
+   "sha256": "5c09c3cc64f46e913058a4c9d549e2896ee6b118d7fc752333218849dea7c022",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 11,
+    "seed": 5011,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0012.npz",
+   "bytes": 963694,
+   "sha256": "a43d2308cc696f603eee2397bad9c2b6511aa932349b81dd3620f3da925205cb",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 12,
+    "seed": 5012,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0013.npz",
+   "bytes": 963694,
+   "sha256": "7e3937cd5b8b8ea57a31b434d5a809b6d495b5e3aecfc67b7bfb844665ef94e7",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 13,
+    "seed": 5013,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0014.npz",
+   "bytes": 963694,
+   "sha256": "a8ec7cd6f0ce75c6149925ea8f428d5cae49b6487b0f32270188193b64e53b08",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 14,
+    "seed": 5014,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0015.npz",
+   "bytes": 963694,
+   "sha256": "8025cdee3e2442b4a2ad85c08d7251e244d8f0538b50a503f4867c08b7a3fc99",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 15,
+    "seed": 5015,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0016.npz",
+   "bytes": 963694,
+   "sha256": "f02e3150cb452c76294203ec4f85bb45d9b53e78ff39e6aada6b797454091ca8",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 16,
+    "seed": 5016,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0017.npz",
+   "bytes": 963694,
+   "sha256": "ab921a63e2bd3035fd34ce637348760e1f762bca8d1f03ce26eda2dfed7e9bf0",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 17,
+    "seed": 5017,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0018.npz",
+   "bytes": 963694,
+   "sha256": "f9c48e7056ba7aa2364c8497797fd31d1d1bbfec12d8ffd1797011c43fdb4c0e",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 18,
+    "seed": 5018,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0019.npz",
+   "bytes": 963694,
+   "sha256": "4206a04ce27ec7de07bf950cb7184ad104b851f0e6721fb7174a0a6b5c5c293d",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 19,
+    "seed": 5019,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0020.npz",
+   "bytes": 963694,
+   "sha256": "1899eb78ed4333fad2baa257e60254a00131ac502cbb36f83c92e74b44f014ad",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 20,
+    "seed": 5020,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0021.npz",
+   "bytes": 963694,
+   "sha256": "6ab91242e8b82cb3431b84f051e67777193e1ec9ff4e730a7474d18cc64e124b",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 21,
+    "seed": 5021,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0022.npz",
+   "bytes": 963694,
+   "sha256": "a931bf463aa478b2699139d663f40b4e39e06262de68828f61e8180b8959e066",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 22,
+    "seed": 5022,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0023.npz",
+   "bytes": 963694,
+   "sha256": "b11a6c950eb20c529796ee461fb50af2787e20effd5cdc805421e960a212ee82",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 23,
+    "seed": 5023,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0024.npz",
+   "bytes": 963694,
+   "sha256": "a6a16d89a5af5872124861d9cb0ed5a105f2fdcbfbd812c188f9ab3ce31dd16f",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 24,
+    "seed": 5024,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0025.npz",
+   "bytes": 963694,
+   "sha256": "180488bc3658145869ade378b50df4f31a0d7d3458ba3507bfcf1fec4aad9631",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 25,
+    "seed": 5025,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0026.npz",
+   "bytes": 963694,
+   "sha256": "d5a2886a46bcad0200acb9b892bab0074c4abeaf60c76610b90bd4cc4f9aa844",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 26,
+    "seed": 5026,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0027.npz",
+   "bytes": 963694,
+   "sha256": "18cb185cd33fa841f068d3db72d35958b5f93c1c84999b0137c60536af8960e9",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 27,
+    "seed": 5027,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0028.npz",
+   "bytes": 963694,
+   "sha256": "6af5e584061081408ff8dcc414bdf04c688ded75b008093817b62ae96b48796c",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 28,
+    "seed": 5028,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0029.npz",
+   "bytes": 963694,
+   "sha256": "07bdbd0d23bc6a5bbe9d747a7a9c9cb83b25e4e685218ff5c4bc441c1938bb5f",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 29,
+    "seed": 5029,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0030.npz",
+   "bytes": 963694,
+   "sha256": "3f064b142c68fb0a5d602245267e1083091fc92c415abec2235fd53d9799c4f7",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 30,
+    "seed": 5030,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0031.npz",
+   "bytes": 963694,
+   "sha256": "3e0f5b0fc75ba9bb54fcedbd6a548d138e34f6273900357e6fae0fddb8d22fbe",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 31,
+    "seed": 5031,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0032.npz",
+   "bytes": 963694,
+   "sha256": "7a8c808c98e8d708558127668b9cf24bfe46585bd0f74d2c4350ea04dfa1b338",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 32,
+    "seed": 5032,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0033.npz",
+   "bytes": 963694,
+   "sha256": "5dbc5c808b6ae5d59dbc0ed96f6a1ace0509c7c2a0763dc6e3cd0d37b69a5ec6",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 33,
+    "seed": 5033,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0034.npz",
+   "bytes": 963694,
+   "sha256": "82b3a79268b3bc45d809cb07126402c897cc99eff1e8ec66a6754e3c3d4bc3d8",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 34,
+    "seed": 5034,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0035.npz",
+   "bytes": 963694,
+   "sha256": "415693ce5b00030a6c703ef95e934be9e82b2afabe76a54bd7a01f63e4cea4c0",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 35,
+    "seed": 5035,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0036.npz",
+   "bytes": 963694,
+   "sha256": "449a7bccf95cb95879a21fdda1271a4a339e6a3b095d30514661166bf67cec2e",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 36,
+    "seed": 5036,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0037.npz",
+   "bytes": 963694,
+   "sha256": "35b6d17a4f032f190874eb1317b832ec4f045126a349c5dd0152e6ee0de2ed2b",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 37,
+    "seed": 5037,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0038.npz",
+   "bytes": 963694,
+   "sha256": "5f289a083afd3e142f64801453118b300c6839f98c7dbfb95d0d301253ad0541",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 38,
+    "seed": 5038,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0039.npz",
+   "bytes": 963694,
+   "sha256": "2f7f1968979f42fe40b0bb2040c4630023a11ede2f9d2f1a725f78b4c816d5ef",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 39,
+    "seed": 5039,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0040.npz",
+   "bytes": 963694,
+   "sha256": "62eb528a58ebc1e492dd15123ff6f5674a63d187e7316e72331c0d40c948c250",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 40,
+    "seed": 5040,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0041.npz",
+   "bytes": 963694,
+   "sha256": "45f95205d0c54668f47978cf73b2c42e954747492bd6ea9b3e3994a30a958401",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 41,
+    "seed": 5041,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0042.npz",
+   "bytes": 963694,
+   "sha256": "72fa356b02c0e39fc5b180a66c8ed3571d42ebd42741587b34e40956bef68522",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 42,
+    "seed": 5042,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  },
+  {
+   "path": "results/m5/chains/sbc/ds_0043.npz",
+   "bytes": 963694,
+   "sha256": "7e14914ae48f4fd7eb09949e7d107d9eb2600b2694efe1a499a61b8befc4f9f7",
+   "arrays": {
+    "draws_thin5": [
+     4,
+     2000,
+     14
+    ],
+    "phi_thin5": [
+     4,
+     2000
+    ],
+    "xi_true": [
+     15
+    ],
+    "xr_map": [
+     14
+    ],
+    "hessian": [
+     14,
+     14
+    ]
+   },
+   "meta": {
+    "dataset": 43,
+    "seed": 5043,
+    "sigma": 0.0098584,
+    "rho": 0.5,
+    "n_chains": 4,
+    "n_proposals": 10000
+   }
+  }
+ ]
+}

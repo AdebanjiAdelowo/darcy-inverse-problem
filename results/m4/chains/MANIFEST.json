@@ -1,0 +1,2179 @@
+{
+ "description": "MCMC chain archives kept outside Git (see .gitignore). Verify with: shasum -a 256 -c results/m4/chains/MANIFEST.sha256 (run from the repository root).",
+ "storage_location": "local working copy of the repository at the listed paths; not pushed to GitHub",
+ "code_commit": "9d648fb..60e6719 (sources committed unchanged; verified against the SHA-256 prefixes below)",
+ "note": "Generated 2026-11-17 by scripts/m4_hpcn.py (pilot: 40 chains; production: 4 x 50,000 proposals per truth, thin 5, plus *_qoi.npz effective-permeability post-processing). OMP_NUM_THREADS=1. Source SHA-256 prefixes at generation: src/hessian_pcn.py=5a0549758df2552b src/qoi.py=26f509084c382ea6 src/constant_mode.py=90e500ed63e1ff2f scripts/m4_hpcn.py=8246211378eda8b2 scripts/m3_mcmc.py=97397b305aa0d99c ",
+ "created": "2026-11-18T01:30:14+0100",
+ "n_files": 56,
+ "total_bytes": 34618764,
+ "files": [
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.25_laplace3_s1.npz",
+   "bytes": 507240,
+   "sha256": "b4f76270fa02d20e00d2411ada442c989cf47c5ded6a709275616b6877fee852",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 204.537856,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2471,
+    "n_nonfinite": 0,
+    "seconds": 72.96077699999296,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.25_laplace3_s2.npz",
+   "bytes": 507252,
+   "sha256": "c40a19adfae88ca6d2d8fb9c69a00447e63ac9b7b61de971ecc96c1c6be4ca0a",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 200.736768,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2479,
+    "n_nonfinite": 0,
+    "seconds": 71.92017399999895,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.25_laplace3_s3.npz",
+   "bytes": 507224,
+   "sha256": "31e2e89549578078a475354ffea6cba522db90f208376b87ac0d95c5cb020f3c",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 197.066752,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2463,
+    "n_nonfinite": 0,
+    "seconds": 74.36792320800305,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.25_laplace3_s4.npz",
+   "bytes": 507216,
+   "sha256": "eee86f0d83a0cd2f242651fce2f89db4c742ce87a3e5286e6eafeda00bc73cf0",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 199.22944,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2266,
+    "n_nonfinite": 0,
+    "seconds": 73.92033350099518,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.5_laplace3_s1.npz",
+   "bytes": 507180,
+   "sha256": "74e5f342a7a238beb12aafbd60578c3e55a7b8bd9e0dc0ad3d1fa36666e70fb1",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 202.801152,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1308,
+    "n_nonfinite": 0,
+    "seconds": 67.2763987500075,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.5_laplace3_s2.npz",
+   "bytes": 507228,
+   "sha256": "c4e1eed6814fa4442d3a1275b49783b04549a054e3d10a256220a266d2fc0bac",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 197.246976,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1336,
+    "n_nonfinite": 0,
+    "seconds": 63.990683500007435,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.5_laplace3_s3.npz",
+   "bytes": 507220,
+   "sha256": "b01c08f8cae001ad58944eace76eec3b23220f48032e08f96760303a687afaf6",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 196.018176,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1364,
+    "n_nonfinite": 0,
+    "seconds": 67.47251083500305,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.5_laplace3_s4.npz",
+   "bytes": 507180,
+   "sha256": "02293951918ac2fd1148186b581b09a2bdcaaded081aef5f1e32f69e6f222bbc",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 197.885952,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1246,
+    "n_nonfinite": 0,
+    "seconds": 65.48635733399715,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_laplace3_s1.npz",
+   "bytes": 507184,
+   "sha256": "c6a38ec5dfd52e31c107cd08581bad850a21f7f9230cbc63e8ee194f3394ec83",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 209.567744,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 648,
+    "n_nonfinite": 0,
+    "seconds": 68.02799316599703,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_laplace3_s2.npz",
+   "bytes": 507200,
+   "sha256": "85aaab3260f581c9c08c6e87442e8c0269ae8188e7bed626cc79602c2a36d560",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 205.733888,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 692,
+    "n_nonfinite": 0,
+    "seconds": 69.13949941600731,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_laplace3_s3.npz",
+   "bytes": 507208,
+   "sha256": "75e57db0979b881dce755d875ee184713ac5f1d3a89211d57c3d2a72faebbda3",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 205.94688,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 698,
+    "n_nonfinite": 0,
+    "seconds": 69.87700308500644,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_laplace3_s4.npz",
+   "bytes": 507212,
+   "sha256": "031fb8b6073056fe800cf346d7de52ef60d8d6db158987064ae279bf321701b8",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 207.896576,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 657,
+    "n_nonfinite": 0,
+    "seconds": 68.78470620800363,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_prior_s1.npz",
+   "bytes": 988340,
+   "sha256": "ce0e76f34659f930df4f7815c41d7e31bc26354d8a5a6124920703c607b3fb14",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 1,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 208.830464,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 28,
+    "n_nonfinite": 0,
+    "seconds": 130.41194070899655,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_prior_s2.npz",
+   "bytes": 988320,
+   "sha256": "59d1d7bb83dd4df7b2774209cdec492383d162f9035984eb14088270f4a6199a",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 2,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 204.734464,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 248,
+    "n_nonfinite": 0,
+    "seconds": 129.18747195900505,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_prior_s3.npz",
+   "bytes": 988228,
+   "sha256": "56b24a82427af28c1e8208f881bff38229e57562e464ff652ee79284532f0779",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 3,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 205.193216,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 25,
+    "n_nonfinite": 0,
+    "seconds": 129.64343091799674,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r0.75_prior_s4.npz",
+   "bytes": 988344,
+   "sha256": "a11b33b1162c8bda90359342aa58a74a847697f975d5e1a61589c4f230f0a3b2",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 4,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 200.851456,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 39,
+    "n_nonfinite": 0,
+    "seconds": 128.78833570999268,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r1.0_laplace3_s1.npz",
+   "bytes": 507200,
+   "sha256": "5110028d0425aa81b848c7161bc1d4bd9ddd0277402374ce82eedc80bde33d9d",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 208.601088,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 328,
+    "n_nonfinite": 0,
+    "seconds": 63.02896120800142,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r1.0_laplace3_s2.npz",
+   "bytes": 507176,
+   "sha256": "c486ce942239c78354cd6abac041e2efae482539d44cd0d10abdbf43c0ea8a7e",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 203.882496,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 311,
+    "n_nonfinite": 0,
+    "seconds": 64.59856679099903,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r1.0_laplace3_s3.npz",
+   "bytes": 507196,
+   "sha256": "85ee019f4b4c0b6dc4012310dd8d41854ad7c82278ed1c5fa72f87439c10f8a2",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 203.046912,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 282,
+    "n_nonfinite": 0,
+    "seconds": 63.30827200099884,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/smooth_r1.0_laplace3_s4.npz",
+   "bytes": 507180,
+   "sha256": "2ee10b4b8576c5e179f8655ef0fe4192ba18a7e332bfd0dcff310dcca0c224a2",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 208.191488,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 315,
+    "n_nonfinite": 0,
+    "seconds": 63.27319949899538,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.25_laplace3_s1.npz",
+   "bytes": 507368,
+   "sha256": "6d646c37bbb14be04f74f8f6d89f4750f9ca88a2fde38c50e78a3a68f7b0b6eb",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 202.375168,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2374,
+    "n_nonfinite": 0,
+    "seconds": 69.94556012500834,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.25_laplace3_s2.npz",
+   "bytes": 507392,
+   "sha256": "aa7fafb07c6da756c0729d42082d270a7a9c5f5caf324825d041679e97cf7fae",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 204.619776,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2317,
+    "n_nonfinite": 0,
+    "seconds": 69.36114400000224,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.25_laplace3_s3.npz",
+   "bytes": 507364,
+   "sha256": "f11525a6d5bb4ec667f50a416019c58dd58ff36c5ba4cfe983d8b04270480d8e",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 208.928768,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2326,
+    "n_nonfinite": 0,
+    "seconds": 70.19964791600069,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.25_laplace3_s4.npz",
+   "bytes": 507372,
+   "sha256": "7968886f9776df5236df30ae459fd562c0ae30d09dca5a0db0b2a5bd5406f41b",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.25,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 203.636736,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 2387,
+    "n_nonfinite": 0,
+    "seconds": 71.40629208399332,
+    "proposal_config": {
+     "rho": 0.25,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.5_laplace3_s1.npz",
+   "bytes": 507352,
+   "sha256": "401f57d35dcd89be4b5d4dc28230acdb17d4c69bd7994dfeb4544041d0aaf4ed",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 204.652544,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1319,
+    "n_nonfinite": 0,
+    "seconds": 67.77900495699578,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.5_laplace3_s2.npz",
+   "bytes": 507352,
+   "sha256": "12e788562517f9dc5a5ba414e16897cd05611c56c8ec2dc7c70676053645ea2d",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 201.900032,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1274,
+    "n_nonfinite": 0,
+    "seconds": 70.24258191500121,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.5_laplace3_s3.npz",
+   "bytes": 507364,
+   "sha256": "37c243cf5ec5ea5a3f63a6c405c5f0ff1e90046ab8fb47e5b4464b7f06836ebb",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 203.309056,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1277,
+    "n_nonfinite": 0,
+    "seconds": 69.02739683300024,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.5_laplace3_s4.npz",
+   "bytes": 507340,
+   "sha256": "c2a689d9bd0a360a9dff7c768a27883770f9e907eb6460a8ab0df5c0839f2312",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 196.608,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 1173,
+    "n_nonfinite": 0,
+    "seconds": 67.79575804200431,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_laplace3_s1.npz",
+   "bytes": 507324,
+   "sha256": "7b9834d55c2e6d1d370390413925ff26b68097a0faab287a4795a6f67c6d0c3d",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 202.932224,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 630,
+    "n_nonfinite": 0,
+    "seconds": 65.5840978329943,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_laplace3_s2.npz",
+   "bytes": 507336,
+   "sha256": "ca2eb32d36d7672aa4eef3589f3a82720d8f9d5f83dae264735d73bdbaf6c051",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 206.76608,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 588,
+    "n_nonfinite": 0,
+    "seconds": 66.10599912599719,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_laplace3_s3.npz",
+   "bytes": 507340,
+   "sha256": "6ffb199b043df9106874a5300544ab3563fed680cb0c364000a6bfb9a9dc7a55",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 205.832192,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 612,
+    "n_nonfinite": 0,
+    "seconds": 65.58143245900283,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_laplace3_s4.npz",
+   "bytes": 507332,
+   "sha256": "c574a4dade228ec02d3e5f8f905983c5e8dd63552e2858b14aad1b53f5936a06",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 200.966144,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 632,
+    "n_nonfinite": 0,
+    "seconds": 66.12065595901367,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_prior_s1.npz",
+   "bytes": 988448,
+   "sha256": "a17ba88672a604f51d01e01e09b9084c54a1b6746adfe56d387d3d3666182acf",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 1,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 199.819264,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 36,
+    "n_nonfinite": 0,
+    "seconds": 126.39579304199287,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_prior_s2.npz",
+   "bytes": 988504,
+   "sha256": "66f78d583c5f9d411e747cfbb7337a7a8308b9ddaad2a1d60b3ed383fb340f3e",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 2,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 204.750848,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 639,
+    "n_nonfinite": 0,
+    "seconds": 127.83010787501553,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_prior_s3.npz",
+   "bytes": 988480,
+   "sha256": "eb0050611b6236769bca7cde8e2e9be9ea31bcc5795d614a89b6957265e4b461",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 3,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 202.326016,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 36,
+    "n_nonfinite": 0,
+    "seconds": 128.89236450200406,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r0.75_prior_s4.npz",
+   "bytes": 988484,
+   "sha256": "e5770b6caee48885b4b89c19349adc6cc14d7e44d7206c233205fb3558d76370",
+   "arrays": {
+    "draws": [
+     8000,
+     14
+    ],
+    "phis": [
+     8000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.75,
+    "init": "prior",
+    "thin": 1,
+    "n_proposals_target": 8000,
+    "seed": 4,
+    "x0_rule": "prior",
+    "forward_solves": 8001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 208.4864,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 8000,
+    "n_accept": 35,
+    "n_nonfinite": 0,
+    "seconds": 124.49027733100957,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r1.0_laplace3_s1.npz",
+   "bytes": 507332,
+   "sha256": "9876ba85fdacb625087e0e0b81de2cf7016b0805a50a145ec49634963eba5929",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 1,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 205.12768,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 229,
+    "n_nonfinite": 0,
+    "seconds": 61.87003854100476,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r1.0_laplace3_s2.npz",
+   "bytes": 507336,
+   "sha256": "cc3ffd3df272a5f2551db43c7c6c3511f1ca424025d65f605f39f06ed8c5bc7a",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 2,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 207.601664,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 257,
+    "n_nonfinite": 0,
+    "seconds": 63.144159165996825,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r1.0_laplace3_s3.npz",
+   "bytes": 507360,
+   "sha256": "e5b7e7ef88c1aa0d7601015e555ade72ed3e3b7f7b4fa48200f7ea7e2da34d18",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 3,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 205.225984,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 317,
+    "n_nonfinite": 0,
+    "seconds": 62.414158292005595,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/pilot/structured_r1.0_laplace3_s4.npz",
+   "bytes": 507340,
+   "sha256": "3c8ab0c9c7c28a24d531b6d678e7dc4376b3fc23fab70cc44f88c481f0451172",
+   "arrays": {
+    "draws": [
+     4000,
+     14
+    ],
+    "phis": [
+     4000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 1.0,
+    "init": "laplace3",
+    "thin": 1,
+    "n_proposals_target": 4000,
+    "seed": 4,
+    "x0_rule": "laplace3",
+    "forward_solves": 4001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 201.998336,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 4000,
+    "n_accept": 282,
+    "n_nonfinite": 0,
+    "seconds": 65.13382879099663,
+    "proposal_config": {
+     "rho": 1.0,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s11.npz",
+   "bytes": 1228996,
+   "sha256": "74636094379b998b7fe0b57a926934c04d60393765f873b84d49ceb379152244",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 11,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 187.236352,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 8229,
+    "n_nonfinite": 0,
+    "seconds": 699.9066447080113,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s11_qoi.npz",
+   "bytes": 80778,
+   "sha256": "cae387c423ec89ef24a946d98b8751e5ff7c6802cf46472da313a3703132e80a",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s12.npz",
+   "bytes": 1228908,
+   "sha256": "ff7b6df5060f756d6e5b6adc23ae624dcadae90a6cc43c2a73b7894d828de606",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 12,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 190.693376,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 8351,
+    "n_nonfinite": 0,
+    "seconds": 699.410521459009,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s12_qoi.npz",
+   "bytes": 80778,
+   "sha256": "0b6f3815a48e76a1fc37cfc5f03e723ceedb04dc000e09443dc0efc8166df669",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s13.npz",
+   "bytes": 1229004,
+   "sha256": "90bd1a1f7ec57b6daf692cdcc9015b40afbe4b99fde0bb9b823450e11400a22b",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 13,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 191.823872,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 8249,
+    "n_nonfinite": 0,
+    "seconds": 698.3944370840036,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s13_qoi.npz",
+   "bytes": 80778,
+   "sha256": "5bddb4922b6c45b30013f39a05e3998be381728cfb5ecc97c8ea6b72940db44a",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s14.npz",
+   "bytes": 1229008,
+   "sha256": "7e150e3237bce19695f473ae5aaabce683b5b7971e2ac0d97f249b024c05873d",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "smooth",
+    "rho": 0.75,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 14,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 189.251584,
+    "hessian_file": "results/m4/hessian_smooth.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 8223,
+    "n_nonfinite": 0,
+    "seconds": 700.4875732100118,
+    "proposal_config": {
+     "rho": 0.75,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/smooth_s14_qoi.npz",
+   "bytes": 80778,
+   "sha256": "d314f5002acbfb455aeb702d2906c1954f1a886736bfd8ad42b5921485172acf",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m4/chains/production/structured_s11.npz",
+   "bytes": 1229132,
+   "sha256": "e0db4dd0e77f5b3659974987050bb2ff5fa0c0e83b2a3cb3758202322558de7d",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 11,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 209.944576,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 15631,
+    "n_nonfinite": 0,
+    "seconds": 687.6059132899827,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/structured_s11_qoi.npz",
+   "bytes": 80778,
+   "sha256": "b985ccaf0bc7c2ac81ea25f89c08be1850c51d20ab0e9a297a676f444913fed7",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m4/chains/production/structured_s12.npz",
+   "bytes": 1229152,
+   "sha256": "17410ed271be7138007d5bc31650ee2ccfaec7267a2670f3d19fa964bd56ca76",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 12,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 208.764928,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 15679,
+    "n_nonfinite": 0,
+    "seconds": 687.0645853329988,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/structured_s12_qoi.npz",
+   "bytes": 80778,
+   "sha256": "275815cc7540aa6d34fffa6fec1eb72d388122bf9dca5a7c36b40999e8ee1320",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m4/chains/production/structured_s13.npz",
+   "bytes": 1229144,
+   "sha256": "fd701e63e831fe7bcee25b7eeec5ff5a77fad0d48e51494ecd9023707f7974c1",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 13,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 205.684736,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 15342,
+    "n_nonfinite": 0,
+    "seconds": 685.8300783730083,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/structured_s13_qoi.npz",
+   "bytes": 80778,
+   "sha256": "eb445d3318abd471e1328c30bb1b9528f74c7679dd90a9226c1b84f83f93ae59",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  },
+  {
+   "path": "results/m4/chains/production/structured_s14.npz",
+   "bytes": 1229148,
+   "sha256": "52da2dad3299255510d1c99f85c25eab2e2848f8b26bff8ccd309e2f6c2a218b",
+   "arrays": {
+    "draws": [
+     10000,
+     14
+    ],
+    "phis": [
+     10000
+    ],
+    "state": [],
+    "extra": []
+   },
+   "meta": {
+    "truth": "structured",
+    "rho": 0.5,
+    "init": "laplace3",
+    "thin": 5,
+    "n_proposals_target": 50000,
+    "seed": 14,
+    "x0_rule": "laplace3",
+    "forward_solves": 50001,
+    "adjoint_solves": 0,
+    "peak_rss_mb": 208.24064,
+    "hessian_file": "results/m4/hessian_structured.json",
+    "data_seed": 7,
+    "sampler": "HpCN on mean-free KL subspace (14 dims)",
+    "n_steps": 50000,
+    "n_accept": 15073,
+    "n_nonfinite": 0,
+    "seconds": 688.906140501007,
+    "proposal_config": {
+     "rho": 0.5,
+     "beta_max": 1.0,
+     "eig_floor": 0.0,
+     "eig_cap": null,
+     "sym_rtol": 1e-10,
+     "psd_rtol": 1e-08
+    }
+   }
+  },
+  {
+   "path": "results/m4/chains/production/structured_s14_qoi.npz",
+   "bytes": 80778,
+   "sha256": "ba3df725458f07de7e941f817ccd3fd721147aa56dbea6d2309279e6d374d91b",
+   "arrays": {
+    "log_q_r": [
+     10000
+    ],
+    "seconds": [],
+    "n_solves": []
+   },
+   "meta": null
+  }
+ ]
+}
