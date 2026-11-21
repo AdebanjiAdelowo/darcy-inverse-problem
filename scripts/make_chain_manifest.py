@@ -30,6 +30,23 @@ def sha256(path: pathlib.Path) -> str:
     return h.hexdigest()
 
 
+def verify(manifest_path, root=None) -> list[str]:
+    """Re-hash every archive listed in a MANIFEST.json; return the problems found
+    (missing file, size or SHA-256 mismatch). Paths are relative to `root`
+    (default: the repository root). An empty list means every archive verified."""
+    root = ROOT if root is None else pathlib.Path(root)
+    problems = []
+    for e in json.loads(pathlib.Path(manifest_path).read_text())["files"]:
+        f = root / e["path"]
+        if not f.exists():
+            problems.append(f"missing: {e['path']}")
+        elif f.stat().st_size != e["bytes"]:
+            problems.append(f"size mismatch: {e['path']}")
+        elif sha256(f) != e["sha256"]:
+            problems.append(f"sha256 mismatch: {e['path']}")
+    return problems
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("directory")
