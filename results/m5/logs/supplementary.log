@@ -1,0 +1,51 @@
+E2 xi_R[0]            var ratio median 1.148 [q10 1.056, q90 1.283, max 1.40]  |offset| median 0.106 max 1.07
+E2 xi_R[1]            var ratio median 1.133 [q10 1.038, q90 1.289, max 1.40]  |offset| median 0.118 max 1.26
+E2 xi_R[2]            var ratio median 1.149 [q10 0.994, q90 1.397, max 1.62]  |offset| median 0.304 max 0.83
+E2 xi_R[3]            var ratio median 1.070 [q10 0.928, q90 1.166, max 1.20]  |offset| median 0.309 max 0.71
+E2 xi_R[4]            var ratio median 1.071 [q10 0.936, q90 1.149, max 1.17]  |offset| median 0.313 max 0.65
+E2 xi_R[5]            var ratio median 1.068 [q10 0.955, q90 1.251, max 1.37]  |offset| median 0.166 max 1.37
+E2 xi_R[6]            var ratio median 1.090 [q10 0.953, q90 1.277, max 1.39]  |offset| median 0.188 max 1.15
+E2 xi_R[7]            var ratio median 1.047 [q10 0.957, q90 1.148, max 1.44]  |offset| median 0.151 max 0.52
+E2 xi_R[8]            var ratio median 0.993 [q10 0.917, q90 1.137, max 1.36]  |offset| median 0.087 max 0.23
+E2 xi_R[9]            var ratio median 0.974 [q10 0.894, q90 1.110, max 1.31]  |offset| median 0.058 max 0.34
+E2 xi_R[10]           var ratio median 1.041 [q10 0.946, q90 1.218, max 1.42]  |offset| median 0.122 max 0.49
+E2 xi_R[11]           var ratio median 1.050 [q10 0.930, q90 1.249, max 1.35]  |offset| median 0.112 max 0.68
+E2 xi_R[12]           var ratio median 1.061 [q10 0.951, q90 1.174, max 1.29]  |offset| median 0.088 max 0.53
+E2 xi_R[13]           var ratio median 1.065 [q10 0.966, q90 1.136, max 1.18]  |offset| median 0.094 max 0.64
+E2 m_R(0.25, 0.25)    var ratio median 1.133 [q10 1.003, q90 1.278, max 1.39]  |offset| median 0.089 max 0.76
+E2 m_R(0.75, 0.25)    var ratio median 1.120 [q10 1.023, q90 1.303, max 1.52]  |offset| median 0.098 max 1.32
+E2 m_R(0.5, 0.5)      var ratio median 1.027 [q10 0.924, q90 1.163, max 1.22]  |offset| median 0.329 max 0.67
+E2 m_R(0.25, 0.75)    var ratio median 1.121 [q10 1.016, q90 1.295, max 1.38]  |offset| median 0.110 max 1.10
+E2 m_R(0.75, 0.75)    var ratio median 1.118 [q10 0.987, q90 1.294, max 1.54]  |offset| median 0.109 max 1.11
+subsets 13 31 {'pit': {'mean_high': 0.2592712499891055, 'mean_low': 0.25471241480586326, 'dataset_level_mannwhitney_p': 0.6806489864703127}, 'z2': {'mean_high': 1.042474607661146, 'mean_low': 1.0142944889538708, 'dataset_level_mannwhitney_p': 0.8369558549709453}} {'median': 0.08794673573807094, 'max': 0.17727978597269384, 'n_gt_0.1': 15}
+bias on 44 SBC datasets xi_R[0]            Laplace +0.06 MCMC +0.08 (se 0.15)
+bias on 44 SBC datasets xi_R[1]            Laplace -0.09 MCMC -0.11 (se 0.15)
+bias on 44 SBC datasets xi_R[2]            Laplace +0.19 MCMC +0.08 (se 0.15)
+bias on 44 SBC datasets xi_R[3]            Laplace -0.39 MCMC -0.11 (se 0.15)
+bias on 44 SBC datasets xi_R[4]            Laplace +0.42 MCMC +0.14 (se 0.16)
+bias on 44 SBC datasets xi_R[5]            Laplace -0.09 MCMC -0.06 (se 0.17)
+bias on 44 SBC datasets xi_R[6]            Laplace +0.08 MCMC +0.10 (se 0.15)
+bias on 44 SBC datasets xi_R[7]            Laplace +0.06 MCMC -0.04 (se 0.14)
+bias on 44 SBC datasets xi_R[8]            Laplace +0.02 MCMC +0.03 (se 0.14)
+bias on 44 SBC datasets xi_R[9]            Laplace +0.04 MCMC +0.04 (se 0.16)
+bias on 44 SBC datasets xi_R[10]           Laplace -0.17 MCMC -0.14 (se 0.16)
+bias on 44 SBC datasets xi_R[11]           Laplace +0.18 MCMC +0.16 (se 0.16)
+bias on 44 SBC datasets xi_R[12]           Laplace -0.03 MCMC -0.03 (se 0.14)
+bias on 44 SBC datasets xi_R[13]           Laplace +0.04 MCMC +0.05 (se 0.16)
+bias on 44 SBC datasets m_R(0.25, 0.25)    Laplace -0.12 MCMC -0.08 (se 0.15)
+bias on 44 SBC datasets m_R(0.75, 0.25)    Laplace -0.08 MCMC -0.12 (se 0.14)
+bias on 44 SBC datasets m_R(0.5, 0.5)      Laplace -0.38 MCMC -0.10 (se 0.16)
+bias on 44 SBC datasets m_R(0.25, 0.75)    Laplace +0.13 MCMC +0.13 (se 0.14)
+bias on 44 SBC datasets m_R(0.75, 0.75)    Laplace -0.06 MCMC +0.01 (se 0.15)
+sigma1 MAP-converged n 36 {'xi_R[3]': -0.24, 'xi_R[4]': 0.2, 'm_R(0.5, 0.5)': -0.19}
+sigma2 MAP-converged n 138 {'xi_R[3]': -0.39, 'xi_R[4]': 0.41, 'm_R(0.5, 0.5)': -0.42}
+power {'sd_scale': 1.0, 'mean_shift_sd': 0.0, 'p_rank_rejects': 0.0, 'p_any_coverage_interval_excludes_nominal': 0.103}
+power {'sd_scale': 0.8, 'mean_shift_sd': 0.0, 'p_rank_rejects': 0.008, 'p_any_coverage_interval_excludes_nominal': 0.615}
+power {'sd_scale': 0.7, 'mean_shift_sd': 0.0, 'p_rank_rejects': 0.056, 'p_any_coverage_interval_excludes_nominal': 0.9045}
+power {'sd_scale': 0.5, 'mean_shift_sd': 0.0, 'p_rank_rejects': 0.6355, 'p_any_coverage_interval_excludes_nominal': 0.999}
+power {'sd_scale': 1.25, 'mean_shift_sd': 0.0, 'p_rank_rejects': 0.0025, 'p_any_coverage_interval_excludes_nominal': 0.489}
+power {'sd_scale': 1.5, 'mean_shift_sd': 0.0, 'p_rank_rejects': 0.029, 'p_any_coverage_interval_excludes_nominal': 0.932}
+power {'sd_scale': 2.0, 'mean_shift_sd': 0.0, 'p_rank_rejects': 0.3885, 'p_any_coverage_interval_excludes_nominal': 1.0}
+power {'sd_scale': 1.0, 'mean_shift_sd': 0.25, 'p_rank_rejects': 0.0095, 'p_any_coverage_interval_excludes_nominal': 0.1425}
+power {'sd_scale': 1.0, 'mean_shift_sd': 0.5, 'p_rank_rejects': 0.097, 'p_any_coverage_interval_excludes_nominal': 0.2795}
+power {'sd_scale': 1.0, 'mean_shift_sd': 1.0, 'p_rank_rejects': 0.9515, 'p_any_coverage_interval_excludes_nominal': 0.9425}

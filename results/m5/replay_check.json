@@ -1,0 +1,6 @@
+{
+ "replay_proposals": 5000,
+ "replay_draws": 1000,
+ "draws_identical": true,
+ "phis_identical": true
+}

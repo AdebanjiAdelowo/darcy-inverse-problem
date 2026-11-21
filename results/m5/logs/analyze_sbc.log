@@ -1,0 +1,31 @@
+datasets 44; verdict True; rejected []; exclusions 0/108 (max 11)
+diag: {'max_rhat': [1.017, 1.1], 'min_ess_bulk': [34.886, 274.829], 'min_ess_tail': [32.247, 541.17], 'n_rhat_gt_1.05': 13, 'n_rhat_gt_1.01': 44, 'map_converged': 5}
+mean cost: {'seconds_data': 0.0, 'seconds_map_hessian': 7.5, 'seconds_sampling': 618.6, 'seconds_qoi': 2.2, 'seconds_total': 629.0, 'forward_solves_sampling': 40004.0, 'peak_rss_mb': 161.1}
+  xi_R[0]                  p=0.463 cov50=0.48 cov80=0.82 cov90=0.91 cov95=0.95 zbias=+0.08 ss=1.08
+  xi_R[1]                  p=0.151 cov50=0.50 cov80=0.86 cov90=0.91 cov95=0.91 zbias=-0.11 ss=0.98
+  xi_R[2]                  p=0.553 cov50=0.48 cov80=0.86 cov90=0.89 cov95=0.95 zbias=+0.08 ss=0.80
+  xi_R[3]                  p=0.784 cov50=0.55 cov80=0.84 cov90=0.91 cov95=0.91 zbias=-0.11 ss=1.07
+  xi_R[4]                  p=0.694 cov50=0.41 cov80=0.82 cov90=0.91 cov95=0.91 zbias=+0.14 ss=1.10
+  xi_R[5]                  p=0.694 cov50=0.43 cov80=0.80 cov90=0.89 cov95=0.95 zbias=-0.06 ss=1.00
+  xi_R[6]                  p=0.984 cov50=0.50 cov80=0.80 cov90=0.89 cov95=0.93 zbias=+0.10 ss=0.96
+  xi_R[7]                  p=0.463 cov50=0.48 cov80=0.89 cov90=0.93 cov95=0.98 zbias=-0.04 ss=0.84
+  xi_R[8]                  p=0.694 cov50=0.48 cov80=0.84 cov90=0.93 cov95=0.98 zbias=+0.03 ss=0.85
+  xi_R[9]                  p=0.784 cov50=0.45 cov80=0.82 cov90=0.93 cov95=0.95 zbias=+0.04 ss=1.07
+  xi_R[10]                 p=0.553 cov50=0.41 cov80=0.73 cov90=0.91 cov95=0.98 zbias=-0.14 ss=1.10
+  xi_R[11]                 p=0.694 cov50=0.45 cov80=0.75 cov90=0.80 cov95=0.98 zbias=+0.16 ss=1.04
+  xi_R[12]                 p=0.421 cov50=0.64 cov80=0.84 cov90=0.91 cov95=0.93 zbias=-0.03 ss=0.86
+  xi_R[13]                 p=0.507 cov50=0.41 cov80=0.75 cov90=0.84 cov95=0.98 zbias=+0.05 ss=1.05
+  m_R(0.25, 0.25)          p=0.694 cov50=0.45 cov80=0.86 cov90=0.93 cov95=0.98 zbias=-0.08 ss=0.98
+  m_R(0.75, 0.25)          p=0.984 cov50=0.52 cov80=0.80 cov90=0.95 cov95=0.98 zbias=-0.12 ss=1.04
+  m_R(0.5, 0.5)            p=0.421 cov50=0.59 cov80=0.80 cov90=0.89 cov95=0.93 zbias=-0.10 ss=1.06
+  m_R(0.25, 0.75)          p=0.246 cov50=0.50 cov80=0.86 cov90=0.93 cov95=0.98 zbias=+0.13 ss=0.94
+  m_R(0.75, 0.75)          p=0.599 cov50=0.50 cov80=0.77 cov90=0.89 cov95=0.95 zbias=+0.01 ss=1.06
+  ||m_R||_L2               p=0.740 cov50=0.41 cov80=0.77 cov90=0.84 cov95=0.95 zbias=-0.12 ss=1.13
+  log Q_R                  p=0.865 cov50=0.43 cov80=0.84 cov90=0.89 cov95=0.91 zbias=-0.17 ss=1.01
+  xi_c                     p=0.845 cov50=0.52 cov80=0.75 cov90=0.91 cov95=0.95 zbias=-0.01 ss=1.04
+  m(0.25, 0.25) (absolute) p=0.968 cov50=0.43 cov80=0.77 cov90=0.91 cov95=0.98 zbias=-0.04 ss=1.07
+  m(0.75, 0.25) (absolute) p=0.690 cov50=0.48 cov80=0.75 cov90=0.89 cov95=0.93 zbias=-0.08 ss=1.21
+  m(0.5, 0.5) (absolute)   p=0.951 cov50=0.48 cov80=0.77 cov90=0.91 cov95=0.95 zbias=-0.05 ss=1.00
+  m(0.25, 0.75) (absolute) p=0.617 cov50=0.39 cov80=0.82 cov90=0.95 cov95=0.98 zbias=+0.08 ss=0.89
+  m(0.75, 0.75) (absolute) p=0.927 cov50=0.45 cov80=0.73 cov90=0.95 cov95=0.98 zbias=+0.02 ss=0.95
+  log k_eff (absolute)     p=0.996 cov50=0.50 cov80=0.80 cov90=0.91 cov95=0.95 zbias=-0.05 ss=1.01

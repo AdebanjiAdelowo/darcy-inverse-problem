@@ -1,0 +1,25 @@
+[   164s] finished sigma1 start 25 rc=0
+[   168s] finished sigma1 start 50 rc=0
+[   168s] finished sigma1 start 75 rc=0
+[   172s] finished sigma1 start 0 rc=0
+[   331s] finished sigma1 start 100 rc=0
+[   337s] finished sigma1 start 125 rc=0
+[   337s] finished sigma1 start 150 rc=0
+[   337s] finished sigma1 start 175 rc=0
+[   503s] finished sigma0.5 start 0 rc=0
+[   509s] finished sigma0.5 start 25 rc=0
+[   511s] finished sigma0.5 start 50 rc=0
+[   511s] finished sigma0.5 start 75 rc=0
+[   683s] finished sigma0.5 start 100 rc=0
+[   689s] finished sigma0.5 start 125 rc=0
+[   693s] finished sigma0.5 start 175 rc=0
+[   695s] finished sigma0.5 start 150 rc=0
+[   830s] finished sigma2 start 75 rc=0
+[   832s] finished sigma2 start 0 rc=0
+[   832s] finished sigma2 start 25 rc=0
+[   836s] finished sigma2 start 50 rc=0
+[   976s] finished sigma2 start 100 rc=0
+[   978s] finished sigma2 start 125 rc=0
+[   988s] finished sigma2 start 150 rc=0
+[   990s] finished sigma2 start 175 rc=0
+total wall 992s

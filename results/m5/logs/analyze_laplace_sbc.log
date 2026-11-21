@@ -1,0 +1,3 @@
+sigma1: n=200 consistent=False rejected=1 exclusions=2/76
+sigma0.5: n=200 consistent=False rejected=0 exclusions=60/76
+sigma2: n=200 consistent=False rejected=3 exclusions=11/76
